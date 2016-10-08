@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintBot.Android", "PrintBot.Android\PrintBot.Android.csproj", "{E54B1CA6-4E0E-4A8D-A6BA-CA3CC71F72D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Clients", "1 - Clients", "{A5966133-47E5-490F-92C0-25B0F0298BD2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Portable", "2 - Portable", "{2FD9F443-2329-47FE-8D6D-80E71320D278}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintBot.Infrastructure", "PrintBot.Infrastructure\PrintBot.Infrastructure.csproj", "{B1967A26-BC21-476D-B842-A010131AA0EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{BC13A0C8-958D-46CF-BD33-2CF0434B92E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintBot.Domain", "PrintBot.Domain\PrintBot.Domain.csproj", "{BF45C2AE-6A15-45C6-AB09-E0C4EFA3869C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintBot.Domain.Api", "PrintBot.Domain.Api\PrintBot.Domain.Api.csproj", "{6E4CE9DD-B356-49D4-AE8C-E700663B2FBA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Tests", "4 - Tests", "{A32AFCA8-E23C-47E2-87C0-2709070D42C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E54B1CA6-4E0E-4A8D-A6BA-CA3CC71F72D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E54B1CA6-4E0E-4A8D-A6BA-CA3CC71F72D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E54B1CA6-4E0E-4A8D-A6BA-CA3CC71F72D1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E54B1CA6-4E0E-4A8D-A6BA-CA3CC71F72D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E54B1CA6-4E0E-4A8D-A6BA-CA3CC71F72D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E54B1CA6-4E0E-4A8D-A6BA-CA3CC71F72D1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B1967A26-BC21-476D-B842-A010131AA0EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1967A26-BC21-476D-B842-A010131AA0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1967A26-BC21-476D-B842-A010131AA0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1967A26-BC21-476D-B842-A010131AA0EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF45C2AE-6A15-45C6-AB09-E0C4EFA3869C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF45C2AE-6A15-45C6-AB09-E0C4EFA3869C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF45C2AE-6A15-45C6-AB09-E0C4EFA3869C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF45C2AE-6A15-45C6-AB09-E0C4EFA3869C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E4CE9DD-B356-49D4-AE8C-E700663B2FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E4CE9DD-B356-49D4-AE8C-E700663B2FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E4CE9DD-B356-49D4-AE8C-E700663B2FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E4CE9DD-B356-49D4-AE8C-E700663B2FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E54B1CA6-4E0E-4A8D-A6BA-CA3CC71F72D1} = {A5966133-47E5-490F-92C0-25B0F0298BD2}
+		{B1967A26-BC21-476D-B842-A010131AA0EB} = {2FD9F443-2329-47FE-8D6D-80E71320D278}
+		{BF45C2AE-6A15-45C6-AB09-E0C4EFA3869C} = {BC13A0C8-958D-46CF-BD33-2CF0434B92E7}
+		{6E4CE9DD-B356-49D4-AE8C-E700663B2FBA} = {BC13A0C8-958D-46CF-BD33-2CF0434B92E7}
+	EndGlobalSection
+EndGlobal
