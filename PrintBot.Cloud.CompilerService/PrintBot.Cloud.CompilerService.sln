@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{37551E71-7E11-4E2E-92C4-A6B3BDDB1C2D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{68AC990C-3BD7-4B00-9281-8A20D51F4944}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "PrintBot.Cloud.CompilerService", "src\PrintBot.Cloud.CompilerService\PrintBot.Cloud.CompilerService.xproj", "{08A7FF89-635A-4BEA-BAC9-E64963A216EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08A7FF89-635A-4BEA-BAC9-E64963A216EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08A7FF89-635A-4BEA-BAC9-E64963A216EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08A7FF89-635A-4BEA-BAC9-E64963A216EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08A7FF89-635A-4BEA-BAC9-E64963A216EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{08A7FF89-635A-4BEA-BAC9-E64963A216EA} = {37551E71-7E11-4E2E-92C4-A6B3BDDB1C2D}
+	EndGlobalSection
+EndGlobal
