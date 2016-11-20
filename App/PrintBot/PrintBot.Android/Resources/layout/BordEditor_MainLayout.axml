@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:id="@+id/BordEditor_MainLayout">
+  
+  <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:translationX="10dp"
+        android:translationY="10dp"
+        android:id="@+id/BordEditor_modulSlot1"
+        android:weightSum="3">
+
+      <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:orientation="horizontal"
+         android:layout_weight="1"
+         android:weightSum="5">
+            <Button
+               android:layout_width="0dp"
+               android:layout_height="match_parent"
+               android:id="@+id/BordEditor_modulSlot1Button"
+               android:text="+"
+               android:layout_weight="2"/>
+
+            <EditText
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:id="@+id/BordEditor_modulSlot1Text"
+              android:layout_weight="3"/>
+      </LinearLayout>
+
+      <ListView
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:id="@+id/BordEditor_modulList1"
+          android:layout_weight="2"/>
+  </LinearLayout>
+
+  <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:translationX="250dp"
+        android:translationY="250dp"
+        android:id="@+id/BordEditor_modulSlot2"
+        android:weightSum="3">
+
+      <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:orientation="horizontal"
+         android:layout_weight="1"
+         android:weightSum="5">
+            <Button
+               android:layout_width="0dp"
+               android:layout_height="match_parent"
+               android:id="@+id/BordEditor_modulSlotButton2"
+               android:text="+"
+               android:layout_weight="2"/>
+
+            <EditText
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:id="@+id/BordEditor_modulSlotText2"
+              android:layout_weight="3"/>
+      </LinearLayout>
+
+      <ListView
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:id="@+id/BordEditor_modulList2"
+          android:layout_weight="2"/>
+  </LinearLayout>
+    
+  <xampaint.Bord
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:id = "@+id/BordEditor_Bord"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+</RelativeLayout>

@@ -35,10 +35,11 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="Models\" />
     <Folder Include="RequiredInterfaces\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BordEditor_ModulPhysical.cs" />
+    <Compile Include="Models\BordEditor_PysicalPin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
