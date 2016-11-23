@@ -73,6 +73,9 @@ namespace PrintBot.Infrastructure.ViewModels
             }
         }
 
+        private string _scanStatus;
+        public string ScanStatus { get { return _scanStatus; } set { _scanStatus = value; } }
+
         public bool IsScanning { get { return _client.IsScanning(); } }
 
         public BluetoothViewModel(IBluetoothClient c)
@@ -82,8 +85,9 @@ namespace PrintBot.Infrastructure.ViewModels
             _client.DeviceConnected += _client_DeviceConnected;
             _client.DeviceConnectionLost += _client_DeviceConnectionLost;
             _client.DeviceDisconnected += _client_DeviceDisconnected;
-
+            _client.ScanTimeoutElapsed += _client_ScanTimeoutElapsed;
         }
+
         #region Events
         private void _client_DeviceDisconnected(IDevice device)
         {
@@ -103,6 +107,11 @@ namespace PrintBot.Infrastructure.ViewModels
         private void _client_DeviceDiscovered(IDevice device)
         {
             FoundDevices.Add(device);
+        }
+
+        private void _client_ScanTimeoutElapsed()
+        {
+            ScanStatus = "Scan timeout.";
         }
         #endregion
 

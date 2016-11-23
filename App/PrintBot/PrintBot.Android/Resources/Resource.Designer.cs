@@ -57,11 +57,63 @@ namespace PrintBot.Android
 			}
 		}
 		
+		public partial class Id
+		{
+			
+			// aapt resource value: 0x7f05000a
+			public const int BordEditor_Bord = 2131034122;
+			
+			// aapt resource value: 0x7f050000
+			public const int BordEditor_ListView_Row_filename = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int BordEditor_MainLayout = 2131034113;
+			
+			// aapt resource value: 0x7f050005
+			public const int BordEditor_modulList1 = 2131034117;
+			
+			// aapt resource value: 0x7f050009
+			public const int BordEditor_modulList2 = 2131034121;
+			
+			// aapt resource value: 0x7f050002
+			public const int BordEditor_modulSlot1 = 2131034114;
+			
+			// aapt resource value: 0x7f050003
+			public const int BordEditor_modulSlot1Button = 2131034115;
+			
+			// aapt resource value: 0x7f050004
+			public const int BordEditor_modulSlot1Text = 2131034116;
+			
+			// aapt resource value: 0x7f050006
+			public const int BordEditor_modulSlot2 = 2131034118;
+			
+			// aapt resource value: 0x7f050007
+			public const int BordEditor_modulSlotButton2 = 2131034119;
+			
+			// aapt resource value: 0x7f050008
+			public const int BordEditor_modulSlotText2 = 2131034120;
+			
+			static Id()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Id()
+			{
+			}
+		}
+		
 		public partial class Layout
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int BordEditor_ListView_Row = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int BordEditor_MainLayout = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int Main = 2130903042;
 			
 			static Layout()
 			{
