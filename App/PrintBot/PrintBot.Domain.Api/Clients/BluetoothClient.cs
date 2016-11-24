@@ -29,8 +29,6 @@ namespace PrintBot.Domain.Api.Clients
             get { return _scanTimeout; }
             set { if (_scanTimeout != value) _scanTimeout = value; }
         }
-        private string _nameOfConnectedDevice;
-        public string NameOfConnectedDevice { get; set; }
 
         private int _indexOfConnectedDevice = 0;
 
@@ -90,7 +88,6 @@ namespace PrintBot.Domain.Api.Clients
         public async Task ConnectToDeviceAsync(IDevice device)
         {
             await _adapter.ConnectToDeviceAsync(device);
-            NameOfConnectedDevice = device.Name;
             _indexOfConnectedDevice = GetIndexOfConnectedDevice(device);
         }
 

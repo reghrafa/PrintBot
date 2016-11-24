@@ -33,6 +33,11 @@ namespace PrintBot.Infrastructure.ViewModels
             }
         }
 
+        // Constants
+        private const string NAME_OF_SERVICE = "Name hier";
+        private const string NAME_OF_CHARACTERISTIC = "Name hier";
+
+        // Status of the connection (Connected, Disconnected, ConnectionLost)
         private string _connectionStatus;
         public string ConnectionStatus
         {
@@ -125,7 +130,12 @@ namespace PrintBot.Infrastructure.ViewModels
         /// <param name="device">IDevice of the target</param>
         public async void ConnectToDeviceAsync(IDevice device)
         {
+            // ToDo: Failure handling
             await _client.ConnectToDeviceAsync(device);
+            if (await SetServiceFromConnectedDeviceByName())
+            {
+                if (await SetCharacteristicFromServiceByName()) { }
+            }
         }
 
         /// <summary>
@@ -152,9 +162,9 @@ namespace PrintBot.Infrastructure.ViewModels
         /// Set the service if a service is found by name.
         /// </summary>
         /// <param name="name">Name of the service</param>
-        public async Task<bool> SetServiceFromConnectedDeviceByName(string name)
+        public async Task<bool> SetServiceFromConnectedDeviceByName()
         {
-            if (await _client.SetServiceByNameAsync(name)) return true;
+            if (await _client.SetServiceByNameAsync(NAME_OF_SERVICE)) return true;
             return false;
         }
 
@@ -162,9 +172,9 @@ namespace PrintBot.Infrastructure.ViewModels
         /// Set the characteristic from service if it is found by name.
         /// </summary>
         /// <param name="name">Name of the characteristic</param>
-        public async Task<bool> SetCharacteristicFromServiceByName(string name)
+        public async Task<bool> SetCharacteristicFromServiceByName()
         {
-            if (await _client.SetCharacteristicByNameAsync(name)) return true;
+            if (await _client.SetCharacteristicByNameAsync(NAME_OF_CHARACTERISTIC)) return true;
             return false;
         }
         #endregion
