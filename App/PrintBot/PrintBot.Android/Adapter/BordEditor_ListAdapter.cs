@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace XamPaint
+namespace PrintBot.Android
 {
     class BordEditor_ListAdapter : BaseAdapter<string>
     {

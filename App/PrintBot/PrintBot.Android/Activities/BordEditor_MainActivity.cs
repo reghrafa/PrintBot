@@ -7,7 +7,7 @@ using static Android.Views.ViewGroup;
 using System.IO;
 
 
-namespace XamPaint
+namespace PrintBot.Android
 {
     [Activity(Label = "XamPaint", MainLauncher = false, Icon = "@drawable/icon")]
     public class BordEditor_MainActivity : Activity

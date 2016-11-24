@@ -13,7 +13,7 @@ using Android.Util;
 using static Android.App.ActionBar;
 using Android.Graphics;
 
-namespace XamPaint
+namespace PrintBot.Android
 {
     class BordEditor_BordPin : Button
     {

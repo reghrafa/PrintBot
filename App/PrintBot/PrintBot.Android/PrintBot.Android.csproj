@@ -68,6 +68,7 @@
     <Compile Include="Utils\FontsOverride.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\BordEditor_ListView_Row.axml" />

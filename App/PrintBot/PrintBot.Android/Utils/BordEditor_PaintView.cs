@@ -5,7 +5,7 @@ using Android.Content;
 using Android.Util;
 using Android.Widget;
 
-namespace XamPaint
+namespace PrintBot.Android
 {
     public class BordEditor_PaintView : View
     {
