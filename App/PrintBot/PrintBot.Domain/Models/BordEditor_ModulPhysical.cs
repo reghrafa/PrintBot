@@ -3,7 +3,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace XamPaint
+namespace PrintBot.Domain
 {
     class BordEditor_ModulPhysical
     {

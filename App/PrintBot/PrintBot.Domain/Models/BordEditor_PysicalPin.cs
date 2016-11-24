@@ -1,6 +1,6 @@
 using System;
 
-namespace XamPaint
+namespace PrintBot.Domain
 {
     class BordEditor_PysicalPin
     {

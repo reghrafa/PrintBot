@@ -12,7 +12,7 @@ using Android.Widget;
 using Android.Util;
 using static Android.Views.ViewGroup;
 
-namespace XamPaint
+namespace PrintBot.Android
 {
     class BordEditor_DigitalPin : BordEditor_BordPin
     {

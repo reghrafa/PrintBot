@@ -1,7 +1,7 @@
 using Android.Content;
 using Android.Util;
 
-namespace XamPaint
+namespace PrintBot.Android
 {
     class BordEditor_PinVin : BordEditor_BordPin
     {
