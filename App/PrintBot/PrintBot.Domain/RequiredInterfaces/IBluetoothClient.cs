@@ -34,9 +34,9 @@ namespace PrintBot.Domain.RequiredInterfaces
         Task ConnectToKnownDeviceAsync(Guid id);
         Task DisconnectDeviceAsync(IDevice device);
         ObservableCollection<IDevice> GetPairedDevices();
-        Task<IList<IService>> UpdateServicesAsync(int position);
-        Task<IEnumerable<ICharacteristic>> UpdateCharacteristicsAsync(int servicePosition);
+        Task<bool> SetServiceByNameAsync(string name);
+        Task<bool> SetCharacteristicByNameAsync(string name);
         Task<byte[]> ReadAsync();
-        // ToDo: WriteAsync()
+        Task WriteAsync(byte[] data);
     }
 }

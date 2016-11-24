@@ -29,9 +29,10 @@ namespace PrintBot.Domain.Api.Clients
             get { return _scanTimeout; }
             set { if (_scanTimeout != value) _scanTimeout = value; }
         }
+        private string _nameOfConnectedDevice;
+        public string NameOfConnectedDevice { get; set; }
 
-        private int _connectedDevicePosition = 0;
-        private int _servicePosition = 0;
+        private int _indexOfConnectedDevice = 0;
 
         public BluetoothClient()
         {
@@ -89,6 +90,8 @@ namespace PrintBot.Domain.Api.Clients
         public async Task ConnectToDeviceAsync(IDevice device)
         {
             await _adapter.ConnectToDeviceAsync(device);
+            NameOfConnectedDevice = device.Name;
+            _indexOfConnectedDevice = GetIndexOfConnectedDevice(device);
         }
 
         public async Task ConnectToKnownDeviceAsync(Guid id)
@@ -116,29 +119,66 @@ namespace PrintBot.Domain.Api.Clients
             return ScanTimeout;
         }
 
-        public async Task<IList<IService>> UpdateServicesAsync(int position)
+        /// <summary>
+        /// Search for the service and store it in _service if it was found.
+        /// </summary>
+        /// <param name="name">Name of the service</param>
+        /// <returns></returns>
+        public async Task<bool> SetServiceByNameAsync(string name)
         {
-            _connectedDevicePosition = position;
-            return await _adapter.ConnectedDevices[_connectedDevicePosition].GetServicesAsync();
+            var listOfServices = await _adapter.ConnectedDevices[_indexOfConnectedDevice].GetServicesAsync();
+            foreach (IService service in listOfServices)
+            {
+                if (service.Name.Equals(name))
+                {
+                    _service = service;
+                    return true;
+                }
+            }
+            _service = null;
+            return false;
         }
 
-        public async Task<IEnumerable<ICharacteristic>> UpdateCharacteristicsAsync(int positionInServices)
+        /// <summary>
+        /// Search for the characteristic of _service and store it in _characteristic if it was found.
+        /// </summary>
+        /// <param name="name">Name of the service</param>
+        /// <returns></returns>
+        public async Task<bool> SetCharacteristicByNameAsync(string name)
         {
-            _servicePosition = positionInServices;
-            var services = await _adapter.ConnectedDevices[_connectedDevicePosition].GetServicesAsync();
-            _service = services[_servicePosition];
-            return await services[_servicePosition].GetCharacteristicsAsync();
+            if (_service != null)
+            {
+                var listOfCharacteristics = await _service.GetCharacteristicsAsync();
+                foreach (ICharacteristic characteristic in listOfCharacteristics)
+                {
+                    if (characteristic.Name.Equals(name))
+                    {
+                        _characteristic = characteristic;
+                        return true;
+                    }
+                }
+            }
+            _characteristic = null;
+            return false;
         }
 
         // ToDo: Event handling
         public async Task<byte[]> ReadAsync()
         {
-            if (_characteristic == null)
-            {
-                var tmp = await _service.GetCharacteristicsAsync();
-                _characteristic = tmp.First();
-            }
+            if (_characteristic == null) return null;
             return await _characteristic.ReadAsync();
+        }
+        public async Task WriteAsync(byte[] data)
+        {
+            if (_characteristic == null) return;
+            await _characteristic.WriteAsync(data);
+        }
+        #endregion
+
+        #region private methods
+        private int GetIndexOfConnectedDevice(IDevice device)
+        {
+            return _adapter.ConnectedDevices.IndexOf(device);
         }
         #endregion
     }

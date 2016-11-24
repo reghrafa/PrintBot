@@ -32,32 +32,6 @@ namespace PrintBot.Infrastructure.ViewModels
                 if (_foundDevices != value) _foundDevices = value;
             }
         }
-        private IList<IService> _services;
-        public IList<IService> Services
-        {
-            get { return _services; }
-            set
-            {
-                if (_services != value)
-                {
-                    _services = value;
-                    OnPropertyChanged("Services");
-                }
-            }
-        }
-        private IEnumerable<ICharacteristic> _characteristics;
-        public IEnumerable<ICharacteristic> Characteristics
-        {
-            get { return _characteristics; }
-            set
-            {
-                if (_characteristics != value)
-                {
-                    _characteristics = value;
-                    OnPropertyChanged("Characteristics");
-                }
-            }
-        }
 
         private string _connectionStatus;
         public string ConnectionStatus
@@ -175,22 +149,23 @@ namespace PrintBot.Infrastructure.ViewModels
 
         #region Services and characteristics
         /// <summary>
-        /// Get the services from connected device and store in Services.
+        /// Set the service if a service is found by name.
         /// </summary>
-        /// <param name="positionInList">Position of the target in ConnectedDevices list</param>
-        public async void UpdateServicesFromConnectedDevice(int positionInList)
+        /// <param name="name">Name of the service</param>
+        public async Task<bool> SetServiceFromConnectedDeviceByName(string name)
         {
-            Services = await _client.UpdateServicesAsync(positionInList);
+            if (await _client.SetServiceByNameAsync(name)) return true;
+            return false;
         }
 
         /// <summary>
-        /// Get the characteristics from service.
+        /// Set the characteristic from service if it is found by name.
         /// </summary>
-        /// <param name="positionInConnectedDevices">Position of the target in ConnectedDevices list</param>
-        /// <param name="positionInServices">Position of the target in Services list</param>
-        public async void UpdateCharacteristicsFromService(int positionInConnectedDevices, int positionInServices)
+        /// <param name="name">Name of the characteristic</param>
+        public async Task<bool> SetCharacteristicFromServiceByName(string name)
         {
-            Characteristics = await _client.UpdateCharacteristicsAsync(positionInServices);
+            if (await _client.SetCharacteristicByNameAsync(name)) return true;
+            return false;
         }
         #endregion
 
@@ -202,7 +177,7 @@ namespace PrintBot.Infrastructure.ViewModels
 
         public async void WriteAsync(byte[] data)
         {
-            // Todo
+            await _client.WriteAsync(data);
         }
         #endregion
     }
