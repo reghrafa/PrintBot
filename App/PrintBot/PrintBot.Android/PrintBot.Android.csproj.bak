@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -49,30 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\BordEditor_MainActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
-    <Compile Include="Adapter\BordEditor_ListAdapter.cs" />
     <Compile Include="PrintBotApp.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceLocator.cs" />
-    <Compile Include="Utils\BordEditor_Bord.cs" />
-    <Compile Include="Utils\BordEditor_Modul.cs" />
-    <Compile Include="Utils\BordEditor_PaintView.cs" />
-    <Compile Include="Utils\BordEditor_Pins\BordEditor_AnalogPin.cs" />
-    <Compile Include="Utils\BordEditor_Pins\BordEditor_BordPin.cs" />
-    <Compile Include="Utils\BordEditor_Pins\BordEditor_DigitalPin.cs" />
-    <Compile Include="Utils\BordEditor_Pins\BordEditor_Pin3V.cs" />
-    <Compile Include="Utils\BordEditor_Pins\BordEditor_Pin5V.cs" />
-    <Compile Include="Utils\BordEditor_Pins\BordEditor_PinVin.cs" />
     <Compile Include="Utils\FontsOverride.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <AndroidResource Include="Resources\layout\BordEditor_ListView_Row.axml" />
-    <AndroidResource Include="Resources\layout\BordEditor_MainLayout.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">

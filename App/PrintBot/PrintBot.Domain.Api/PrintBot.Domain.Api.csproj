@@ -35,11 +35,30 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="Clients\" />
     <Folder Include="Dtos\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clients\BluetoothClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Plugin.BLE, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Plugin.BLE.1.1.0\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.BLE.Abstractions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Plugin.BLE.1.1.0\lib\portable-net45+win8+wpa81+wp8\Plugin.BLE.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PrintBot.Domain\PrintBot.Domain.csproj">
+      <Project>{BF45C2AE-6A15-45C6-AB09-E0C4EFA3869C}</Project>
+      <Name>PrintBot.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
