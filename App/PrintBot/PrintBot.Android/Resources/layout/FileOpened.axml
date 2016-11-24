@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:minWidth="25px"
     android:minHeight="25px">
-    <Button
-        android:text="LastUsedFiles"
+    <TextView
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/main_button_lastusedfiles" />
+        android:id="@+id/fileOpenedTextView" />
 </LinearLayout>

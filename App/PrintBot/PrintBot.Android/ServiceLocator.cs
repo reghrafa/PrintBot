@@ -49,5 +49,10 @@ namespace PrintBot.Android
             get { return _bluetoothViewModel ?? (_bluetoothViewModel = new BluetoothViewModel(BluetoothClient)); }
         }
 
+        private LastUsedFileViewModel _lastUsedFileListViewModel;
+        public LastUsedFileViewModel LastUsedFileViewModel
+        {
+            get { return _lastUsedFileListViewModel ?? (_lastUsedFileListViewModel = new LastUsedFileViewModel(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal))); }
+        }
     }
 }

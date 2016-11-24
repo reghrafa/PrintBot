@@ -13,13 +13,15 @@ namespace PrintBot.Android.Activities
     public class MainActivity : Activity
     {
         private BluetoothViewModel _vm = ServiceLocator.Current.BluetoothViewModel;
-
+        
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+
+            FindViewById<Button>(Resources.Id.main_button_lastusedfiles).Click += () => { StartActivity(new Intent(this, typeof(LastUsedActivity))); };
         }
     }
 }
