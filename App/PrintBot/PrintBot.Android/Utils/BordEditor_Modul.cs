@@ -6,6 +6,7 @@ using Android.Graphics;
 using Android.Views;
 using System.Collections;
 using System.Collections.Generic;
+using PrintBot.Domain.Models;
 
 namespace PrintBot.Android
 {
@@ -16,11 +17,12 @@ namespace PrintBot.Android
         public EditText enterModulName;
 
         string _name;
-
+        
         public BordEditor_Modul(Context context, int pinCount) : base(context, null, 0) { Init(context, pinCount); }
-        public BordEditor_Modul(Context context, BordEditor_ModulPhysical modul) : base(context, null, 0) {
+        public BordEditor_Modul(Context context, BordEditor_ModulPhysical modul) : base(context, null, 0)
+        {
             Init(context, modul.PinList.Count);
-            
+
         }
         //  public Modul_2Pins(Context context, IAttributeSet attrs) : base(context, attrs) { Init(context); }
         //  public Modul_2Pins(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle) { Init(context); }
@@ -83,7 +85,7 @@ namespace PrintBot.Android
                     modulPins.Add(pin);
                 }
 
-                
+
                 this.AddView(pin);
 
                 yOffset += 60;
@@ -187,7 +189,8 @@ namespace PrintBot.Android
             tmp.Name = this.enterModulName.Text;
             foreach (ModulButton pin in this.modulPins)
             {
-                try{
+                try
+                {
                     var conectPin = pin.ConnectePin; // get conected bord pin
                     var tmpPin = new BordEditor_PysicalPin(conectPin.Type, conectPin.Nr); // create new physical Pin
                     tmp.PinList.Add(tmpPin); // add physical p to PhysicalModul

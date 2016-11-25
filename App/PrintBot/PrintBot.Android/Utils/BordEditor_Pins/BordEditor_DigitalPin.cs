@@ -24,6 +24,7 @@ namespace PrintBot.Android
             this.Type = "Digital";
             pw._drawPaint.Color = Android.Graphics.Color.Yellow;
             this.SetBackgroundColor(Android.Graphics.Color.Gold);
+            
         }
     }
 }

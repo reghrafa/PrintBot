@@ -34,7 +34,7 @@ namespace PrintBot.Android
             //ModulSlot1
             modulSlot1 = FindViewById<LinearLayout>(Resource.Id.BordEditor_modulSlot1);
             Button modulSlot1Button = FindViewById<Button>(Resource.Id.BordEditor_modulSlot1Button);
-            modulSlot1Button.Click += delegate { ReplaceModulSlot(modulSlot1, Resource.Id.BordEditor_modulSlot1Text); };            
+            modulSlot1Button.Click += delegate { ReplaceModulSlot(modulSlot1, Resource.Id.BordEditor_modulSlot1Text); };
             //livtView 1
             var modullist1 = FindViewById<ListView>(Resource.Id.BordEditor_modulList1);
             modullist1.Adapter = adapter;
@@ -47,7 +47,7 @@ namespace PrintBot.Android
             //livtView 2
             var modullist2 = FindViewById<ListView>(Resource.Id.BordEditor_modulList2);
             modullist2.Adapter = adapter;
-            modullist2.ItemClick += Modullist2_ItemClick;  
+            modullist2.ItemClick += Modullist2_ItemClick;
 
             //Bord
             BordInit();
@@ -81,7 +81,7 @@ namespace PrintBot.Android
                 }
             }
 
-            
+
             return module;
         }
 
@@ -202,9 +202,11 @@ namespace PrintBot.Android
             {
                 foreach (BordEditor_Modul.ModulButton pin in modul.modulPins)
                 {
-                    try{
+                    try
+                    {
                         pin.ConnectePin.pw.Clear();
-                    }catch { }
+                    }
+                    catch { }
 
                 }
                 _mainLayout.RemoveView(modul);

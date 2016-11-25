@@ -51,9 +51,27 @@ namespace PrintBot.Infrastructure.ViewModels
                 }
             }
         }
+        private bool _connected;
+        public bool Connected
+        {
+            get { return _connected; }
+            set
+            {
+                if (_connected != value) _connected = value;
+                OnPropertyChanged("Connected");
+            }
+        }
 
-        private string _scanStatus;
-        public string ScanStatus { get { return _scanStatus; } set { _scanStatus = value; } }
+        private bool _scanStatus;
+        public bool ScanStatus
+        {
+            get { return _scanStatus; }
+            set
+            {
+                _scanStatus = value;
+                OnPropertyChanged("ScanStatus");
+            }
+        }
 
         public bool IsScanning { get { return _client.IsScanning(); } }
 
@@ -71,16 +89,19 @@ namespace PrintBot.Infrastructure.ViewModels
         private void _client_DeviceDisconnected(IDevice device)
         {
             ConnectionStatus = string.Format("Device {0} disconnected.", device.Name);
+            Connected = false;
         }
 
         private void _client_DeviceConnectionLost(IDevice device, string errorMessage)
         {
             ConnectionStatus = string.Format("Lost connection with device {0}.{1}Errormessage: {2}", device.Name, System.Environment.NewLine, errorMessage);
+            Connected = false;
         }
 
         private void _client_DeviceConnected(IDevice device)
         {
             ConnectionStatus = string.Format("Succesfully connected to device {0}.", device.Name);
+            Connected = true;
         }
 
         private void _client_DeviceDiscovered(IDevice device)
@@ -90,7 +111,7 @@ namespace PrintBot.Infrastructure.ViewModels
 
         private void _client_ScanTimeoutElapsed()
         {
-            ScanStatus = "Scan timeout.";
+            ScanStatus = false;
         }
         #endregion
 
@@ -102,6 +123,7 @@ namespace PrintBot.Infrastructure.ViewModels
         /// <returns></returns>
         public async void StopScanningForDevicesAsync()
         {
+            ScanStatus = false;
             await _client.StopScanForDevices();
         }
 
@@ -111,6 +133,7 @@ namespace PrintBot.Infrastructure.ViewModels
         /// <returns></returns>
         public async void StartScanningForDevicesAsync()
         {
+            ScanStatus = true;
             await _client.StartScanForDevicesAsync();
         }
         #endregion
@@ -128,7 +151,7 @@ namespace PrintBot.Infrastructure.ViewModels
         /// Connect to device async.
         /// </summary>
         /// <param name="device">IDevice of the target</param>
-        public async void ConnectToDeviceAsync(IDevice device)
+        public async Task ConnectToDeviceAsync(IDevice device)
         {
             // ToDo: Failure handling
             await _client.ConnectToDeviceAsync(device);
@@ -142,7 +165,7 @@ namespace PrintBot.Infrastructure.ViewModels
         /// Connect to known device async.
         /// </summary>
         /// <param name="id">Guid of the target</param>
-        public async void ConnectToKnownDeviceAsync(Guid id)
+        public async Task ConnectToKnownDeviceAsync(Guid id)
         {
             await _client.ConnectToKnownDeviceAsync(id);
         }
@@ -151,7 +174,7 @@ namespace PrintBot.Infrastructure.ViewModels
         /// Disconnect device async.
         /// </summary>
         /// <param name="device">IDevice of the target</param>
-        public async void DisconnectDeviceAsync(IDevice device)
+        public async Task DisconnectDeviceAsync(IDevice device)
         {
             await _client.DisconnectDeviceAsync(device);
         }
@@ -185,7 +208,7 @@ namespace PrintBot.Infrastructure.ViewModels
             return await _client.ReadAsync();
         }
 
-        public async void WriteAsync(byte[] data)
+        public async Task WriteAsync(byte[] data)
         {
             await _client.WriteAsync(data);
         }
