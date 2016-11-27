@@ -6,7 +6,7 @@ using Android.Graphics;
 using Android.Util;
 using System.Collections;
 
-namespace XamPaint
+namespace PrintBot.Android
 {
     class BordEditor_Bord : RelativeLayout
     {

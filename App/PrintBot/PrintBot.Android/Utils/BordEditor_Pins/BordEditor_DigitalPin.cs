@@ -12,7 +12,7 @@ using Android.Widget;
 using Android.Util;
 using static Android.Views.ViewGroup;
 
-namespace XamPaint
+namespace PrintBot.Android
 {
     class BordEditor_DigitalPin : BordEditor_BordPin
     {
@@ -24,6 +24,7 @@ namespace XamPaint
             this.Type = "Digital";
             pw._drawPaint.Color = Android.Graphics.Color.Yellow;
             this.SetBackgroundColor(Android.Graphics.Color.Gold);
+            
         }
     }
 }

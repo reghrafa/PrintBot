@@ -9,7 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Util;
 
-namespace XamPaint
+namespace PrintBot.Android
 {
     class BordEditor_AnalogPin : BordEditor_BordPin
     {
