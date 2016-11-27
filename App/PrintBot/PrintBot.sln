@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintBot.Android", "PrintBot.Android\PrintBot.Android.csproj", "{E54B1CA6-4E0E-4A8D-A6BA-CA3CC71F72D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintBot.Droid", "PrintBot.Droid\PrintBot.Droid.csproj", "{E54B1CA6-4E0E-4A8D-A6BA-CA3CC71F72D1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Clients", "1 - Clients", "{A5966133-47E5-490F-92C0-25B0F0298BD2}"
 EndProject
