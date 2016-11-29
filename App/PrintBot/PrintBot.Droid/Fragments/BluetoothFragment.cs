@@ -25,12 +25,12 @@ namespace PrintBot.Droid.Fragments
         {
             base.OnCreate(savedInstanceState);
             _vm.PropertyChanged += _vm_PropertyChanged;
+            ChangeFragment();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.bluetooth_layout, container, false);
-            ChangeFragment();
             return view;
         }
 
@@ -46,7 +46,7 @@ namespace PrintBot.Droid.Fragments
         private void ChangeFragment()
         {
             FragmentTransaction ft = FragmentManager.BeginTransaction();
-            if (_vm.Connected)
+            if (!_vm.Connected)
             {
                 ft.Replace(Resource.Id.bluetooth_fragment_container, new BluetoothScanFragment());
             }

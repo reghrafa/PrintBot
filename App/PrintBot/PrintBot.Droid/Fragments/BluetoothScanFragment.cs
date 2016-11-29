@@ -51,6 +51,8 @@ namespace PrintBot.Droid.Fragments
             listViewKnownDevices = view.FindViewById<ListView>(Resource.Id.bluetooth_ListViewKnownDevices);
             progressBar = view.FindViewById<ProgressBar>(Resource.Id.bluetooth_ProgressBar);
 
+            progressBar.Visibility = ViewStates.Gone;
+
             // Events
             btnScan.Click += delegate { _vm.StartScanningForDevicesAsync(); };
             listViewFoundDevices.ItemClick += ListViewFoundDevices_ItemClick;

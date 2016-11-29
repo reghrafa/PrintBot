@@ -14,6 +14,7 @@ namespace PrintBot.Droid.Activities
     [Activity(Label = "PrintBot", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        BluetoothViewModel _bluetoothVM = ServiceLocator.Current.BluetoothViewModel;
         Button btnBluetooth;
         Button btnFiles;
         Button btnSettings;
@@ -24,7 +25,9 @@ namespace PrintBot.Droid.Activities
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
-            
+
+            _bluetoothVM.PropertyChanged += _bluetoothVM_PropertyChanged;
+
             // UI Controls
             btnBluetooth = FindViewById<Button>(Resource.Id.main_bluetooth_button);
             btnFiles = FindViewById<Button>(Resource.Id.main_files_button);
@@ -36,13 +39,28 @@ namespace PrintBot.Droid.Activities
             btnSettings.Click += delegate { ChangeFragment("settings"); };
         }
 
+        private void _bluetoothVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(BluetoothViewModel.Connected))
+            {
+                ChangeFragment("bluetooth");
+            }
+        }
+
         private void ChangeFragment(string fragment)
         {
             FragmentTransaction ft = FragmentManager.BeginTransaction();
             switch (fragment)
             {
                 case "bluetooth":
-                    ft.Replace(Resource.Id.main_fragment_container, new BluetoothFragment());
+                    if (!_bluetoothVM.Connected)
+                    {
+                        ft.Replace(Resource.Id.main_fragment_container, new BluetoothScanFragment());
+                    }
+                    else
+                    {
+                        ft.Replace(Resource.Id.main_fragment_container, new BluetoothSendFragment());
+                    }
                     break;
                 case "files":
                     // ft.Replace(Resource.Id.main_fragment_container, new FilesFragment());
