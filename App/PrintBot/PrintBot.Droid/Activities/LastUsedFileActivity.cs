@@ -9,10 +9,10 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using PrintBot.Android.Adapter;
+using PrintBot.Droid.Adapter;
 using PrintBot.Infrastructure.ViewModels;
 
-namespace PrintBot.Android.Activities
+namespace PrintBot.Droid.Activities
 {
     [Activity(Label = "LastUsedFileActivity")]
     public class LastUsedFileActivity : Activity
@@ -35,7 +35,7 @@ namespace PrintBot.Android.Activities
             _listView.ItemClick += (s, e) => {
                 var path = _lastUsedFileViewModel.ChangeCreationDate(e.Position);
 
-                var fileOpenedActivity = new Intent(this, typeof(FileOpened));
+                var fileOpenedActivity = new Intent(this, typeof(FileOpenedActivity));
                 fileOpenedActivity.PutExtra("Path", path);
                 StartActivity(fileOpenedActivity);
             };

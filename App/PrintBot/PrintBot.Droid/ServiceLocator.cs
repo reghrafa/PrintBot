@@ -65,7 +65,7 @@ namespace PrintBot.Droid
         private LastUsedFileViewModel _lastUsedFileListViewModel;
         public LastUsedFileViewModel LastUsedFileViewModel
         {
-            get { return _lastUsedFileListViewModel ?? (_lastUsedFileListViewModel = new LastUsedFileViewModel(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal))); }
+            get { return _lastUsedFileListViewModel ?? (_lastUsedFileListViewModel = new LastUsedFileViewModel()); }
         }
     }
 }

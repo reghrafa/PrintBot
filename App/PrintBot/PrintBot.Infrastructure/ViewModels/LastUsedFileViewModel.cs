@@ -32,11 +32,18 @@ namespace PrintBot.Infrastructure.ViewModels
                 CreationCollisionOption.ReplaceExisting);
             string content = await file.ReadAllTextAsync();
             FileList = JsonConvert.DeserializeObject<List<FileModel>>(content);
+            OnPropertyChanged(nameof(FileList));
         }
         public string ChangeCreationDate(int position)
         {
             FileList[position].CreationDate = DateTime.Now;
+            OnPropertyChanged(nameof(FileList));
             return FileList[position].Path;
+        }
+        public void Sort()
+        {
+            FileList.Sort((a, b) => b.CreationDate.CompareTo(a.CreationDate));
+            OnPropertyChanged(nameof(FileList));
         }
 
         public async Task AddFile(string fileName)
@@ -46,9 +53,13 @@ namespace PrintBot.Infrastructure.ViewModels
                 CreationCollisionOption.ReplaceExisting);
             await file.WriteAllTextAsync("test" + rand.Next(123781));
             FileList.Insert(0, new FileModel() { Title = fileName, CreationDate = DateTime.Now, Path = file.Path });
+            OnPropertyChanged(nameof(FileList));
             await WriteAndRefresh();
         }
-
+        public async Task Save()
+        {
+            await WriteAndRefresh();
+        }
 
 
         private async Task WriteAndRefresh()
