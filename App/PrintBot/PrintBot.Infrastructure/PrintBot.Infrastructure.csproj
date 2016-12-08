@@ -47,9 +47,12 @@
   <ItemGroup>
     <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\BluetoothViewModel.cs" />
+    <Compile Include="ViewModels\ModuleSetupViewModel.cs" />
     <Compile Include="ViewModels\LastUsedFileViewModel.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Folder Include="Services\" />
   </ItemGroup>

@@ -1,8 +1,8 @@
 using System;
 
-namespace PrintBot.Domain
+namespace PrintBot.Domain.Models
 {
-    class BordEditor_PysicalPin
+    public class BordEditor_PysicalPin
     {
         private string _pinType;
         private int _pinNr;
