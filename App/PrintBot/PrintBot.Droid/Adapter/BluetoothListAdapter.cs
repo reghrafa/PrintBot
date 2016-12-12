@@ -18,9 +18,11 @@ namespace PrintBot.Droid.Adapter
     public class BluetoothListAdapter : BaseAdapter<IDevice>
     {
         private ObservableCollection<IDevice> _list;
+        Context context;
 
-        public BluetoothListAdapter(ObservableCollection<IDevice> list)
+        public BluetoothListAdapter(Context c, ObservableCollection<IDevice> list)
         {
+            context = c;
             _list = list;
             _list.CollectionChanged += _list_CollectionChanged;
         }
@@ -48,6 +50,7 @@ namespace PrintBot.Droid.Adapter
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
+            if (convertView == null) convertView = LayoutInflater.From(context).Inflate(Resource.Layout.bluetooth_listview_item, null);
             var txt_name = convertView.FindViewById<TextView>(Resource.Id.bluetooth_listview_name);
             var txt_adress = convertView.FindViewById<TextView>(Resource.Id.bluetooth_listview_adress);
             txt_name.Text = _list[position].Name;

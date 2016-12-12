@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:minWidth="25px"
+    p1:minHeight="25px"
+    p1:layout_width="match_parent"
+    p1:layout_height="match_parent"
+    p1:id="@+id/relativeLayout1">
+    <TableLayout
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:layout_width="wrap_content"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/tableLayout1"
+        p1:shrinkColumns="0,1">
+        <TableRow
+            p1:id="@+id/tableRow1">
+            <TextView
+                p1:text="DoWhile"
+                p1:layout_column="0"
+                p1:id="@+id/textView11"
+                p1:layout_height="match_parent"
+                p1:layout_width="59.5dp" />
+        </TableRow>
+        <TableRow
+            p1:id="@+id/tableRow2">
+            <Button
+                p1:text="var"
+                p1:layout_column="1"
+                p1:id="@+id/button1" />
+            <Button
+                p1:text="var1"
+                p1:layout_column="2"
+                p1:id="@+id/button2" />
+        </TableRow>
+        <TableRow
+            p1:id="@+id/tableRow3">
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>
