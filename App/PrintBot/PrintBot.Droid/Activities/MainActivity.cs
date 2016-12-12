@@ -64,6 +64,9 @@ namespace PrintBot.Droid.Activities
                     break;
                 case "files":
                     // ft.Replace(Resource.Id.main_fragment_container, new FilesFragment());
+                    var fileBrowserActivity = new Intent(this, typeof(LastUsedFileActivity));
+                    StartActivity(fileBrowserActivity);
+                    
                     break;
                 case "settings":
                     // ft.Replace(Resource.Id.main_fragment_container, new SettingsFragment());

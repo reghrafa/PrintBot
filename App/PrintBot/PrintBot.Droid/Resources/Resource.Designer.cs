@@ -26,6 +26,8 @@ namespace PrintBot.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::PCLStorage.Resource.String.ApplicationName = global::PrintBot.Droid.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.Hello = global::PrintBot.Droid.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

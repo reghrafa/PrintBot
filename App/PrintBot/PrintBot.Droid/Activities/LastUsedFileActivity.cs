@@ -28,6 +28,11 @@ namespace PrintBot.Droid.Activities
             Button but1 = FindViewById<Button>(Resource.Id.button1);
             _projectName = FindViewById<EditText>(Resource.Id.editText1);
             but1.Click += But1_Click; ;
+            
+
+            _lastUsedFileViewModel = ServiceLocator.Current.LastUsedFileViewModel;
+            _lastUsedFileViewModel.PropertyChanged += _lastUsedFileViewModel_PropertyChanged;
+            
 
             _listView = FindViewById<ListView>(Resource.Id.FileList);
             _listView.Adapter = new FileListAdapter(this, _lastUsedFileViewModel.FileList);
@@ -40,8 +45,7 @@ namespace PrintBot.Droid.Activities
                 StartActivity(fileOpenedActivity);
             };
 
-            _lastUsedFileViewModel = ServiceLocator.Current.LastUsedFileViewModel;
-            _lastUsedFileViewModel.PropertyChanged += _lastUsedFileViewModel_PropertyChanged;
+
             await _lastUsedFileViewModel.LoadData();
         }
 
@@ -58,7 +62,10 @@ namespace PrintBot.Droid.Activities
         protected override void OnResume()
         {
             base.OnResume();
-            _lastUsedFileViewModel.Sort();
+            if (_lastUsedFileViewModel != null)
+            {
+                _lastUsedFileViewModel.Sort();
+            }
         }
         protected async override void OnStop()
         {
