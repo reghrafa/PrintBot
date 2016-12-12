@@ -28,9 +28,13 @@ namespace PrintBot.Infrastructure.ViewModels
         
         public async Task LoadData()
         {
-            var content = await _storageService.ReadFileAsync(_projectsFilename);
-            FileList = JsonConvert.DeserializeObject<List<FileModel>>(content);
-            OnPropertyChanged(nameof(FileList));
+            if(await _storageService.FileExistsAsync(_projectsFilename))
+            {
+                var content = await _storageService.ReadFileAsync(_projectsFilename);
+                FileList = JsonConvert.DeserializeObject<List<FileModel>>(content);
+                OnPropertyChanged(nameof(FileList));
+            }
+            
         }
         public string ChangeCreationDate(int position)
         {
@@ -61,10 +65,8 @@ namespace PrintBot.Infrastructure.ViewModels
 
         private async Task WriteAndRefresh()
         {
-            IFile file = await _folder.CreateFileAsync(_projectsFilename,
-                CreationCollisionOption.ReplaceExisting);
             var json = JsonConvert.SerializeObject(FileList);
-            await file.WriteAllTextAsync(json);
+            await _storageService.WriteFileAsync(_projectsFilename,json);
             OnPropertyChanged(nameof(FileList));
         }
 

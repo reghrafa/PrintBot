@@ -9,6 +9,7 @@ namespace PrintBot.Infrastructure.Services
 {
     public class StorageService
     {
+        private readonly string _mainFolder = "projects";
         public StorageService()
         {
 
@@ -16,7 +17,7 @@ namespace PrintBot.Infrastructure.Services
         public async Task WriteFileAsync(string filename, string content)
         {
             IFolder rootFolder = FileSystem.Current.LocalStorage;
-            IFolder folder = await rootFolder.CreateFolderAsync("projects",
+            IFolder folder = await rootFolder.CreateFolderAsync(_mainFolder,
                 CreationCollisionOption.OpenIfExists);
             IFile file = await folder.CreateFileAsync(filename,
                 CreationCollisionOption.ReplaceExisting);
@@ -25,10 +26,18 @@ namespace PrintBot.Infrastructure.Services
         public async Task<string> ReadFileAsync(string filename)
         {
             IFolder rootFolder = FileSystem.Current.LocalStorage;
-            IFolder folder = await rootFolder.CreateFolderAsync("projects",
+            IFolder folder = await rootFolder.CreateFolderAsync(_mainFolder,
                 CreationCollisionOption.OpenIfExists);
             IFile file = await folder.GetFileAsync(filename);
             return await file.ReadAllTextAsync();
+        }
+        public async Task<bool> FileExistsAsync(string filename)
+        {
+            IFolder rootFolder = FileSystem.Current.LocalStorage;
+            IFolder folder = await rootFolder.CreateFolderAsync(_mainFolder,
+                CreationCollisionOption.OpenIfExists);
+            var result = await folder.CheckExistsAsync(filename);
+            return result == ExistenceCheckResult.FileExists ? true : false;
         }
     }
 }
