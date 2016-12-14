@@ -75,7 +75,7 @@ namespace PrintBot.Domain.Api.Clients
             await _adapter.StartScanningForDevicesAsync();
         }
 
-        public async Task StopScanForDevices()
+        public async Task StopScanForDevicesAsync()
         {
             await _adapter.StopScanningForDevicesAsync();
         }
@@ -176,6 +176,26 @@ namespace PrintBot.Domain.Api.Clients
         private int GetIndexOfConnectedDevice(IDevice device)
         {
             return _adapter.ConnectedDevices.IndexOf(device);
+        }
+
+        public async Task<bool> IsValidDeviceAsync(string serviceName, string characteristicName, IDevice device)
+        {
+            var listOfServices = await device.GetServicesAsync();
+            foreach (IService service in listOfServices)
+            {
+                if (service.Name.Equals(serviceName))
+                {
+                    var listOfCharacteristics = await service.GetCharacteristicsAsync();
+                    foreach (ICharacteristic characteristic in listOfCharacteristics)
+                    {
+                        if (characteristic.Name.Equals(characteristicName))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
         #endregion
     }

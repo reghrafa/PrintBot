@@ -52,10 +52,15 @@ namespace PrintBot.Droid.Adapter
         {
             if (convertView == null) convertView = LayoutInflater.From(context).Inflate(Resource.Layout.bluetooth_listview_item, null);
             var txt_name = convertView.FindViewById<TextView>(Resource.Id.bluetooth_listview_name);
-            var txt_adress = convertView.FindViewById<TextView>(Resource.Id.bluetooth_listview_adress);
-            txt_name.Text = _list[position].Name;
-            txt_adress.Text = _list[position].Id.ToString();
 
+            if (string.IsNullOrEmpty(_list[position].Name))
+            {
+                txt_name.Text = string.Format("Device has no name.");
+            }
+            else
+            {
+                txt_name.Text = _list[position].Name;
+            }
             return convertView;
         }
 

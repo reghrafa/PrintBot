@@ -34,8 +34,8 @@ namespace PrintBot.Infrastructure.ViewModels
         }
 
         // Constants
-        private const string NAME_OF_SERVICE = "Name hier";
-        private const string NAME_OF_CHARACTERISTIC = "Name hier";
+        private const string NAME_OF_SERVICE = "TI SensorTag Smart Keys";
+        private const string NAME_OF_CHARACTERISTIC = "TI SensorTag Keys Data";
 
         // State of the connection
         private ConnectionState _connectionStatus;
@@ -49,6 +49,19 @@ namespace PrintBot.Infrastructure.ViewModels
                     _connectionStatus = value;
                     OnPropertyChanged("ConnectionStatus");
                 }
+            }
+        }
+
+        private IDevice _connectedDevice;
+        public IDevice ConnectedDevice
+        {
+            get
+            {
+                return _connectedDevice;
+            }
+            set
+            {
+                if (_connectedDevice != value) _connectedDevice = value;
             }
         }
 
@@ -103,14 +116,23 @@ namespace PrintBot.Infrastructure.ViewModels
 
         private void _client_DeviceConnected(IDevice device)
         {
+            ConnectedDevice = device;
             ConnectionStatus = ConnectionState.Connected;
-            // ConnectionStatus = string.Format("Succesfully connected to device {0}.", device.Name);
             Connected = true;
         }
 
         private void _client_DeviceDiscovered(IDevice device)
         {
-            FoundDevices.Add(device);
+            if (!string.IsNullOrEmpty(device.Name))
+            {
+                if (device.Name.Equals("<*_*>"))
+                {
+                    if (!FoundDevices.Contains(device))
+                    {
+                        FoundDevices.Add(device);
+                    }
+                }
+            }
         }
 
         private void _client_ScanTimeoutElapsed()
@@ -128,7 +150,7 @@ namespace PrintBot.Infrastructure.ViewModels
         public async void StopScanningForDevicesAsync()
         {
             ScanStatus = false;
-            await _client.StopScanForDevices();
+            await _client.StopScanForDevicesAsync();
         }
 
         /// <summary>

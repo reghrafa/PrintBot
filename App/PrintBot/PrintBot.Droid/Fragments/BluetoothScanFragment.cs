@@ -67,13 +67,15 @@ namespace PrintBot.Droid.Fragments
 
         private async void ListViewKnownDevices_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var device = (IDevice)e;
+            _vm.StopScanningForDevicesAsync();
+            var device = _vm.PairedDevices[e.Position];
             await _vm.ConnectToKnownDeviceAsync(device.Id);
         }
 
         private async void ListViewFoundDevices_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var device = (IDevice)e;
+            _vm.StopScanningForDevicesAsync();
+            var device = _vm.FoundDevices[e.Position];
             await _vm.ConnectToDeviceAsync(device);
         }
     }
