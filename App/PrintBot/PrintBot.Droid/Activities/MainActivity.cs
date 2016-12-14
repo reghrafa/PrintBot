@@ -26,17 +26,23 @@ namespace PrintBot.Droid.Activities
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            _bluetoothVM.PropertyChanged += _bluetoothVM_PropertyChanged;
+            //_bluetoothVM.PropertyChanged += _bluetoothVM_PropertyChanged;
 
             // UI Controls
-            btnBluetooth = FindViewById<Button>(Resource.Id.main_bluetooth_button);
-            btnFiles = FindViewById<Button>(Resource.Id.main_files_button);
-            btnSettings = FindViewById<Button>(Resource.Id.main_settings_button);
+            //btnBluetooth = FindViewById<Button>(Resource.Id.main_bluetooth_button);
+            //btnFiles = FindViewById<Button>(Resource.Id.main_files_button);
+            //btnSettings = FindViewById<Button>(Resource.Id.main_settings_button);
 
             // Events
-            btnBluetooth.Click += delegate { ChangeFragment("bluetooth"); };
-            btnFiles.Click += delegate { ChangeFragment("files"); };
-            btnSettings.Click += delegate { ChangeFragment("settings"); };
+            //btnBluetooth.Click += delegate { ChangeFragment("bluetooth"); };
+            //btnFiles.Click += delegate { ChangeFragment("files"); };
+            //btnSettings.Click += delegate { ChangeFragment("settings"); };
+
+            var btn = FindViewById<Button>(Resource.Id.main_CreateButton);
+            btn.Click += delegate {
+                StartActivity(typeof(CodeEditor_BaseActivity));
+            };
+
         }
 
         private void _bluetoothVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -55,11 +61,11 @@ namespace PrintBot.Droid.Activities
                 case "bluetooth":
                     if (!_bluetoothVM.Connected)
                     {
-                        ft.Replace(Resource.Id.main_fragment_container, new BluetoothScanFragment());
+                        //ft.Replace(Resource.Id.main_fragment_container, new BluetoothScanFragment());
                     }
                     else
                     {
-                        ft.Replace(Resource.Id.main_fragment_container, new BluetoothSendFragment());
+                        //ft.Replace(Resource.Id.main_fragment_container, new BluetoothSendFragment());
                     }
                     break;
                 case "files":
