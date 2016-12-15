@@ -8,6 +8,8 @@ using Android.OS;
 using PrintBot.Infrastructure.ViewModels;
 using PrintBot.Droid.Fragments;
 using Android;
+using PrintBot.Droid.Adapter;
+using System.ComponentModel;
 
 namespace PrintBot.Droid.Activities
 {
@@ -15,9 +17,10 @@ namespace PrintBot.Droid.Activities
     public class MainActivity : Activity
     {
         BluetoothViewModel _bluetoothVM = ServiceLocator.Current.BluetoothViewModel;
-        Button btnBluetooth;
-        Button btnFiles;
-        Button btnSettings;
+
+        private LastUsedFileViewModel _lastUsedFileVM;
+        ListView _listOldFiles;
+        EditText NewProjectName;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -26,23 +29,33 @@ namespace PrintBot.Droid.Activities
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            //_bluetoothVM.PropertyChanged += _bluetoothVM_PropertyChanged;
-
-            // UI Controls
-            //btnBluetooth = FindViewById<Button>(Resource.Id.main_bluetooth_button);
-            //btnFiles = FindViewById<Button>(Resource.Id.main_files_button);
-            //btnSettings = FindViewById<Button>(Resource.Id.main_settings_button);
-
-            // Events
-            //btnBluetooth.Click += delegate { ChangeFragment("bluetooth"); };
-            //btnFiles.Click += delegate { ChangeFragment("files"); };
-            //btnSettings.Click += delegate { ChangeFragment("settings"); };
+            _lastUsedFileVM = ServiceLocator.Current.LastUsedFileViewModel;
+            _lastUsedFileVM.PropertyChanged += _lUFVM_PropertyChanged;
 
             var btn = FindViewById<Button>(Resource.Id.main_CreateButton);
-            btn.Click += delegate {
-                StartActivity(typeof(CodeEditor_BaseActivity));
-            };
+            btn.Click += CreateFile;
 
+            NewProjectName = FindViewById<EditText>(Resource.Id.main_NewProjectName);
+
+            _listOldFiles = FindViewById<ListView>(Resource.Id.main_LastFileList);
+            _listOldFiles.Adapter = new FileListAdapter(this,_lastUsedFileVM.FileList);
+            _listOldFiles.ItemClick += (s, e) =>
+            {
+                var path = _lastUsedFileVM.ChangeCreationDate(e.Position);
+                var tmp = new Intent(this, typeof(CodeEditor_BaseActivity));
+                tmp.PutExtra("Path", path);
+                StartActivity(tmp);
+            };
+        }
+
+        private async void CreateFile(Object sender, EventArgs e)
+        {
+            await _lastUsedFileVM.AddFile(NewProjectName.Text);
+        }
+
+        private void _lUFVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            ((BaseAdapter)_listOldFiles.Adapter).NotifyDataSetChanged();
         }
 
         private void _bluetoothVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -81,6 +94,22 @@ namespace PrintBot.Droid.Activities
                     break;
             }
             ft.Commit();
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            if (_lastUsedFileVM != null)
+            {
+                _lastUsedFileVM.Sort();
+            }
+
+        }
+
+        protected async override void OnStop()
+        {
+            base.OnStop();
+            await _lastUsedFileVM.Save();
         }
     }
 }

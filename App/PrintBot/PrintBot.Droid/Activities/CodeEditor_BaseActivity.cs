@@ -21,6 +21,9 @@ namespace PrintBot.Droid.Activities
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.CodeEditor_Layout);
 
+            string text = Intent.GetStringExtra("Path") ?? "no Data";
+            FindViewById<TextView>(Resource.Id.main_Sampel).Text = text;
+
             FindViewById<Button>(Resource.Id.CodeEditor_SettingsButton).Click += delegate
             {
                 StartActivity(typeof(Settings_Editor));
