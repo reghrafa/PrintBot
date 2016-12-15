@@ -104,23 +104,23 @@ namespace PrintBot.Droid
 			// aapt resource value: 0x7f05002a
 			public const int CodeEditor_SwitchButton = 2131034154;
 			
-			// aapt resource value: 0x7f050030
-			public const int Description = 2131034160;
-			
-			// aapt resource value: 0x7f05002e
-			public const int FileList = 2131034158;
-			
-			// aapt resource value: 0x7f050035
-			public const int Settings_Bluetooth = 2131034165;
-			
-			// aapt resource value: 0x7f050034
-			public const int Settings_ModuleSetup = 2131034164;
+			// aapt resource value: 0x7f050039
+			public const int Description = 2131034169;
 			
 			// aapt resource value: 0x7f050036
-			public const int Settings_Other = 2131034166;
+			public const int FileList = 2131034166;
 			
-			// aapt resource value: 0x7f05002f
-			public const int Title = 2131034159;
+			// aapt resource value: 0x7f05003e
+			public const int Settings_Bluetooth = 2131034174;
+			
+			// aapt resource value: 0x7f05003d
+			public const int Settings_ModuleSetup = 2131034173;
+			
+			// aapt resource value: 0x7f05003f
+			public const int Settings_Other = 2131034175;
+			
+			// aapt resource value: 0x7f050038
+			public const int Title = 2131034168;
 			
 			// aapt resource value: 0x7f05001a
 			public const int bluetooth_ListViewFoundDevices = 2131034138;
@@ -167,20 +167,23 @@ namespace PrintBot.Droid
 			// aapt resource value: 0x7f05000b
 			public const int button9 = 2131034123;
 			
-			// aapt resource value: 0x7f05002d
-			public const int editText1 = 2131034157;
+			// aapt resource value: 0x7f050035
+			public const int editText1 = 2131034165;
 			
 			// aapt resource value: 0x7f05002c
 			public const int fileOpenedTextView = 2131034156;
 			
-			// aapt resource value: 0x7f050032
-			public const int main_CreateButton = 2131034162;
+			// aapt resource value: 0x7f050037
+			public const int listView_button = 2131034167;
 			
-			// aapt resource value: 0x7f050033
-			public const int main_LastFileList = 2131034163;
+			// aapt resource value: 0x7f05003b
+			public const int main_CreateButton = 2131034171;
 			
-			// aapt resource value: 0x7f050031
-			public const int main_NewProjectName = 2131034161;
+			// aapt resource value: 0x7f05003c
+			public const int main_LastFileList = 2131034172;
+			
+			// aapt resource value: 0x7f05003a
+			public const int main_NewProjectName = 2131034170;
 			
 			// aapt resource value: 0x7f050028
 			public const int main_Sampel = 2131034152;
@@ -226,6 +229,30 @@ namespace PrintBot.Droid
 			
 			// aapt resource value: 0x7f05000e
 			public const int textView9 = 2131034126;
+			
+			// aapt resource value: 0x7f05002e
+			public const int tools_button1 = 2131034158;
+			
+			// aapt resource value: 0x7f05002f
+			public const int tools_button2 = 2131034159;
+			
+			// aapt resource value: 0x7f050030
+			public const int tools_button3 = 2131034160;
+			
+			// aapt resource value: 0x7f050031
+			public const int tools_button4 = 2131034161;
+			
+			// aapt resource value: 0x7f050032
+			public const int tools_button5 = 2131034162;
+			
+			// aapt resource value: 0x7f050033
+			public const int tools_button6 = 2131034163;
+			
+			// aapt resource value: 0x7f05002d
+			public const int tools_scrollview = 2131034157;
+			
+			// aapt resource value: 0x7f050034
+			public const int workspace_listView = 2131034164;
 			
 			static Id()
 			{
@@ -283,16 +310,25 @@ namespace PrintBot.Droid
 			public const int FileOpened = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int LastUsedFileLayout = 2130903054;
+			public const int fragment_tools = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int ListRowItem = 2130903055;
+			public const int fragment_workspace = 2130903055;
 			
 			// aapt resource value: 0x7f030010
-			public const int Main = 2130903056;
+			public const int LastUsedFileLayout = 2130903056;
 			
 			// aapt resource value: 0x7f030011
-			public const int Settings_Layout = 2130903057;
+			public const int list_view_item = 2130903057;
+			
+			// aapt resource value: 0x7f030012
+			public const int ListRowItem = 2130903058;
+			
+			// aapt resource value: 0x7f030013
+			public const int Main = 2130903059;
+			
+			// aapt resource value: 0x7f030014
+			public const int Settings_Layout = 2130903060;
 			
 			static Layout()
 			{

@@ -1,4 +1,4 @@
-﻿namespace DragAndDrop.Droid
+﻿namespace PrintBot.Droid
 {
 	public interface IDraggableListAdapter
 	{

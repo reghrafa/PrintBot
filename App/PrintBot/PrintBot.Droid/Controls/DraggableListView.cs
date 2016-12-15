@@ -29,7 +29,7 @@ using Android.Content;
 using Android.Util;
 using System;
 
-namespace DragAndDrop.Droid
+namespace PrintBot.Droid
 {
     public class DraggableListView : ListView, ITypeEvaluator, GestureDetector.IOnGestureListener
     {

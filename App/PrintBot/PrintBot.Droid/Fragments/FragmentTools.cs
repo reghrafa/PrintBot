@@ -12,7 +12,7 @@ using Android.Views;
 using Android.Widget;
 using static Android.Views.View;
 
-namespace DragAndDrop.Droid
+namespace PrintBot.Droid
 {
     public class FragmentTools : Fragment
     {

@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using Android.App;
 using Android.Content;
 
-namespace DragAndDrop.Droid
+namespace PrintBot.Droid
 {
     public class DraggableListAdapter : BaseAdapter, IDraggableListAdapter
     {

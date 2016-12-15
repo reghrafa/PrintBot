@@ -12,7 +12,7 @@ using Android.Views;
 using Android.Widget;
 using System.Collections.ObjectModel;
 
-namespace DragAndDrop.Droid
+namespace PrintBot.Droid
 {
     public class FragmentWorkspace : Fragment
     {
