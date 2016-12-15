@@ -3,16 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-
-namespace App2
+namespace PrintBot.Domain.Models.Blocks
 {
-    class EndLoop : IBlock
+    public class EndLoop : IBlock
     {
         public string CodeText { get; set; }
         public string Name { get; set; }

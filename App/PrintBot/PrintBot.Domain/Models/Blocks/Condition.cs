@@ -1,9 +1,7 @@
-﻿using App2.Abstract_Classes;
-using App2.Comparators;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System;
 
-namespace App2
+namespace PrintBot.Domain.Models.Blocks
 {
     /// <summary>
     /// contains the variable, the comparator and the value

@@ -47,15 +47,14 @@
   <ItemGroup>
     <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CodeGenerator.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\BluetoothViewModel.cs" />
     <Compile Include="ViewModels\ModuleSetupViewModel.cs" />
     <Compile Include="ViewModels\LastUsedFileViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>

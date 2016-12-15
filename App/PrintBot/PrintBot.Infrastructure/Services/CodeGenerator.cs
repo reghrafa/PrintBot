@@ -1,10 +1,11 @@
+using PrintBot.Domain.Models.Blocks;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace App2
+namespace PrintBot.Infrastructure.Services
 {
-    class CodeGenerator
+    public class CodeGenerator
     {
         private static int _whiteSpaceOffsetCount;
 

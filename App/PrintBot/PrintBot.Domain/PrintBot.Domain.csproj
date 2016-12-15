@@ -34,6 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Models\Blocks\Abstract Classes\Comparator.cs" />
+    <Compile Include="Models\Blocks\Abstract Classes\Loop.cs" />
+    <Compile Include="Models\Blocks\Comparators\Equals.cs" />
+    <Compile Include="Models\Blocks\Comparators\NotEquals.cs" />
+    <Compile Include="Models\Blocks\Condition.cs" />
+    <Compile Include="Models\Blocks\IfBlock.cs" />
+    <Compile Include="Models\Blocks\Interfaces\IBlock.cs" />
+    <Compile Include="Models\Blocks\Loops\ConditionLoop.cs" />
+    <Compile Include="Models\Blocks\Loops\CountingLoop.cs" />
+    <Compile Include="Models\Blocks\Loops\EndlessLoop.cs" />
+    <Compile Include="Models\Blocks\Loops\EndLoop.cs" />
     <Compile Include="Models\BluetoothDevice.cs" />
     <Compile Include="Models\BordEditor_ModulPhysical.cs" />
     <Compile Include="Models\BordEditor_PysicalPin.cs" />
