@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <TableLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableLayout1">
+        <TableRow
+            android:id="@+id/tableRow1">
+            <TextView
+                android:text="start"
+                android:layout_column="0"
+                android:id="@+id/textView7" />
+            <Button
+                android:text="name"
+                android:layout_column="1"
+                android:id="@+id/button7" />
+            <Button
+                android:text="dt"
+                android:layout_column="1"
+                android:id="@+id/button8" />
+            <Button
+                android:text="value"
+                android:layout_column="2"
+                android:id="@+id/button9" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow2">
+            <TextView
+                android:text="to"
+                android:layout_column="0"
+                android:id="@+id/textView8" />
+            <Button
+                android:text="var"
+                android:layout_column="1"
+                android:id="@+id/button1" />
+            <Button
+                android:text="op"
+                android:layout_column="1"
+                android:id="@+id/button2" />
+            <Button
+                android:text="var"
+                android:layout_column="2"
+                android:id="@+id/button3" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3">
+            <TextView
+                android:text="inc"
+                android:layout_column="0"
+                android:id="@+id/textView9" />
+            <Button
+                android:text="op"
+                android:layout_column="1"
+                android:id="@+id/button4" />
+            <Button
+                android:text="value"
+                android:layout_column="1"
+                android:id="@+id/button5" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
