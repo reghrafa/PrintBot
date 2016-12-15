@@ -43,6 +43,14 @@
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="PCLStorage, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PCLStorage.1.0.2\lib\monoandroid\PCLStorage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions, Version=1.0.2.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>..\packages\PCLStorage.1.0.2\lib\monoandroid\PCLStorage.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Plugin.BLE, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Plugin.BLE.1.1.0\lib\MonoAndroid\Plugin.BLE.dll</HintPath>
       <Private>True</Private>
@@ -57,10 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\BluetoothActivity.cs" />
     <Compile Include="Activities\BordEditor_MainActivity.cs" />
+    <Compile Include="Activities\CodeEditor_BaseActivity.cs" />
     <Compile Include="Activities\FileOpenedActivity.cs" />
     <Compile Include="Activities\LastUsedFileActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Activities\Settings_Editor.cs" />
     <Compile Include="Adapter\BluetoothListAdapter.cs" />
     <Compile Include="Adapter\BordEditor_ListAdapter.cs" />
     <Compile Include="Fragments\BluetoothFragment.cs" />
@@ -83,11 +94,16 @@
     <Compile Include="Utils\FontsOverride.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\layout\CodeEditor_Layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\BordEditor_ListView_Row.axml" />
-    <AndroidResource Include="Resources\layout\BordEditor_MainLayout.axml" />
+    <AndroidResource Include="Resources\layout\BordEditor_MainLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\bluetooth_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -103,6 +119,15 @@
     <AndroidResource Include="Resources\layout\FileOpened.axml" />
     <AndroidResource Include="Resources\layout\ListRowItem.axml" />
     <AndroidResource Include="Resources\layout\LastUsedFileLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BlockDoWhile.axml" />
+    <AndroidResource Include="Resources\layout\BlockForLoop.axml" />
+    <AndroidResource Include="Resources\layout\BlockLED.axml" />
+    <AndroidResource Include="Resources\layout\BlockMoveMotor.axml" />
+    <AndroidResource Include="Resources\layout\BlockVariable.axml" />
+    <AndroidResource Include="Resources\layout\BlockWhileLoop.axml" />
+    <AndroidResource Include="Resources\layout\Settings_Layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

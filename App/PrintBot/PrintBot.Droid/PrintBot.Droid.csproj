@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\BluetoothActivity.cs" />
     <Compile Include="Activities\BordEditor_MainActivity.cs" />
     <Compile Include="Activities\CodeEditor_BaseActivity.cs" />
     <Compile Include="Activities\FileOpenedActivity.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Activities\Settings_Editor.cs" />
     <Compile Include="Adapter\BluetoothListAdapter.cs" />
     <Compile Include="Adapter\BordEditor_ListAdapter.cs" />
+    <Compile Include="CodeGenerator.cs" />
     <Compile Include="Fragments\BluetoothFragment.cs" />
     <Compile Include="Fragments\BluetoothScanFragment.cs" />
     <Compile Include="Fragments\BluetoothSendFragment.cs" />
