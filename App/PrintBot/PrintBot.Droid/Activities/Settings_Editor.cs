@@ -27,7 +27,7 @@ namespace PrintBot.Droid.Activities
 
             FindViewById<LinearLayout>(Resource.Id.Settings_Bluetooth).Click += delegate
             {
-
+                StartActivity(typeof(BluetoothActivity));
             };
 
             FindViewById<LinearLayout>(Resource.Id.Settings_Other).Click += delegate

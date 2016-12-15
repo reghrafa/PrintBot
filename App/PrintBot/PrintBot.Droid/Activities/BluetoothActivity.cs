@@ -24,10 +24,5 @@ namespace PrintBot.Droid.Activities
             ft.Replace(Resource.Id.bluetooth_fragment_container, new BluetoothScanFragment());
             ft.Commit();
         }
-
-        public override void OnBackPressed ()
-        {
-
-        }
     }
 }
