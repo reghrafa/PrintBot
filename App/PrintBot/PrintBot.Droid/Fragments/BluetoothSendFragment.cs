@@ -34,12 +34,19 @@ namespace PrintBot.Droid.Fragments
             btnSend = view.FindViewById<Button>(Resource.Id.bluetooth_send_SendButton);
             btnSend.Click += delegate { SendStuff(); };
 
+            if (_vm.Connected)
+            {
+                Toast.MakeText(Context,
+                    string.Format("Succesfully connected with device {0}", _vm.ConnectedDevice.Name),
+                    ToastLength.Short)
+                    .Show();
+            }
             return view;
         }
 
         private async void SendStuff()
         {
-            await _vm.WriteAsync(new byte[] { 1 });
+            await _vm.WriteAsync(Encoding.ASCII.GetBytes("Hallo Test"));
         }
 
         private void _vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

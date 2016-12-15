@@ -29,11 +29,12 @@ namespace PrintBot.Domain.RequiredInterfaces
         void SetScanTimeout(int ms);
         int GetScanTimeout();
         Task StartScanForDevicesAsync();
-        Task StopScanForDevices();
+        Task StopScanForDevicesAsync();
         Task ConnectToDeviceAsync(IDevice device);
         Task ConnectToKnownDeviceAsync(Guid id);
         Task DisconnectDeviceAsync(IDevice device);
         ObservableCollection<IDevice> GetPairedDevices();
+        Task<bool> IsValidDeviceAsync(string serviceName, string characteristicName, IDevice device);
         Task<bool> SetServiceByNameAsync(string name);
         Task<bool> SetCharacteristicByNameAsync(string name);
         Task<byte[]> ReadAsync();

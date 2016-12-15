@@ -11,10 +11,4 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/bluetooth_listview_name" />
-  <TextView
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bluetooth_listview_adress" />
 </LinearLayout>

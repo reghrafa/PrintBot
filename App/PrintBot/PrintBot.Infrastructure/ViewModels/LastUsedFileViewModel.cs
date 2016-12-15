@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PCLStorage;
+using PrintBot.Infrastructure.Services;
 
 namespace PrintBot.Infrastructure.ViewModels
 {
@@ -15,30 +16,31 @@ namespace PrintBot.Infrastructure.ViewModels
     {
         public List<FileModel> FileList = new List<FileModel>();
         
+        
         private string _projectsFilename = "projects.json";
+        private StorageService _storageService;
         private IFolder _folder;
 
         public LastUsedFileViewModel()
-        {  
+        {
+            _storageService = new StorageService();
         }
         
         public async Task LoadData()
         {
-            IFolder rootFolder = FileSystem.Current.LocalStorage;
-            _folder = await rootFolder.CreateFolderAsync("ProjectFiles",
-                CreationCollisionOption.OpenIfExists);
-
-            IFile file = await _folder.CreateFileAsync(_projectsFilename,
-                CreationCollisionOption.ReplaceExisting);
-            string content = await file.ReadAllTextAsync();
-            FileList = JsonConvert.DeserializeObject<List<FileModel>>(content);
-            OnPropertyChanged(nameof(FileList));
+            if(await _storageService.FileExistsAsync(_projectsFilename))
+            {
+                var content = await _storageService.ReadFileAsync(_projectsFilename);
+                FileList = JsonConvert.DeserializeObject<List<FileModel>>(content);
+                OnPropertyChanged(nameof(FileList));
+            }
+            
         }
         public string ChangeCreationDate(int position)
         {
             FileList[position].CreationDate = DateTime.Now;
             OnPropertyChanged(nameof(FileList));
-            return FileList[position].Path;
+            return FileList[position].Title;
         }
         public void Sort()
         {
@@ -46,13 +48,12 @@ namespace PrintBot.Infrastructure.ViewModels
             OnPropertyChanged(nameof(FileList));
         }
 
-        public async Task AddFile(string fileName)
+        public async Task AddFile(string title)
         {
             var rand = new Random();
-            IFile file = await _folder.CreateFileAsync(fileName +".c",
-                CreationCollisionOption.ReplaceExisting);
-            await file.WriteAllTextAsync("test" + rand.Next(123781));
-            FileList.Insert(0, new FileModel() { Title = fileName, CreationDate = DateTime.Now, Path = file.Path });
+            var filename = title + ".c";
+            await _storageService.WriteFileAsync(filename, "test" + rand.Next(123781));
+            FileList.Insert(0, new FileModel() { Title = title, CreationDate = DateTime.Now, FileName = filename });
             OnPropertyChanged(nameof(FileList));
             await WriteAndRefresh();
         }
@@ -64,11 +65,20 @@ namespace PrintBot.Infrastructure.ViewModels
 
         private async Task WriteAndRefresh()
         {
-            IFile file = await _folder.CreateFileAsync(_projectsFilename,
-                CreationCollisionOption.ReplaceExisting);
             var json = JsonConvert.SerializeObject(FileList);
-            await file.WriteAllTextAsync(json);
+            await _storageService.WriteFileAsync(_projectsFilename,json);
             OnPropertyChanged(nameof(FileList));
+        }
+
+        private bool _openfile;
+        public bool OpenFile
+        {
+            get { return _openfile; }
+            set
+            {
+                if (_openfile != value) _openfile = value;
+                OnPropertyChanged("OpenFile");
+            }
         }
     }
 }
