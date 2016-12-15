@@ -12,7 +12,7 @@ using Android;
 
 namespace PrintBot.Droid.Activities
 {
-    [Activity(Label = "XamPaint", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "Bord Editor", MainLauncher = false, Icon = "@drawable/icon")]
     public class BordEditor_MainActivity : Activity
     {
         private BordEditor_BordPin _boradPinTmp = null;

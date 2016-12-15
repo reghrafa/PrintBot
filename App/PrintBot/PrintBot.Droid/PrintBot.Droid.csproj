@@ -67,9 +67,11 @@
   <ItemGroup>
     <Compile Include="Activities\BluetoothActivity.cs" />
     <Compile Include="Activities\BordEditor_MainActivity.cs" />
+    <Compile Include="Activities\CodeEditor_BaseActivity.cs" />
     <Compile Include="Activities\FileOpenedActivity.cs" />
     <Compile Include="Activities\LastUsedFileActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Activities\Settings_Editor.cs" />
     <Compile Include="Adapter\BluetoothListAdapter.cs" />
     <Compile Include="Adapter\BordEditor_ListAdapter.cs" />
     <Compile Include="Fragments\BluetoothFragment.cs" />
@@ -92,11 +94,16 @@
     <Compile Include="Utils\FontsOverride.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\layout\CodeEditor_Layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidResource Include="Resources\layout\BordEditor_ListView_Row.axml" />
-    <AndroidResource Include="Resources\layout\BordEditor_MainLayout.axml" />
+    <AndroidResource Include="Resources\layout\BordEditor_MainLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\bluetooth_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -120,6 +127,9 @@
     <AndroidResource Include="Resources\layout\BlockMoveMotor.axml" />
     <AndroidResource Include="Resources\layout\BlockVariable.axml" />
     <AndroidResource Include="Resources\layout\BlockWhileLoop.axml" />
+    <AndroidResource Include="Resources\layout\Settings_Layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
