@@ -35,7 +35,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Models\Blocks\Abstract Classes\Comparator.cs" />
+    <Compile Include="Models\Blocks\Abstract Classes\EndBlock.cs" />
     <Compile Include="Models\Blocks\Abstract Classes\Loop.cs" />
+    <Compile Include="Models\Blocks\Abstract Classes\StartBlock.cs" />
     <Compile Include="Models\Blocks\Comparators\Equals.cs" />
     <Compile Include="Models\Blocks\Comparators\NotEquals.cs" />
     <Compile Include="Models\Blocks\Condition.cs" />

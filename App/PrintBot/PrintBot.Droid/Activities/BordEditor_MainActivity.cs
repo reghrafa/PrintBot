@@ -9,21 +9,21 @@ using PrintBot.Domain.Models;
 using System.IO;
 using System.Threading.Tasks;
 using Android;
+using PrintBot.Droid.Utils;
 
 namespace PrintBot.Droid.Activities
 {
-    [Activity(Label = "Bord Editor", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "Bord Editor", WindowSoftInputMode = Android.Views.SoftInput.AdjustNothing, MainLauncher = false, Icon = "@drawable/icon")]
     public class BordEditor_MainActivity : Activity
     {
         private BordEditor_BordPin _boradPinTmp = null;
         private BordEditor_Modul.ModulButton _modulTmp = null;
         private RelativeLayout _mainLayout;
         private BordEditor_Bord bord;
-        private List<string> _modulFileNames;
+        private List<string> _modulFileNames = new List<string>();
         private ModuleSetupViewModel _vm;
 
-        private LinearLayout modulSlot1;
-        private LinearLayout modulSlot2;
+        private BordEditor_ModulSlot _mSlot1;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -31,69 +31,48 @@ namespace PrintBot.Droid.Activities
             SetContentView(Resource.Layout.BordEditor_MainLayout);
 
             _vm = ServiceLocator.Current.ModuleSetupViewModel;
+            GetModulFileNames();//get ModulFiles
 
             _mainLayout = FindViewById<RelativeLayout>(Resource.Id.BordEditor_MainLayout);
 
-            //Adapter
-            _modulFileNames = GetModulFiles();
-            BordEditor_ListAdapter adapter = new BordEditor_ListAdapter(this, _modulFileNames);
-
-            //ModulSlot1
-            modulSlot1 = FindViewById<LinearLayout>(Resource.Id.BordEditor_modulSlot1);
-            Button modulSlot1Button = FindViewById<Button>(Resource.Id.BordEditor_modulSlot1Button);
-            modulSlot1Button.Click += delegate { ReplaceModulSlot(modulSlot1, Resource.Id.BordEditor_modulSlot1Text); };
-            //livtView 1
-            var modullist1 = FindViewById<ListView>(Resource.Id.BordEditor_modulList1);
-            modullist1.Adapter = adapter;
-            modullist1.ItemClick += Modullist1_ItemClick;
-
-            //ModulSlot2
-            modulSlot2 = FindViewById<LinearLayout>(Resource.Id.BordEditor_modulSlot2);
-            Button modulSlotButton2 = FindViewById<Button>(Resource.Id.BordEditor_modulSlotButton2);
-            modulSlot1Button.Click += delegate { ReplaceModulSlot(modulSlot2, Resource.Id.BordEditor_modulSlot2); };
-            //livtView 2
-            var modullist2 = FindViewById<ListView>(Resource.Id.BordEditor_modulList2);
-            modullist2.Adapter = adapter;
-            modullist2.ItemClick += Modullist2_ItemClick;
+            _mSlot1 = new BordEditor_ModulSlot(this, new BordEditor_ListAdapter(this, _modulFileNames));
+            _mainLayout.AddView(_mSlot1);
+            _mSlot1.loadNamesBtn.Click += delegate
+            {
+                GetModulFileNames();
+                _mSlot1.Adapter.NotifyDataSetChanged();
+            };
+            _mSlot1.CreateBtn.Click += delegate
+            {
+                ReplaceModulSlot(_mSlot1);
+            };
+            _mSlot1.ModuleFileNamesList.ItemClick += ModulList1_ItemClick;
 
             //Bord
             BordInit();
 
         }
 
-        private async void Modullist2_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        private async void ModulList1_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            await ReplaceModulSlot(modulSlot2, _modulFileNames[e.Position]);
+            await ReplaceModulSlot(_mSlot1, _modulFileNames[e.Position]);
         }
 
-        private async void Modullist1_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        public async void GetModulFileNames()
         {
-            await ReplaceModulSlot(modulSlot1, _modulFileNames[e.Position]);
-        }
-
-        private List<string> GetModulFiles()
-        {
-            string path = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-            var dir = new DirectoryInfo(path);
-            List<string> module = new List<string>();
-
-            foreach (var item in dir.GetFileSystemInfos())
+            List<BordEditor_ModulPhysical> tmp = new List<BordEditor_ModulPhysical>();
+            _modulFileNames.Clear();
+            tmp = await _vm.LoadModuleAsync();//get Module
+            foreach (var item in tmp)
             {
-                if (item.ToString().Contains("Modul_"))
-                {
-                    string file = item.ToString();
-                    file = file.Substring(file.IndexOf("Modul_"));
-                    file = file.Substring(file.IndexOf("Modul_"), file.IndexOf("."));
-                    module.Add(file);
-                }
+                _modulFileNames.Add(item.Name); //Get Module FileNames
             }
 
-
-            return module;
         }
 
         private void BordInit()
         {
+            //Each Pin needs a Paintview to Draw a Conection
             bord = FindViewById<BordEditor_Bord>(Resource.Id.BordEditor_Bord);
             foreach (BordEditor_BordPin p in bord.DigitalPins)
             {
@@ -111,6 +90,7 @@ namespace PrintBot.Droid.Activities
 
         private void AddPaintViewToPin(BordEditor_BordPin p)
         {
+            //Add Pinn function
             p.Click += delegate { setPlatinePin(p); };
             var paint = new BordEditor_PaintView(this);
             paint.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
@@ -153,27 +133,9 @@ namespace PrintBot.Droid.Activities
             }
         }
 
-        void ReplaceModulSlot(LinearLayout slot, int TextId)
+        void ReplaceModulSlot(BordEditor_ModulSlot slot)
         {
-            int count = 2;
-            try
-            {
-                var eText = FindViewById<EditText>(TextId).Text;
-                count = Int32.Parse(eText);
-
-                if (count < 2)
-                {
-                    count = 2;
-                }
-
-            }
-            catch
-            {
-                count = 2;
-            }
-
-
-            var modul = new BordEditor_Modul(this, count);
+            var modul = new BordEditor_Modul(this, slot.PinCount);
             _mainLayout.AddView(modul);
 
             foreach (BordEditor_Modul.ModulButton pin in modul.modulPins)
@@ -200,10 +162,12 @@ namespace PrintBot.Droid.Activities
 
         }
 
-        async Task ReplaceModulSlot(LinearLayout slot, string filename)
+        async Task ReplaceModulSlot(BordEditor_ModulSlot slot, string filename)
         {
-            var loadedModul = await _vm.LoadModule(filename);
-            BordEditor_Modul modul = new BordEditor_Modul(this, loadedModul);
+
+            var loadedModul = await _vm.LoadModuleAsync();
+            int modulIndex = GetModulFileIndexByName(filename, loadedModul);//get Index of wanted Modul
+            BordEditor_Modul modul = new BordEditor_Modul(this, loadedModul[modulIndex]);
             _mainLayout.AddView(modul);
             modul.selfDestrucktion.Click += delegate
             {
@@ -227,7 +191,7 @@ namespace PrintBot.Droid.Activities
             {
                 modulPin.Click += delegate { setModulPin(modulPin); };
 
-                BordEditor_PysicalPin index = loadedModul.PinList[i];
+                BordEditor_PysicalPin index = loadedModul[modulIndex].PinList[i];
 
                 if (index.PinType == "Digital")
                 {
@@ -250,9 +214,29 @@ namespace PrintBot.Droid.Activities
                     modulPin.ConnectePin = bord.PinVin;
                 }
 
-                modulPin.ConnectePin.pw.connectPins(modulPin.ConnectePin, modulPin);
+                if (index.PinType != null) 
+                {
+                    // if Pin ist not set do no conection
+                    modulPin.ConnectePin.pw.connectPins(modulPin.ConnectePin, modulPin);
+                }
+
                 i++;
             }
+
+        }
+
+        private int GetModulFileIndexByName(String name, List<BordEditor_ModulPhysical> modules)
+        {
+            int i = 0;
+            foreach (var item in modules)
+            {
+                if (item.Name == name)
+                {
+                    return i;
+                }
+                i++;
+            }
+            return 0;
 
         }
     }

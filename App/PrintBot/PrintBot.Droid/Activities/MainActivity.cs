@@ -13,7 +13,7 @@ using System.ComponentModel;
 
 namespace PrintBot.Droid.Activities
 {
-    [Activity(Label = "PrintBot", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "PrintBot", WindowSoftInputMode = Android.Views.SoftInput.AdjustNothing, MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         BluetoothViewModel _bluetoothVM = ServiceLocator.Current.BluetoothViewModel;

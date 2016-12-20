@@ -1,3 +1,4 @@
+using PrintBot.Domain.Models.Blocks;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace PrintBot.Domain.Models.Blocks
 {
-    public abstract class Loop : IBlock
+    public abstract class Loop : StartBlock, IBlock
     {
         public string Name { get; set; }
         public string CodeText { get; set; }

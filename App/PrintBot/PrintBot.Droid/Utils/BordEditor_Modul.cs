@@ -21,7 +21,7 @@ namespace PrintBot.Droid
         private ModuleSetupViewModel _vm;
 
         string _name;
-        
+
         public BordEditor_Modul(Context context, int pinCount) : base(context, null, 0)
         {
             Init(context, pinCount);
@@ -44,8 +44,8 @@ namespace PrintBot.Droid
 
             //modul name
             enterModulName = new EditText(context);
-            enterModulName.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, 50);
-            enterModulName.TextSize = 10;
+            enterModulName.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, 80);
+            enterModulName.TextSize = 15;
             this.AddView(enterModulName);
             enterModulName.AfterTextChanged += delegate { SetModulName(enterModulName.Text); };
 
@@ -57,8 +57,9 @@ namespace PrintBot.Droid
             selfDestrucktion.SetBackgroundColor(Color.Blue);
             this.AddView(selfDestrucktion);
 
+            //save
             Button save = new Button(context);
-            save.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, 50);
+            save.LayoutParameters = new LayoutParams(75, 50);
             save.TranslationX = 0;
             save.TranslationY = modulHeight - 100;
             save.SetBackgroundColor(Color.Pink);
@@ -80,6 +81,7 @@ namespace PrintBot.Droid
                     pin.SetBackgroundColor(Color.Black);
                     pin.Clickable = false;
                     TextView gnd = new TextView(context);
+                    gnd.SetTextColor(Color.Black);
                     gnd.LayoutParameters = new LayoutParams(75, 50);
                     gnd.Text = "Gnd";
                     gnd.TranslationX = 75;
@@ -92,7 +94,6 @@ namespace PrintBot.Droid
                     pin.SetBackgroundColor(Color.Red);
                     modulPins.Add(pin);
                 }
-
 
                 this.AddView(pin);
 
@@ -203,10 +204,14 @@ namespace PrintBot.Droid
                     var tmpPin = new BordEditor_PysicalPin(conectPin.Type, conectPin.Nr); // create new physical Pin
                     tmp.PinList.Add(tmpPin); // add physical p to PhysicalModul
                 }
-                catch { }
+                catch
+                {
+                    var tmpPin = new BordEditor_PysicalPin(); // create new empty physical Pin
+                    tmp.PinList.Add(tmpPin); // add empty physical p to PhysicalModul
+                }
             }
 
-            await _vm.SaveModule(tmp);
+            await _vm.SaveModuleAsync(tmp);
         }
     }
 }

@@ -95,6 +95,7 @@
     <Compile Include="Services\IBlockLayout.cs" />
     <Compile Include="Utils\BordEditor_Bord.cs" />
     <Compile Include="Utils\BordEditor_Modul.cs" />
+    <Compile Include="Utils\BordEditor_ModulSlot.cs" />
     <Compile Include="Utils\BordEditor_PaintView.cs" />
     <Compile Include="Utils\BordEditor_Pins\BordEditor_AnalogPin.cs" />
     <Compile Include="Utils\BordEditor_Pins\BordEditor_BordPin.cs" />
