@@ -3,34 +3,41 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="10">
-<!--CodeBlocks And CodeView-->
+    android:background="#ffffffff">
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/CodeEditor_SwitchButton"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        android:background="#00Aa00" />
+    <Button
+        android:id="@+id/CodeEditor_SettingsButton"
+        android:layout_width="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:background="#00Aa00" />
+  </RelativeLayout>
+  <!--CodeBlocks And CodeView-->
   <TextView
-    android:id="@+id/main_Sampel"
+      android:id="@+id/main_ProgramName"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
+  <LinearLayout
+    android:orientation="vertical"
+      android:id="@+id/CodeEditor_FragmentContainer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+  </LinearLayout>
+  <LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
-    <FrameLayout
-        android:id="@+id/CodeEditor_FragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <Button
-            android:id="@+id/CodeEditor_SwitchButton"
-            android:layout_width="150dp"
-            android:layout_alignParentRight="true"
-            android:layout_height="match_parent"
-            android:text="Switch"
-            android:background="#00Aa00" />
-        <Button
-            android:id="@+id/CodeEditor_SettingsButton"
-            android:layout_width="150dp"
-            android:layout_alignParentLeft="true"
-            android:layout_height="match_parent"
-            android:text="Settings"
-            android:background="#00Aa00" />
-    </RelativeLayout>
+    android:layout_height="wrap_content"
+    android:id="@+id/CodeEditor_FragmentContainerTools">
+    
+  </LinearLayout>
 </LinearLayout>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -12,6 +13,7 @@ namespace PrintBot.Domain.Models.Blocks
         public string CodeBody { get; set; }
         public string Text { get; set; }
         public bool IsChild { get; set; }
+
         public void SetCodeText(string s)
         {
             CodeText = s;

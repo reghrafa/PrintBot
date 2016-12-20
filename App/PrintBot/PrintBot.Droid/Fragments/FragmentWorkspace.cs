@@ -11,19 +11,21 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using System.Collections.ObjectModel;
+using PrintBot.Droid.Controls;
+using PrintBot.Droid.Controls.Blocks;
+using PrintBot.Domain.Models.Blocks;
 
 namespace PrintBot.Droid
 {
     public class FragmentWorkspace : Fragment
     {
-        public ObservableCollection<Button> List { get; set; }
+        public ObservableCollection<BlockLayout> List { get; set; }
         DraggableListView listView;
         DraggableListAdapter adapter;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            List = new ObservableCollection<Button>();
-            List.Add(new Button(Context));
+            List = new ObservableCollection<BlockLayout>();
             adapter = new DraggableListAdapter(Context, List);
         }
 
@@ -56,7 +58,7 @@ namespace PrintBot.Droid
 
                     break;
                 case DragAction.Entered:
-                    
+
                 case DragAction.Exited:
                     /* These two states allows you to know when the dragged view is contained atop your drop zone.
                      * Traditionally you will use that tip to display a focus ring or any other similar mechanism
@@ -74,16 +76,30 @@ namespace PrintBot.Droid
                      */
                     ListView tmp = (ListView)sender;
 
-                    var data = e.Event.ClipData.GetItemAt(0).Text;
-                    var button = (Button)e.Event.LocalState;
-                    var btn = new Button(this.Context);
-                    btn.Text = data;
-                    var parameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WrapContent, LinearLayout.LayoutParams.WrapContent);
-                    
+                    var block = (BlockLayout)e.Event.LocalState;
+
+                    // New Instance of BlockLayout is necessary
+                    var tmp2 = block.GetAnInstance();
+                    switch (block.BlockType)
+                    {
+                        case BlockLayout.BlockTypeEnum.CountingLoop:
+                            tmp2.Block = new CountingLoop();
+                            tmp2.BlockLayoutHolder = new CountingLoopBlock(tmp2.Context, tmp2.Block);
+                            tmp2.BlockType = BlockLayout.BlockTypeEnum.CountingLoop;
+                            break;
+                        case BlockLayout.BlockTypeEnum.EndlessLoop:
+                            tmp2.Block = new EndlessLoop();
+                            tmp2.BlockLayoutHolder = new EndlessLoopBlock(tmp2.Context, tmp2.Block);
+                            tmp2.BlockType = BlockLayout.BlockTypeEnum.EndlessLoop;
+                            break;
+                        default:
+                            break;
+                    }
 
                     var position = tmp.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
                     position = position == -1 ? List.Count : position;
-                    List.Insert(position, btn);
+                    List.Insert(position, tmp2);
+                    //var parameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WrapContent, LinearLayout.LayoutParams.WrapContent);
 
                     break;
                 case DragAction.Ended:

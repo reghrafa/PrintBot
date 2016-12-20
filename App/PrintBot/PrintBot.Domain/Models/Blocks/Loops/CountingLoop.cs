@@ -8,7 +8,18 @@ namespace PrintBot.Domain.Models.Blocks
 {
     public class CountingLoop : Loop
     {
-        public int AmountOfLoops { get; set; }
+        private int _amountOfLoops;
+        public int AmountOfLoops
+        {
+            get
+            {
+                return _amountOfLoops;
+            }
+            set
+            {
+                _amountOfLoops = value;
+            }
+        }
 
         public CountingLoop()
         {

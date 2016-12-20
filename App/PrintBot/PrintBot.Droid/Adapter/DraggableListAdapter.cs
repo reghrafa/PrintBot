@@ -5,17 +5,21 @@ using Java.Lang;
 using System.Collections.ObjectModel;
 using Android.App;
 using Android.Content;
+using PrintBot.Droid.Controls;
+using PrintBot.Domain.Models.Blocks;
+using PrintBot.Droid.Controls.Blocks;
+using Android.Text;
 
 namespace PrintBot.Droid
 {
     public class DraggableListAdapter : BaseAdapter, IDraggableListAdapter
     {
-        public ObservableCollection<Button> List { get; set; }
+        public ObservableCollection<BlockLayout> List { get; set; }
         public int CellPosition { get; set; }
 
         Context context;
 
-        public DraggableListAdapter(Context c, ObservableCollection<Button> list) : base()
+        public DraggableListAdapter(Context c, ObservableCollection<BlockLayout> list) : base()
         {
             List = list;
             context = c;
@@ -48,19 +52,24 @@ namespace PrintBot.Droid
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            if (convertView == null)
+            var item = List[position];
+            switch (item.BlockType)
             {
-                convertView = LayoutInflater.From(context).Inflate(Resource.Layout.list_view_item, null);
-                convertView.SetMinimumHeight(50);
-                convertView.SetBackgroundColor(Android.Graphics.Color.AliceBlue);
+                case BlockLayout.BlockTypeEnum.CountingLoop:
+                    // Get instance of the layout holder
+                    convertView = ((CountingLoopBlock)item.BlockLayoutHolder).BlockLayout;
+                    var edit = convertView.FindViewById<EditText>(Resource.Id.CountingLoop_AmountOfLoops);
+                    // Get and set the Amount of Loops stored in the Counting Loop
+                    edit.Text = ((CountingLoop)item.Block).AmountOfLoops.ToString();
+                    break;
+                case BlockLayout.BlockTypeEnum.EndlessLoop:
+                    convertView = ((EndlessLoopBlock)item.BlockLayoutHolder).BlockLayout;
+                    break;
+                default:
+                    break;
             }
 
-            var item = List[position];
-            var btn = convertView.FindViewById<Button>(Resource.Id.listView_button);
-            btn.Text = $" Hello { item.Text }";
-            btn.Clickable = false;
-            btn.LongClickable = false;
-
+            convertView.SetMinimumHeight(100);
             convertView.Visibility = CellPosition == position ? ViewStates.Invisible : ViewStates.Visible;
             convertView.TranslationY = 0;
 
@@ -73,7 +82,7 @@ namespace PrintBot.Droid
             var valueTwo = List[to];
             List[from] = valueTwo;
             List[to] = valueOne;
-            NotifyDataSetChanged();
+            //NotifyDataSetChanged();
         }
     }
 }
