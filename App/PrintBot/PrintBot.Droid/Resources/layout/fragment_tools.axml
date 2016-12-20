@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tools_scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbarSize="5dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/tools_button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button1"
+            android:textSize="12dp" />
+        <Button
+            android:id="@+id/tools_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button2"
+            android:textSize="12dp" />
+        <Button
+            android:id="@+id/tools_button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button3"
+            android:textSize="12dp" />
+        <Button
+            android:id="@+id/tools_button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button4"
+            android:textSize="12dp" />
+        <Button
+            android:id="@+id/tools_button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button5"
+            android:textSize="12dp" />
+        <Button
+            android:id="@+id/tools_button6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button6"
+            android:textSize="12dp" />
+    </LinearLayout>
+</HorizontalScrollView>
