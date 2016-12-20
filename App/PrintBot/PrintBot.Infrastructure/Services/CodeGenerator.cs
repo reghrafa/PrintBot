@@ -9,6 +9,7 @@ namespace PrintBot.Infrastructure.Services
     {
         private static int _whiteSpaceOffsetCount;
 
+
         public static string CreateCode(ObservableCollection<IBlock> list)
         {
             string output = "";
@@ -24,12 +25,31 @@ namespace PrintBot.Infrastructure.Services
                     output += CreateOffsetWhile(code) + "\n"; // add to shown string
                 }
                 else
-                {       //other Cases
+                {
+                    //other Cases
                     output += SetOffset(item) + code + "\n";
                 }
             }
 
             return output;
+        }
+        public static List<int> GetIdentForBlocks(ObservableCollection<IBlock> list)
+        {
+            var idents = new List<int>();
+            var offsetcount = 0;
+            foreach (IBlock item in list)
+            {
+                if (item is EndBlock)
+                {
+                    offsetcount--;
+                }
+                idents.Add(offsetcount);
+                if(item is StartBlock)
+                {
+                    offsetcount++;
+                }
+            }
+            return idents;
         }
 
         private static string SetOffset(IBlock item)

@@ -10,19 +10,26 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using PrintBot.Domain.Models;
+using System.Collections.ObjectModel;
 
 namespace PrintBot.Droid.Adapter
 {
     public class FileListAdapter : BaseAdapter<FileModel>
     {
         Activity context;
-        List<FileModel> list;
+        ObservableCollection<FileModel> list;
 
-        public FileListAdapter(Activity _context, List<FileModel> _list)
+        public FileListAdapter(Activity _context, ObservableCollection<FileModel> _list)
             : base()
         {
-            this.context = _context;
-            this.list = _list;
+            context = _context;
+            list = _list;
+            _list.CollectionChanged += _list_CollectionChanged;
+        }
+
+        private void _list_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            NotifyDataSetChanged();
         }
 
         public override int Count

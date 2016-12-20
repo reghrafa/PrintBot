@@ -9,43 +9,53 @@ using System.Text;
 using System.Threading.Tasks;
 using PCLStorage;
 using PrintBot.Infrastructure.Services;
+using System.Collections.ObjectModel;
 
 namespace PrintBot.Infrastructure.ViewModels
 {
     public class LastUsedFileViewModel : ViewModelBase
     {
-        public List<FileModel> FileList = new List<FileModel>();
         
         
         private string _projectsFilename = "projects.json";
+        private ObservableCollection<FileModel> _fileList = new ObservableCollection<FileModel>();
         private StorageService _storageService;
-        private IFolder _folder;
+
+        public ObservableCollection<FileModel> FileList
+        {
+            get
+            {
+                return _fileList;
+            }
+            set
+            {
+                SetProperty(ref _fileList, value);
+            }
+        }
 
         public LastUsedFileViewModel()
         {
             _storageService = new StorageService();
         }
+
         
         public async Task LoadData()
         {
             if(await _storageService.FileExistsAsync(_projectsFilename))
             {
                 var content = await _storageService.ReadFileAsync(_projectsFilename);
-                FileList = JsonConvert.DeserializeObject<List<FileModel>>(content);
-                OnPropertyChanged(nameof(FileList));
+                FileList = JsonConvert.DeserializeObject<ObservableCollection<FileModel>>(content);
             }
             
         }
         public string ChangeCreationDate(int position)
         {
             FileList[position].CreationDate = DateTime.Now;
-            OnPropertyChanged(nameof(FileList));
             return FileList[position].Title;
         }
         public void Sort()
         {
-            FileList.Sort((a, b) => b.CreationDate.CompareTo(a.CreationDate));
-            OnPropertyChanged(nameof(FileList));
+            FileList.OrderByDescending(a => a.CreationDate);
         }
 
         public async Task AddFile(string title)
@@ -54,7 +64,6 @@ namespace PrintBot.Infrastructure.ViewModels
             var filename = title + ".c";
             await _storageService.WriteFileAsync(filename, "test" + rand.Next(123781));
             FileList.Insert(0, new FileModel() { Title = title, CreationDate = DateTime.Now, FileName = filename });
-            OnPropertyChanged(nameof(FileList));
             await WriteAndRefresh();
         }
         public async Task Save()
@@ -67,7 +76,6 @@ namespace PrintBot.Infrastructure.ViewModels
         {
             var json = JsonConvert.SerializeObject(FileList);
             await _storageService.WriteFileAsync(_projectsFilename,json);
-            OnPropertyChanged(nameof(FileList));
         }
 
         private bool _openfile;
@@ -77,7 +85,7 @@ namespace PrintBot.Infrastructure.ViewModels
             set
             {
                 if (_openfile != value) _openfile = value;
-                OnPropertyChanged("OpenFile");
+                OnPropertyChanged(nameof(OpenFile));
             }
         }
     }
