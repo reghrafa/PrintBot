@@ -22,7 +22,7 @@ namespace PrintBot.Droid.Activities
         ListView _listOldFiles;
         EditText NewProjectName;
 
-        protected override void OnCreate(Bundle bundle)
+        protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
@@ -37,8 +37,9 @@ namespace PrintBot.Droid.Activities
 
             NewProjectName = FindViewById<EditText>(Resource.Id.main_NewProjectName);
 
+            await _lastUsedFileVM.LoadData();
             _listOldFiles = FindViewById<ListView>(Resource.Id.main_LastFileList);
-            _listOldFiles.Adapter = new FileListAdapter(this,_lastUsedFileVM.FileList);
+            _listOldFiles.Adapter = new FileListAdapter(this, _lastUsedFileVM.FileList);
             _listOldFiles.ItemClick += (s, e) =>
             {
                 var path = _lastUsedFileVM.ChangeCreationDate(e.Position);
@@ -46,6 +47,7 @@ namespace PrintBot.Droid.Activities
                 tmp.PutExtra("Path", path);
                 StartActivity(tmp);
             };
+
         }
 
         private async void CreateFile(Object sender, EventArgs e)
@@ -55,45 +57,7 @@ namespace PrintBot.Droid.Activities
 
         private void _lUFVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            ((BaseAdapter)_listOldFiles.Adapter).NotifyDataSetChanged();
-        }
-
-        private void _bluetoothVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(BluetoothViewModel.Connected))
-            {
-                ChangeFragment("bluetooth");
-            }
-        }
-
-        private void ChangeFragment(string fragment)
-        {
-            FragmentTransaction ft = FragmentManager.BeginTransaction();
-            switch (fragment)
-            {
-                case "bluetooth":
-                    if (!_bluetoothVM.Connected)
-                    {
-                        //ft.Replace(Resource.Id.main_fragment_container, new BluetoothScanFragment());
-                    }
-                    else
-                    {
-                        //ft.Replace(Resource.Id.main_fragment_container, new BluetoothSendFragment());
-                    }
-                    break;
-                case "files":
-                    // ft.Replace(Resource.Id.main_fragment_container, new FilesFragment());
-                    var fileBrowserActivity = new Intent(this, typeof(LastUsedFileActivity));
-                    StartActivity(fileBrowserActivity);
-                    
-                    break;
-                case "settings":
-                    // ft.Replace(Resource.Id.main_fragment_container, new SettingsFragment());
-                    break;
-                default:
-                    break;
-            }
-            ft.Commit();
+            //((BaseAdapter)_listOldFiles.Adapter).NotifyDataSetChanged();
         }
 
         protected override void OnResume()

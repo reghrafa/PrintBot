@@ -69,7 +69,6 @@
     <Compile Include="Activities\BordEditor_MainActivity.cs" />
     <Compile Include="Activities\CodeEditor_BaseActivity.cs" />
     <Compile Include="Activities\FileOpenedActivity.cs" />
-    <Compile Include="Activities\LastUsedFileActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\Settings_Editor.cs" />
     <Compile Include="Adapter\BluetoothListAdapter.cs" />
