@@ -9,7 +9,7 @@ using PrintBot.Infrastructure.Services;
 namespace PrintBot.Infrastructure.ViewModels
 {
     public class CodeEditorViewModel : ViewModelBase
-    {
+    {/*
         private string _codeString;
         public string CodeString { get { return _codeString; } private set { SetProperty(ref CodeString, _codeString, } }
 
@@ -29,6 +29,6 @@ namespace PrintBot.Infrastructure.ViewModels
                 OnPropertyChanged(nameof(FileList));
             }
 
-        }
+        }*/
     }
 }
