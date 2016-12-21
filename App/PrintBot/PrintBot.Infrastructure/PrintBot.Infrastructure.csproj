@@ -50,6 +50,7 @@
     <Compile Include="Services\CodeGenerator.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\BluetoothViewModel.cs" />
+    <Compile Include="ViewModels\CodeEditorViewModel.cs" />
     <Compile Include="ViewModels\ModuleSetupViewModel.cs" />
     <Compile Include="ViewModels\LastUsedFileViewModel.cs" />
   </ItemGroup>

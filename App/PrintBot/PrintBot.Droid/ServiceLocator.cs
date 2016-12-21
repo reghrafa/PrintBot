@@ -67,5 +67,11 @@ namespace PrintBot.Droid
         {
             get { return _lastUsedFileListViewModel ?? (_lastUsedFileListViewModel = new LastUsedFileViewModel()); }
         }
+
+        private CodeEditorViewModel _codeEditorViewModel;
+        public CodeEditorViewModel CodeEditorViewModel
+        {
+            get { return _codeEditorViewModel ?? (_codeEditorViewModel = new CodeEditorViewModel()); }
+        }
     }
 }

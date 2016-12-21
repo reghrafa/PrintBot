@@ -10,16 +10,21 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using PrintBot.Droid.Activities;
+using PrintBot.Infrastructure.ViewModels;
 
 namespace PrintBot.Droid.Activities
 {
     [Activity(Label = "Code Editor")]
     class CodeEditor_BaseActivity : Activity
     {
+        private CodeEditorViewModel _codeEditorViewModel;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.CodeEditor_Layout);
+
+            _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
 
             string text = Intent.GetStringExtra("Path") ?? "no Data";
             FindViewById<TextView>(Resource.Id.main_ProgramName).Text = text;
