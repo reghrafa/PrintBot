@@ -102,12 +102,15 @@ namespace PrintBot.Droid
             img.SetImageResource(Resource.Drawable.Platine);
             this.AddView(img);*/
 
+            var pinW = 60;
+            var pinH = 20;
+
             // digital
             int yOffset = 400;
             for (int i = 0; i <= 13; i++)
             {
                 BordEditor_DigitalPin pin = new BordEditor_DigitalPin(context);
-                pin.LayoutParameters = new LayoutParams(30, 25);
+                pin.LayoutParameters = new LayoutParams(pinW, pinH);
                 pin.TranslationX = 170;
                 pin.TranslationY = yOffset;
                 pin.parent = this;
@@ -126,7 +129,7 @@ namespace PrintBot.Droid
             for (int i = 0; i < 7; i++)
             {
                 BordEditor_AnalogPin pin = new BordEditor_AnalogPin(context);
-                pin.LayoutParameters = new LayoutParams(30, 25);
+                pin.LayoutParameters = new LayoutParams(pinW, pinH);
                 pin.TranslationX = 0;
                 pin.TranslationY = yOffset;
                 pin.parent = this;
@@ -134,7 +137,7 @@ namespace PrintBot.Droid
                 this.AddView(pin);
                 AnalogPins.Add(pin);
 
-                AddText(35, yOffset, $"A{i}", context);
+                AddText(65, yOffset, $"A{i}", context);
 
                 yOffset -= 30;
             }
@@ -144,35 +147,35 @@ namespace PrintBot.Droid
 
             //5V
             var pinV5 = new BordEditor_Pin5V(context);
-            pinV5.LayoutParameters = new LayoutParams(30, 25);
+            pinV5.LayoutParameters = new LayoutParams(pinW, pinH);
             pinV5.TranslationX = 0;
             pinV5.TranslationY = yOffset;
             pinV5.parent = this;
             this.AddView(pinV5);
             this._pin5V = pinV5;
-            AddText(35, yOffset, "5V", context);
+            AddText(65, yOffset, "5V", context);
             yOffset -= 30;
 
             // 3V
             var pinV3 = new BordEditor_Pin3V(context);
-            pinV3.LayoutParameters = new LayoutParams(30, 25);
+            pinV3.LayoutParameters = new LayoutParams(pinW, pinH);
             pinV3.TranslationX = 0;
             pinV3.TranslationY = yOffset;
             pinV3.parent = this;
             this.AddView(pinV3);
             this._pin3V = pinV3;
-            AddText(35, yOffset, "3V", context);
+            AddText(65, yOffset, "3V", context);
             yOffset -= 30;
 
             // Vin
             var pinVin = new BordEditor_PinVin(context);
-            pinVin.LayoutParameters = new LayoutParams(30, 25);
+            pinVin.LayoutParameters = new LayoutParams(pinW, pinH);
             pinVin.TranslationX = 0;
             pinVin.TranslationY = yOffset;
             pinVin.parent = this;
             this.AddView(pinVin);
             this._pinVin = pinVin;
-            AddText(35, yOffset, "Vin", context);
+            AddText(65, yOffset, "Vin", context);
 
 
         }
@@ -181,7 +184,8 @@ namespace PrintBot.Droid
         {
             TextView nr = new TextView(context);
             nr.LayoutParameters = new LayoutParams(25, 25);
-            nr.SetTextSize(ComplexUnitType.Dip, 7.5f);
+            nr.SetTextSize(ComplexUnitType.Dip, 10f);
+            nr.SetTextColor(Color.Black);
             nr.Text = text;
             nr.TranslationX = x;
             nr.TranslationY = y;
@@ -189,3 +193,15 @@ namespace PrintBot.Droid
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

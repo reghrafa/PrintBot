@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Util;
+using Android.Views;
+using Android.Widget;
+using PrintBot.Droid.Controls.Blocks;
+using static Android.Views.View;
+using PrintBot.Droid.Controls;
+
+namespace PrintBot.Droid
+{
+    public class FragmentTools : Fragment
+    {
+        CountingLoopToolbarLayout countingLoopToolbar;
+        EndlessLoopToolbarLayout endlessLoopToolbar;
+
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            // Create your fragment here
+        }
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            var view = inflater.Inflate(Resource.Layout.fragment_tools, container, false);
+            countingLoopToolbar = view.FindViewById<CountingLoopToolbarLayout>(Resource.Id.tools_CountingLoop);
+            endlessLoopToolbar = view.FindViewById<EndlessLoopToolbarLayout>(Resource.Id.tools_EndlessLoop);
+
+            countingLoopToolbar.LongClick += HandleClick;
+            endlessLoopToolbar.LongClick += HandleClick;
+
+            
+
+            return view;
+
+        }
+
+        public void HandleClick(object sender, EventArgs e)
+        {
+            var s = (BlockLayout)sender;
+            s.StartDrag(null, new DragShadowBuilder(s), s, 0);
+
+            //s.StartDragAndDrop(data, new DragShadowBuilder(s), s, 0);
+        }
+    }
+}

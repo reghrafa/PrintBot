@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:layout_width="match_parent"
+        android:text="Never ending loop"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/BordEditor_ListView_Row_filename"
-        android:text="Text" 
-        android:textColor="#0000ff"/>
+        android:textColor="@android:color/holo_blue_dark"/>
 </LinearLayout>

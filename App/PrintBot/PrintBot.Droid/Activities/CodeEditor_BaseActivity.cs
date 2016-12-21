@@ -27,13 +27,19 @@ namespace PrintBot.Droid.Activities
             _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
 
             string text = Intent.GetStringExtra("Path") ?? "no Data";
-            FindViewById<TextView>(Resource.Id.main_Sampel).Text = text;
+            FindViewById<TextView>(Resource.Id.main_ProgramName).Text = text;
 
             FindViewById<Button>(Resource.Id.CodeEditor_SettingsButton).Click += delegate
             {
                 StartActivity(typeof(Settings_Editor));
             };
 
+            FragmentTransaction ft = FragmentManager.BeginTransaction();
+            ft.Add(Resource.Id.CodeEditor_FragmentContainer, new FragmentWorkspace());
+            ft.Commit();
+            FragmentTransaction ft2 = FragmentManager.BeginTransaction();
+            ft2.Add(Resource.Id.CodeEditor_FragmentContainerTools, new FragmentTools());
+            ft2.Commit();
         }
     }
 }

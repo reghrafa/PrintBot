@@ -3,10 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BordEditor_ListView_Row_filename"
-        android:text="Text" 
-        android:textColor="#0000ff"/>
+    <ImageView
+        android:src="@drawable/countingloopicon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView1" />
 </LinearLayout>

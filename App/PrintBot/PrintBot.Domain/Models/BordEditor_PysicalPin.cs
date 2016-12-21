@@ -38,5 +38,11 @@ namespace PrintBot.Domain.Models
             this._pinType = name;
             this._pinNr = nr;
         }
+
+        public BordEditor_PysicalPin()
+        {
+         
+        }
+
     }
 }

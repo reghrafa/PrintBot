@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
 namespace PrintBot.Domain.Models.Blocks
 {
-    public class EndLoop : IBlock
+    public class EndLoop : EndBlock, IBlock
     {
         public string CodeText { get; set; }
         public string Name { get; set; }
@@ -15,5 +16,6 @@ namespace PrintBot.Domain.Models.Blocks
         {
             this.CodeText = "}";
         }
+        
     }
 }

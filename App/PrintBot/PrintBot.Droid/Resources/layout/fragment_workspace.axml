@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+    android:layout_height="400dp"
+    android:background="#ffffffff">
+    <PrintBot.Droid.DraggableListView
+        android:id="@+id/workspace_listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/BordEditor_ListView_Row_filename"
-        android:text="Text" 
-        android:textColor="#0000ff"/>
+        android:layout_height="match_parent" />
 </LinearLayout>

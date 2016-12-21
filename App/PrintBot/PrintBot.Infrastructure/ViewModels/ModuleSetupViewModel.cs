@@ -19,15 +19,45 @@ namespace PrintBot.Infrastructure.ViewModels
             _storageService = storageService;
         } 
 
-        public async Task SaveModule(BordEditor_ModulPhysical module)
+        public async Task SaveModuleAsync(BordEditor_ModulPhysical module)
         {
-            await _storageService.WriteFileAsync($"Modul_{module.Name}.txt", JsonConvert.SerializeObject(module));
+            var modules = await LoadModuleAsync();
+            BordEditor_ModulPhysical match = null;
+            try
+            {
+                match = modules.Single(x => x.Name == module.Name);
+            }
+            catch (Exception) {}
+
+            if (match != null)
+            {
+                match.PinList = module.PinList;
+            }else
+            {
+                modules.Add(module);
+            }
+
+            String jason = JsonConvert.SerializeObject(modules);
+            await _storageService.WriteFileAsync("module.json", jason);
+            
         }
 
-        public async Task<BordEditor_ModulPhysical> LoadModule(string filename)
+        public async Task<List<BordEditor_ModulPhysical>> LoadModuleAsync()
         {
-            var jsonModule = await _storageService.ReadFileAsync(filename);
-            return JsonConvert.DeserializeObject<BordEditor_ModulPhysical>(jsonModule);
+            var jsonModule = "";
+            // If module.json dose not exist create and load it it else load it strait away
+            try
+            {
+                jsonModule = await _storageService.ReadFileAsync("module.json");
+            }
+            catch (Exception)
+            {
+                var tmp = JsonConvert.SerializeObject(new List<BordEditor_ModulPhysical>());
+                await _storageService.WriteFileAsync("module.json", tmp);
+                jsonModule = await _storageService.ReadFileAsync("module.json");
+            }
+
+            return JsonConvert.DeserializeObject<List<BordEditor_ModulPhysical>>(jsonModule);
         }
     }
 }
