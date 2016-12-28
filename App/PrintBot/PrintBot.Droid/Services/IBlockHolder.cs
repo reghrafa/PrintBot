@@ -13,9 +13,13 @@ using PrintBot.Domain.Models.Blocks;
 
 namespace PrintBot.Droid.Services
 {
-    public interface IBlockLayoutHolder
+    /// <summary>
+    /// Holds the Layout and IBlock for each ListItem in the ListView
+    /// </summary>
+    public interface IBlockHolder
     {
         View BlockLayout { get; set; }
         IBlock Block { get; set; }
+        Context BlockContext { get; set; }
     }
 }

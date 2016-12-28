@@ -2,4 +2,11 @@
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">PrintBot.Droid</string>
+  <string-array name= "variable_datatypes">
+    <item>Integer</item>
+    <item>Long</item>
+    <item>Float</item>
+    <item>Double</item>
+    <item>String</item>
+  </string-array>
 </resources>

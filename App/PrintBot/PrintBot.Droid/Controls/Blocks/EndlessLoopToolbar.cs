@@ -14,19 +14,19 @@ using PrintBot.Domain.Models.Blocks;
 
 namespace PrintBot.Droid.Controls.Blocks
 {
-    public class EndlessLoopToolbarLayout : BlockLayout
+    public class EndlessLoopToolbar : BlockListItem
     {
-        public EndlessLoopToolbarLayout(Context context) : base(context)
+        public EndlessLoopToolbar(Context context) : base(context)
         {
             init();
         }
 
-        public EndlessLoopToolbarLayout(Context context, IAttributeSet attrs) : base(context, attrs)
+        public EndlessLoopToolbar(Context context, IAttributeSet attrs) : base(context, attrs)
         {
             init();
         }
 
-        public EndlessLoopToolbarLayout(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
+        public EndlessLoopToolbar(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
         {
             init();
         }
@@ -35,7 +35,6 @@ namespace PrintBot.Droid.Controls.Blocks
         {
             Inflate(Context, Resource.Layout.Toolbar_EndlessLoop, this);
             BlockType = BlockTypeEnum.EndlessLoop;
-            Block = new EndlessLoop();
         }
     }
 }

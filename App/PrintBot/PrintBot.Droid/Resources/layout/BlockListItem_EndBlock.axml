@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:text="Never ending loop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_blue_dark"/>
+        android:text="End Block"
+        android:textColor="@android:color/holo_green_light" />
 </LinearLayout>

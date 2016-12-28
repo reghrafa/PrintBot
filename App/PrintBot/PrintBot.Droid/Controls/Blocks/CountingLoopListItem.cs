@@ -18,34 +18,23 @@ namespace PrintBot.Droid.Controls.Blocks
     /// <summary>
     /// Saving the layout to interact with user input
     /// </summary>
-    public class CountingLoopBlock : IBlockLayoutHolder
+    public class CountingLoopListItem : IBlockHolder
     {
         public IBlock Block { get; set; }
-        private View _blockLayout;
-        public View BlockLayout
-        {
-            get
-            {
-                return _blockLayout;
-            }
-            set
-            {
-                _blockLayout = value;
-            }
-        }
-        private Context context;
+        public View BlockLayout { get; set; }
+        public Context BlockContext { get; set; }
         private EditText editAmountOfLoops;
 
-        public CountingLoopBlock(Context c, IBlock block)
+        public CountingLoopListItem(Context c, IBlock block)
         {
             this.Block = block;
-            context = c;
+            BlockContext = c;
             init();
         }
 
         private void init()
         {
-            BlockLayout = LayoutInflater.From(context).Inflate(Resource.Layout.Block_CountingLoop, null);
+            BlockLayout = LayoutInflater.From(BlockContext).Inflate(Resource.Layout.BlockListItem_CountingLoop, null);
             editAmountOfLoops = BlockLayout.FindViewById<EditText>(Resource.Id.CountingLoop_AmountOfLoops);
             editAmountOfLoops.TextChanged += EditAmountOfLoops_TextChanged;
         }

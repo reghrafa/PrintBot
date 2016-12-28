@@ -18,8 +18,11 @@ namespace PrintBot.Droid
 {
     public class FragmentTools : Fragment
     {
-        CountingLoopToolbarLayout countingLoopToolbar;
-        EndlessLoopToolbarLayout endlessLoopToolbar;
+        CountingLoopToolbar countingLoopToolbar;
+        EndlessLoopToolbar endlessLoopToolbar;
+        IfToolbar ifToolbar;
+        LEDToolbar ledToolbar;
+        VariableToolbar variableToolbar;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -31,21 +34,24 @@ namespace PrintBot.Droid
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.fragment_tools, container, false);
-            countingLoopToolbar = view.FindViewById<CountingLoopToolbarLayout>(Resource.Id.tools_CountingLoop);
-            endlessLoopToolbar = view.FindViewById<EndlessLoopToolbarLayout>(Resource.Id.tools_EndlessLoop);
+            countingLoopToolbar = view.FindViewById<CountingLoopToolbar>(Resource.Id.tools_CountingLoop);
+            endlessLoopToolbar = view.FindViewById<EndlessLoopToolbar>(Resource.Id.tools_EndlessLoop);
+            ifToolbar = view.FindViewById<IfToolbar>(Resource.Id.tools_If);
+            ledToolbar = view.FindViewById<LEDToolbar>(Resource.Id.tools_LED);
+            variableToolbar = view.FindViewById<VariableToolbar>(Resource.Id.tools_Variable);
 
             countingLoopToolbar.LongClick += HandleClick;
             endlessLoopToolbar.LongClick += HandleClick;
-
-            
+            ifToolbar.LongClick += HandleClick;
+            ledToolbar.LongClick += HandleClick;
+            variableToolbar.LongClick += HandleClick;
 
             return view;
-
         }
 
         public void HandleClick(object sender, EventArgs e)
         {
-            var s = (BlockLayout)sender;
+            var s = (BlockListItem)sender;
             s.StartDrag(null, new DragShadowBuilder(s), s, 0);
 
             //s.StartDragAndDrop(data, new DragShadowBuilder(s), s, 0);

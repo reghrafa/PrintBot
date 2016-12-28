@@ -6,10 +6,19 @@ using System.Text;
 
 namespace PrintBot.Domain.Models.Blocks
 {
-    public class IfBlock : IBlock
+    public class IfBlock : StartBlock, IBlock
     {
         private Condition condition;
         public string CodeText { get; set; }
+
+        public bool IsStartBlock
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public IfBlock()
         {
             Equals equ = new Equals();

@@ -1,17 +1,20 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PrintBot.Domain.Models.Blocks
 {
-    public class EndLoop : EndBlock, IBlock
+    public class LedBlock : IBlock
     {
         public string CodeText { get; set; }
-        public string Name { get; set; }
-        public string Text { get; set; }
+
         public bool IsChild { get; set; }
+
+        public string Name { get; set; }
+
+        public string Text { get; set; }
 
         public bool IsStartBlock
         {
@@ -21,10 +24,11 @@ namespace PrintBot.Domain.Models.Blocks
             }
         }
 
-        public EndLoop()
+        public LedBlock()
         {
-            this.CodeText = "}";
+            CodeText = "SomeLedMethod()";
+            Name = "Led Block";
+            Text = "It's me, LED";
         }
-        
     }
 }

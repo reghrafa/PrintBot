@@ -14,12 +14,12 @@ namespace PrintBot.Droid
 {
     public class DraggableListAdapter : BaseAdapter, IDraggableListAdapter
     {
-        public ObservableCollection<BlockLayout> List { get; set; }
+        public ObservableCollection<BlockListItem> List { get; set; }
         public int CellPosition { get; set; }
 
         Context context;
 
-        public DraggableListAdapter(Context c, ObservableCollection<BlockLayout> list) : base()
+        public DraggableListAdapter(Context c, ObservableCollection<BlockListItem> list) : base()
         {
             List = list;
             context = c;
@@ -53,17 +53,12 @@ namespace PrintBot.Droid
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var item = List[position];
+            convertView = item.BlockHolder.BlockLayout;
             switch (item.BlockType)
             {
-                case BlockLayout.BlockTypeEnum.CountingLoop:
-                    // Get instance of the layout holder
-                    convertView = ((CountingLoopBlock)item.BlockLayoutHolder).BlockLayout;
+                case BlockListItem.BlockTypeEnum.CountingLoop:
                     var edit = convertView.FindViewById<EditText>(Resource.Id.CountingLoop_AmountOfLoops);
-                    // Get and set the Amount of Loops stored in the Counting Loop
-                    edit.Text = ((CountingLoop)item.Block).AmountOfLoops.ToString();
-                    break;
-                case BlockLayout.BlockTypeEnum.EndlessLoop:
-                    convertView = ((EndlessLoopBlock)item.BlockLayoutHolder).BlockLayout;
+                    edit.Text = ((CountingLoop)item.BlockHolder.Block).AmountOfLoops.ToString();
                     break;
                 default:
                     break;
@@ -78,11 +73,16 @@ namespace PrintBot.Droid
 
         public void SwapItems(int from, int to)
         {
-            var valueOne = List[from];
-            var valueTwo = List[to];
-            List[from] = valueTwo;
-            List[to] = valueOne;
-            //NotifyDataSetChanged();
+            if (from != -1)
+            {
+                if (to != -1)
+                {
+                    var valueOne = List[from];
+                    var valueTwo = List[to];
+                    List[from] = valueTwo;
+                    List[to] = valueOne;
+                }
+            }
         }
     }
 }

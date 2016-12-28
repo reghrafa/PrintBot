@@ -11,25 +11,26 @@ using Android.Views;
 using Android.Widget;
 using Android.Util;
 using PrintBot.Domain.Models.Blocks;
+using PrintBot.Droid.Services;
 
 namespace PrintBot.Droid.Controls.Blocks
 {
     /// <summary>
     /// Layout for counting loop in the toolbar
     /// </summary>
-    public class CountingLoopToolbarLayout : BlockLayout
+    public class CountingLoopToolbar : BlockListItem
     {
-        public CountingLoopToolbarLayout(Context context) : base(context)
+        public CountingLoopToolbar(Context context) : base(context)
         {
             init();
         }
 
-        public CountingLoopToolbarLayout(Context context, IAttributeSet attrs) : base(context, attrs)
+        public CountingLoopToolbar(Context context, IAttributeSet attrs) : base(context, attrs)
         {
             init();
         }
 
-        public CountingLoopToolbarLayout(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
+        public CountingLoopToolbar(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle)
         {
             init();
         }
@@ -38,8 +39,6 @@ namespace PrintBot.Droid.Controls.Blocks
         {
             Inflate(Context, Resource.Layout.Toolbar_CountingLoop, this);
             BlockType = BlockTypeEnum.CountingLoop;
-            //blockLayout = new CountingLoopBlock(this);
-            //block = new CountingLoop();
         }
     }
 }

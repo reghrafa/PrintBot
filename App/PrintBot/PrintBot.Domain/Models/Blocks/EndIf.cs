@@ -1,17 +1,15 @@
-using PrintBot.Domain.Models.Blocks;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PrintBot.Domain.Models.Blocks
 {
-    public abstract class Loop : StartBlock, IBlock
+    public class EndIf : EndBlock, IBlock
     {
-        public string Name { get; set; }
         public string CodeText { get; set; }
-        public string CodeBody { get; set; }
+        public string Name { get; set; }
         public string Text { get; set; }
         public bool IsChild { get; set; }
 
@@ -19,13 +17,13 @@ namespace PrintBot.Domain.Models.Blocks
         {
             get
             {
-                return true;
+                return false;
             }
         }
 
-        public void SetCodeText(string s)
+        public EndIf()
         {
-            CodeText = s;
+            this.CodeText = "}";
         }
     }
 }

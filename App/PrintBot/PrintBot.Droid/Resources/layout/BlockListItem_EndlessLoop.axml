@@ -3,10 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:src="@drawable/countingloopicon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/imageView1"
-        android:padding="3dp" />
+    <TextView
+        android:text="Never ending loop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_green_light" />
 </LinearLayout>

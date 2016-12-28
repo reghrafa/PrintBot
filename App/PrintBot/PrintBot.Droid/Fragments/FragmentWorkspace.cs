@@ -19,13 +19,13 @@ namespace PrintBot.Droid
 {
     public class FragmentWorkspace : Fragment
     {
-        public ObservableCollection<BlockLayout> List { get; set; }
+        public ObservableCollection<BlockListItem> List { get; set; }
         DraggableListView listView;
         DraggableListAdapter adapter;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            List = new ObservableCollection<BlockLayout>();
+            List = new ObservableCollection<BlockListItem>();
             adapter = new DraggableListAdapter(Context, List);
         }
 
@@ -75,30 +75,19 @@ namespace PrintBot.Droid
                      * you want to do with the information.
                      */
                     ListView tmp = (ListView)sender;
-
-                    var block = (BlockLayout)e.Event.LocalState;
-
-                    // New Instance of BlockLayout is necessary
-                    var tmp2 = block.GetAnInstance();
-                    switch (block.BlockType)
-                    {
-                        case BlockLayout.BlockTypeEnum.CountingLoop:
-                            tmp2.Block = new CountingLoop();
-                            tmp2.BlockLayoutHolder = new CountingLoopBlock(tmp2.Context, tmp2.Block);
-                            tmp2.BlockType = BlockLayout.BlockTypeEnum.CountingLoop;
-                            break;
-                        case BlockLayout.BlockTypeEnum.EndlessLoop:
-                            tmp2.Block = new EndlessLoop();
-                            tmp2.BlockLayoutHolder = new EndlessLoopBlock(tmp2.Context, tmp2.Block);
-                            tmp2.BlockType = BlockLayout.BlockTypeEnum.EndlessLoop;
-                            break;
-                        default:
-                            break;
-                    }
-
+                    var block = (BlockListItem)e.Event.LocalState;
+                    // Get the Instance for the List
+                    var tmp2 = block.GetAnInstanceAndInitialize();
+                    // Get the Position in the List
                     var position = tmp.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
                     position = position == -1 ? List.Count : position;
                     List.Insert(position, tmp2);
+                    if (tmp2.BlockHolder.Block.IsStartBlock)
+                    {
+                        var tmp3 = block.GetAnInstanceOfEndBlock(block.BlockType);
+                        List.Insert(position + 1, tmp3);
+                    }
+
                     //var parameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WrapContent, LinearLayout.LayoutParams.WrapContent);
 
                     break;
