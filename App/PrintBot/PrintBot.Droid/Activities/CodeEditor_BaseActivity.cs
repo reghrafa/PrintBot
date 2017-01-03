@@ -11,27 +11,49 @@ using Android.Views;
 using Android.Widget;
 using PrintBot.Droid.Activities;
 using PrintBot.Infrastructure.ViewModels;
+using System.Collections.ObjectModel;
+using PrintBot.Droid.Controls;
+using PrintBot.Domain.Models.Blocks;
 
 namespace PrintBot.Droid.Activities
 {
     [Activity(Label = "Code Editor")]
     class CodeEditor_BaseActivity : Activity
     {
-        private CodeEditorViewModel _codeEditorViewModel;
+        private CodeEditorViewModel _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
+        public LastUsedFileViewModel _lastUsedFileViewModel = ServiceLocator.Current.LastUsedFileViewModel;
+        public ObservableCollection<BlockListItem> List { get; set; }
+        private ObservableCollection<IBlock> _listOfIBlocks;
+        public ObservableCollection<IBlock> ListOfIBlocks
+        {
+            get
+            {
+                _listOfIBlocks = new ObservableCollection<IBlock>();
+                foreach (BlockListItem b in List)
+                {
+                    _listOfIBlocks.Add(b.BlockHolder.Block);
+                }
+                return _listOfIBlocks;
+            }
+        }
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.CodeEditor_Layout);
-
-            _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
-
-            string text = Intent.GetStringExtra("Path") ?? "no Data";
-            FindViewById<TextView>(Resource.Id.main_ProgramName).Text = text;
+            List = new ObservableCollection<BlockListItem>();
+            string filename = Intent.GetStringExtra("Path") ?? "no Data";
+            string content = Intent.GetStringExtra("Content") ?? "no Data";
+            FindViewById<TextView>(Resource.Id.main_ProgramName).Text = content;
 
             FindViewById<Button>(Resource.Id.CodeEditor_SettingsButton).Click += delegate
             {
                 StartActivity(typeof(Settings_Editor));
+            };
+
+            FindViewById<Button>(Resource.Id.CodeEditor_SaveButton).Click += async delegate
+            {
+                await _lastUsedFileViewModel.SaveFile(filename, ListOfIBlocks);
             };
 
             FragmentTransaction ft = FragmentManager.BeginTransaction();

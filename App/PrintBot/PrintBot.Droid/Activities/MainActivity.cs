@@ -30,7 +30,6 @@ namespace PrintBot.Droid.Activities
             SetContentView(Resource.Layout.Main);
 
             _lastUsedFileVM = ServiceLocator.Current.LastUsedFileViewModel;
-            _lastUsedFileVM.PropertyChanged += _lUFVM_PropertyChanged;
 
             var btn = FindViewById<Button>(Resource.Id.main_CreateButton);
             btn.Click += CreateFile;
@@ -40,24 +39,21 @@ namespace PrintBot.Droid.Activities
             await _lastUsedFileVM.LoadData();
             _listOldFiles = FindViewById<ListView>(Resource.Id.main_LastFileList);
             _listOldFiles.Adapter = new FileListAdapter(this, _lastUsedFileVM.FileList);
-            _listOldFiles.ItemClick += (s, e) =>
+            _listOldFiles.ItemClick += async (s, e) =>
             {
-                var path = _lastUsedFileVM.ChangeCreationDate(e.Position);
+                var filename = _lastUsedFileVM.ChangeCreationDate(e.Position);
+                var content = _lastUsedFileVM.LoadFileData(filename);
+                var content2 = await content;
                 var tmp = new Intent(this, typeof(CodeEditor_BaseActivity));
-                tmp.PutExtra("Path", path);
+                tmp.PutExtra("Path", filename);
+                tmp.PutExtra("Content", content2);
                 StartActivity(tmp);
             };
-
         }
 
         private async void CreateFile(Object sender, EventArgs e)
         {
             await _lastUsedFileVM.AddFile(NewProjectName.Text);
-        }
-
-        private void _lUFVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //((BaseAdapter)_listOldFiles.Adapter).NotifyDataSetChanged();
         }
 
         protected override void OnResume()

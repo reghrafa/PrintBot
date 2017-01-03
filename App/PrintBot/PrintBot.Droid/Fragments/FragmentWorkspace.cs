@@ -15,34 +15,30 @@ using PrintBot.Droid.Controls;
 using PrintBot.Droid.Controls.Blocks;
 using PrintBot.Domain.Models.Blocks;
 using PrintBot.Infrastructure.Services;
+using PrintBot.Infrastructure.ViewModels;
+using PrintBot.Droid.Activities;
 
 namespace PrintBot.Droid
 {
     public class FragmentWorkspace : Fragment
     {
-        public ObservableCollection<BlockListItem> List { get; set; }
+        CodeEditor_BaseActivity _activity;
+        public ObservableCollection<BlockListItem> List
+        {
+            get
+            {
+                return _activity.List;
+            }
+        }
 
         DraggableListView listView;
         DraggableListAdapter adapter;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            List = new ObservableCollection<BlockListItem>();
+            _activity = (CodeEditor_BaseActivity)Activity;
+            //List = new ObservableCollection<BlockListItem>();
             adapter = new DraggableListAdapter(Context, List);
-            List.CollectionChanged += List_CollectionChanged;
-        }
-
-        private void List_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            //var listOfNewItems = e.NewItems;
-            //var index = e.NewStartingIndex;
-            //var leftMarginForBlock = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WrapContent,
-            //    LinearLayout.LayoutParams.WrapContent);
-            //leftMarginForBlock.LeftMargin = 10;
-            //foreach (BlockListItem b in listOfNewItems)
-            //{
-            //    b.BlockHolder.BlockLayout.LayoutParameters = leftMarginForBlock;
-            //}
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

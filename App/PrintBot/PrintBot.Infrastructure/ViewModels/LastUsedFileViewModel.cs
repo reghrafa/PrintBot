@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 using PCLStorage;
 using PrintBot.Infrastructure.Services;
 using System.Collections.ObjectModel;
+using PrintBot.Domain.Models.Blocks;
 
 namespace PrintBot.Infrastructure.ViewModels
 {
     public class LastUsedFileViewModel : ViewModelBase
     {
-        
-        
+
+
         private string _projectsFilename = "projects.json";
         private ObservableCollection<FileModel> _fileList = new ObservableCollection<FileModel>();
         private StorageService _storageService;
@@ -38,20 +39,30 @@ namespace PrintBot.Infrastructure.ViewModels
             _storageService = new StorageService();
         }
 
-        
+
         public async Task LoadData()
         {
-            if(await _storageService.FileExistsAsync(_projectsFilename))
+            if (await _storageService.FileExistsAsync(_projectsFilename))
             {
                 var content = await _storageService.ReadFileAsync(_projectsFilename);
                 FileList = JsonConvert.DeserializeObject<ObservableCollection<FileModel>>(content);
             }
-            
         }
+
+        public async Task<string> LoadFileData(string filename)
+        {
+            if (await _storageService.FileExistsAsync(filename))
+            {
+                var content = await _storageService.ReadFileAsync(filename);
+                return content;
+            }
+            return null;
+        }
+
         public string ChangeCreationDate(int position)
         {
             FileList[position].CreationDate = DateTime.Now;
-            return FileList[position].Title;
+            return FileList[position].FileName;
         }
         public void Sort()
         {
@@ -71,11 +82,18 @@ namespace PrintBot.Infrastructure.ViewModels
             await WriteAndRefresh();
         }
 
+        public async Task SaveFile(string filename, ObservableCollection<IBlock> list)
+        {
+            string listOfBlocks = JsonConvert.SerializeObject(list);
+            await _storageService.WriteFileAsync(filename, listOfBlocks);
+            await Save();
+        }
+
 
         private async Task WriteAndRefresh()
         {
             var json = JsonConvert.SerializeObject(FileList);
-            await _storageService.WriteFileAsync(_projectsFilename,json);
+            await _storageService.WriteFileAsync(_projectsFilename, json);
         }
 
         private bool _openfile;
