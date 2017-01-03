@@ -52,7 +52,7 @@ namespace PrintBot.Droid
         public void HandleClick(object sender, EventArgs e)
         {
             var s = (BlockListItem)sender;
-            s.StartDrag(null, new DragShadowBuilder(s), s, 0);
+            s.StartDrag(ClipData.NewPlainText("", ""), new DragShadowBuilder(s), s, 0);
 
             //s.StartDragAndDrop(data, new DragShadowBuilder(s), s, 0);
         }

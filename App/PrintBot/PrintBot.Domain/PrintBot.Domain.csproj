@@ -41,6 +41,7 @@
     <Compile Include="Models\Blocks\Comparators\Equals.cs" />
     <Compile Include="Models\Blocks\Comparators\NotEquals.cs" />
     <Compile Include="Models\Blocks\Condition.cs" />
+    <Compile Include="Models\Blocks\ElseBlock.cs" />
     <Compile Include="Models\Blocks\EndIf.cs" />
     <Compile Include="Models\Blocks\IfBlock.cs" />
     <Compile Include="Models\Blocks\Interfaces\IBlock.cs" />

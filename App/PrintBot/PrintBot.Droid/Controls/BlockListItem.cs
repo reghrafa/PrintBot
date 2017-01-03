@@ -82,6 +82,14 @@ namespace PrintBot.Droid.Controls
             return result;
         }
 
+        public BlockListItem GetAnInstanceOfElseBlock()
+        {
+            var result = new BlockListItem(Context);
+            result.BlockType = BlockTypeEnum.Else;
+            result.BlockHolder = new ElseListItem(Context, new ElseBlock());
+            return result;
+        }
+
         public enum BlockTypeEnum
         {
             CountingLoop = 1,
@@ -90,7 +98,8 @@ namespace PrintBot.Droid.Controls
             Variable = 6,
             LED = 7,
             IfBlock = 8,
-            EndBlock = 9
+            Else = 9,
+            EndBlock = 10
         }
     }
 }

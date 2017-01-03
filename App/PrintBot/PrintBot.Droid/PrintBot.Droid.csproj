@@ -78,6 +78,7 @@
     <Compile Include="Controls\BlockListItem.cs" />
     <Compile Include="Controls\Blocks\CountingLoopListItem.cs" />
     <Compile Include="Controls\Blocks\CountingLoopToolbar.cs" />
+    <Compile Include="Controls\Blocks\ElseListItem.cs" />
     <Compile Include="Controls\Blocks\EndBlockListItem.cs" />
     <Compile Include="Controls\Blocks\EndlessLoopListItem.cs" />
     <Compile Include="Controls\Blocks\EndlessLoopToolbar.cs" />
@@ -181,6 +182,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Variable_Datatype_SpinnerItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BlockListItem_Else.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
