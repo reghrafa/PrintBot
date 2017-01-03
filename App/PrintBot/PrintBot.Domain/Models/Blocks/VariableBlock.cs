@@ -19,7 +19,7 @@ namespace PrintBot.Domain.Models.Blocks
         public VariableBlock()
         {
             CodeText = "var x = 0";
-            Name = "Variable x";
+            Name = "Variable Block";
             Text = "Keine Ahnung";
             IsChild = false;
         }

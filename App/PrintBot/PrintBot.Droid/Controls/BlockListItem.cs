@@ -13,6 +13,7 @@ using Android.Util;
 using PrintBot.Domain.Models.Blocks;
 using PrintBot.Droid.Services;
 using PrintBot.Droid.Controls.Blocks;
+using System.Collections.ObjectModel;
 
 namespace PrintBot.Droid.Controls
 {

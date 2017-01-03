@@ -16,6 +16,7 @@ namespace PrintBot.Domain.Models.Blocks
         public EndIf()
         {
             this.CodeText = "}";
+            Name = "End If";
         }
     }
 }
