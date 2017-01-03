@@ -44,7 +44,7 @@ namespace PrintBot.Infrastructure.Services
                     offsetcount--;
                 }
                 idents.Add(offsetcount);
-                if(item is StartBlock)
+                if (item is StartBlock)
                 {
                     offsetcount++;
                 }

@@ -107,7 +107,7 @@ namespace PrintBot.Droid
                         position++;
                         List.Insert(position, block.GetAnInstanceOfElseBlock());
                     }
-                    if (tmpBlock.BlockHolder.Block.IsStartBlock)
+                    if (tmpBlock.BlockHolder.Block is StartBlock)
                     {
                         position++;
                         List.Insert(position, block.GetAnInstanceOfEndBlock(block.BlockType));

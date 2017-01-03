@@ -17,16 +17,17 @@ namespace PrintBot.Droid
     public class DraggableListAdapter : BaseAdapter, IDraggableListAdapter
     {
         public ObservableCollection<BlockListItem> List { get; set; }
+        private ObservableCollection<IBlock> _listOfIBlocks;
         public ObservableCollection<IBlock> ListOfIBlocks
         {
             get
             {
-                var list = new ObservableCollection<IBlock>();
+                _listOfIBlocks = new ObservableCollection<IBlock>();
                 foreach (BlockListItem b in List)
                 {
-                    list.Add(b.BlockHolder.Block);
+                    _listOfIBlocks.Add(b.BlockHolder.Block);
                 }
-                return list;
+                return _listOfIBlocks;
             }
         }
         public List<int> ListOfIdents
@@ -78,8 +79,19 @@ namespace PrintBot.Droid
             switch (item.BlockType)
             {
                 case BlockListItem.BlockTypeEnum.CountingLoop:
-                    var edit = item.FindViewById<EditText>(Resource.Id.CountingLoop_AmountOfLoops);
+                    var edit = result.FindViewById<EditText>(Resource.Id.CountingLoop_AmountOfLoops);
                     edit.Text = ((CountingLoop)item.BlockHolder.Block).AmountOfLoops.ToString();
+                    break;
+                case BlockListItem.BlockTypeEnum.EndBlock:
+                    var txt = result.FindViewById<TextView>(Resource.Id.BlockListItem_EndBlock_Text);
+                    if (item.BlockHolder.Block is EndIf)
+                    {
+                        txt.Text = "End If";
+                    }
+                    else if (item.BlockHolder.Block is EndLoop)
+                    {
+                        txt.Text = "End Loop";
+                    }
                     break;
                 default:
                     break;
