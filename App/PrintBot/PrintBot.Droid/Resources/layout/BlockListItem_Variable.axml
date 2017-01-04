@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <TextView
+        android:text="Variable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/holo_green_light" />
+    <Spinner
+        android:id="@+id/BlockListItem_Variable_Spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/darker_gray" />
+    <TextView
+        android:text="="
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/holo_green_light" />
+    <EditText
+        android:id="@+id/BlockListItem_Variable_Value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:layout_marginLeft="5dp"
+        android:textSize="12dp"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/holo_green_light" />
+</LinearLayout>

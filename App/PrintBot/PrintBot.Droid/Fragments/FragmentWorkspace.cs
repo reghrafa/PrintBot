@@ -11,19 +11,33 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using System.Collections.ObjectModel;
+using PrintBot.Droid.Controls;
+using PrintBot.Droid.Controls.Blocks;
+using PrintBot.Domain.Models.Blocks;
+using PrintBot.Infrastructure.Services;
+using PrintBot.Infrastructure.ViewModels;
+using PrintBot.Droid.Activities;
 
 namespace PrintBot.Droid
 {
     public class FragmentWorkspace : Fragment
     {
-        public ObservableCollection<Button> List { get; set; }
+        CodeEditor_BaseActivity _activity;
+        public ObservableCollection<BlockListItem> List
+        {
+            get
+            {
+                return _activity.List;
+            }
+        }
+
         DraggableListView listView;
         DraggableListAdapter adapter;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            List = new ObservableCollection<Button>();
-            List.Add(new Button(Context));
+            _activity = (CodeEditor_BaseActivity)Activity;
+            //List = new ObservableCollection<BlockListItem>();
             adapter = new DraggableListAdapter(Context, List);
         }
 
@@ -37,6 +51,7 @@ namespace PrintBot.Droid
 
             return view;
         }
+
         void HandleDrag(object sender, View.DragEventArgs e)
         {
             var evt = e.Event;
@@ -56,7 +71,7 @@ namespace PrintBot.Droid
 
                     break;
                 case DragAction.Entered:
-                    
+
                 case DragAction.Exited:
                     /* These two states allows you to know when the dragged view is contained atop your drop zone.
                      * Traditionally you will use that tip to display a focus ring or any other similar mechanism
@@ -72,18 +87,27 @@ namespace PrintBot.Droid
                     /* It's also probably time to get a bit of the data associated with the drag to know what
                      * you want to do with the information.
                      */
-                    ListView tmp = (ListView)sender;
+                    ListView lv = (ListView)sender;
+                    var block = (BlockListItem)e.Event.LocalState;
 
-                    var data = e.Event.ClipData.GetItemAt(0).Text;
-                    var button = (Button)e.Event.LocalState;
-                    var btn = new Button(this.Context);
-                    btn.Text = data;
-                    var parameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WrapContent, LinearLayout.LayoutParams.WrapContent);
-                    
+                    // Get the Instance for the List
+                    var tmpBlock = block.GetAnInstanceAndInitialize();
 
-                    var position = tmp.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
+                    // Get the Position in the List
+                    var position = lv.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
                     position = position == -1 ? List.Count : position;
-                    List.Insert(position, btn);
+                    List.Insert(position, tmpBlock);
+
+                    if (tmpBlock.BlockType == BlockListItem.BlockTypeEnum.IfBlock)
+                    {
+                        position++;
+                        List.Insert(position, block.GetAnInstanceOfElseBlock());
+                    }
+                    if (tmpBlock.BlockHolder.Block is StartBlock)
+                    {
+                        position++;
+                        List.Insert(position, block.GetAnInstanceOfEndBlock(block.BlockType));
+                    }
 
                     break;
                 case DragAction.Ended:

@@ -3,46 +3,47 @@
     android:id="@+id/tools_scrollview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:scrollbarSize="5dp">
+    android:scrollbarSize="5dp"
+    android:background="#ffffffff">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/tools_button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button1"
-            android:textSize="12dp" />
-        <Button
-            android:id="@+id/tools_button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button2"
-            android:textSize="12dp" />
-        <Button
-            android:id="@+id/tools_button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button3"
-            android:textSize="12dp" />
-        <Button
-            android:id="@+id/tools_button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button4"
-            android:textSize="12dp" />
-        <Button
-            android:id="@+id/tools_button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button5"
-            android:textSize="12dp" />
-        <Button
-            android:id="@+id/tools_button6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button6"
-            android:textSize="12dp" />
+        <PrintBot.Droid.Controls.Blocks.CountingLoopToolbar
+            android:id="@+id/tools_CountingLoop"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/holo_green_light" />
+        <PrintBot.Droid.Controls.Blocks.EndlessLoopToolbar
+            android:id="@+id/tools_EndlessLoop"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/holo_green_light" />
+        <PrintBot.Droid.Controls.Blocks.IfToolbar
+            android:id="@+id/tools_If"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/holo_green_light" />
+        <PrintBot.Droid.Controls.Blocks.LEDToolbar
+            android:id="@+id/tools_LED"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/holo_green_light" />
+        <PrintBot.Droid.Controls.Blocks.VariableToolbar
+            android:id="@+id/tools_Variable"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:background="@android:color/holo_green_light" />
+      <PrintBot.Droid.Controls.Blocks.MoveToolbar
+        android:id="@+id/tools_Move"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="5dp"
+        android:background="@android:color/holo_green_light" />
     </LinearLayout>
 </HorizontalScrollView>

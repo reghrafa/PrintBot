@@ -22,7 +22,7 @@ namespace PrintBot.Droid.Activities
         ListView _listOldFiles;
         EditText NewProjectName;
 
-        protected override void OnCreate(Bundle bundle)
+        protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
@@ -30,20 +30,23 @@ namespace PrintBot.Droid.Activities
             SetContentView(Resource.Layout.Main);
 
             _lastUsedFileVM = ServiceLocator.Current.LastUsedFileViewModel;
-            _lastUsedFileVM.PropertyChanged += _lUFVM_PropertyChanged;
 
             var btn = FindViewById<Button>(Resource.Id.main_CreateButton);
             btn.Click += CreateFile;
 
             NewProjectName = FindViewById<EditText>(Resource.Id.main_NewProjectName);
 
+            await _lastUsedFileVM.LoadData();
             _listOldFiles = FindViewById<ListView>(Resource.Id.main_LastFileList);
-            _listOldFiles.Adapter = new FileListAdapter(this,_lastUsedFileVM.FileList);
-            _listOldFiles.ItemClick += (s, e) =>
+            _listOldFiles.Adapter = new FileListAdapter(this, _lastUsedFileVM.FileList);
+            _listOldFiles.ItemClick += async (s, e) =>
             {
-                var path = _lastUsedFileVM.ChangeCreationDate(e.Position);
+                var filename = _lastUsedFileVM.ChangeCreationDate(e.Position);
+                var content = _lastUsedFileVM.LoadFileData(filename);
+                var content2 = await content;
                 var tmp = new Intent(this, typeof(CodeEditor_BaseActivity));
-                tmp.PutExtra("Path", path);
+                tmp.PutExtra("Path", filename);
+                tmp.PutExtra("Content", content2);
                 StartActivity(tmp);
             };
         }
@@ -51,49 +54,6 @@ namespace PrintBot.Droid.Activities
         private async void CreateFile(Object sender, EventArgs e)
         {
             await _lastUsedFileVM.AddFile(NewProjectName.Text);
-        }
-
-        private void _lUFVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            ((BaseAdapter)_listOldFiles.Adapter).NotifyDataSetChanged();
-        }
-
-        private void _bluetoothVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(BluetoothViewModel.Connected))
-            {
-                ChangeFragment("bluetooth");
-            }
-        }
-
-        private void ChangeFragment(string fragment)
-        {
-            FragmentTransaction ft = FragmentManager.BeginTransaction();
-            switch (fragment)
-            {
-                case "bluetooth":
-                    if (!_bluetoothVM.Connected)
-                    {
-                        //ft.Replace(Resource.Id.main_fragment_container, new BluetoothScanFragment());
-                    }
-                    else
-                    {
-                        //ft.Replace(Resource.Id.main_fragment_container, new BluetoothSendFragment());
-                    }
-                    break;
-                case "files":
-                    // ft.Replace(Resource.Id.main_fragment_container, new FilesFragment());
-                    var fileBrowserActivity = new Intent(this, typeof(LastUsedFileActivity));
-                    StartActivity(fileBrowserActivity);
-                    
-                    break;
-                case "settings":
-                    // ft.Replace(Resource.Id.main_fragment_container, new SettingsFragment());
-                    break;
-                default:
-                    break;
-            }
-            ft.Commit();
         }
 
         protected override void OnResume()

@@ -5,17 +5,43 @@ using Java.Lang;
 using System.Collections.ObjectModel;
 using Android.App;
 using Android.Content;
+using PrintBot.Droid.Controls;
+using PrintBot.Domain.Models.Blocks;
+using PrintBot.Droid.Controls.Blocks;
+using Android.Text;
+using PrintBot.Infrastructure.Services;
+using System.Collections.Generic;
 
 namespace PrintBot.Droid
 {
     public class DraggableListAdapter : BaseAdapter, IDraggableListAdapter
     {
-        public ObservableCollection<Button> List { get; set; }
+        public ObservableCollection<BlockListItem> List { get; set; }
+        private ObservableCollection<IBlock> _listOfIBlocks;
+        public ObservableCollection<IBlock> ListOfIBlocks
+        {
+            get
+            {
+                _listOfIBlocks = new ObservableCollection<IBlock>();
+                foreach (BlockListItem b in List)
+                {
+                    _listOfIBlocks.Add(b.BlockHolder.Block);
+                }
+                return _listOfIBlocks;
+            }
+        }
+        public List<int> ListOfIdents
+        {
+            get
+            {
+                return CodeGenerator.GetIdentForBlocks(ListOfIBlocks);
+            }
+        }
         public int CellPosition { get; set; }
 
         Context context;
 
-        public DraggableListAdapter(Context c, ObservableCollection<Button> list) : base()
+        public DraggableListAdapter(Context c, ObservableCollection<BlockListItem> list) : base()
         {
             List = list;
             context = c;
@@ -48,32 +74,32 @@ namespace PrintBot.Droid
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            if (convertView == null)
-            {
-                convertView = LayoutInflater.From(context).Inflate(Resource.Layout.list_view_item, null);
-                convertView.SetMinimumHeight(50);
-                convertView.SetBackgroundColor(Android.Graphics.Color.AliceBlue);
-            }
-
             var item = List[position];
-            var btn = convertView.FindViewById<Button>(Resource.Id.listView_button);
-            btn.Text = $" Hello { item.Text }";
-            btn.Clickable = false;
-            btn.LongClickable = false;
+            var result = item.BlockHolder.BlockLayout;
 
-            convertView.Visibility = CellPosition == position ? ViewStates.Invisible : ViewStates.Visible;
-            convertView.TranslationY = 0;
+            int amountOffset = ListOfIdents[position];
+            amountOffset *= 60;
+            amountOffset = amountOffset >= 0 ? amountOffset : 0;
+            result.SetPadding(amountOffset, 0, 0, 0);
+            result.SetMinimumHeight(150);
+            result.Visibility = CellPosition == position ? ViewStates.Invisible : ViewStates.Visible;
+            result.TranslationY = 0;
 
-            return convertView;
+            return result;
         }
 
         public void SwapItems(int from, int to)
         {
-            var valueOne = List[from];
-            var valueTwo = List[to];
-            List[from] = valueTwo;
-            List[to] = valueOne;
-            NotifyDataSetChanged();
+            if (from != -1)
+            {
+                if (to != -1)
+                {
+                    var valueOne = List[from];
+                    var valueTwo = List[to];
+                    List[from] = valueTwo;
+                    List[to] = valueOne;
+                }
+            }
         }
     }
 }
