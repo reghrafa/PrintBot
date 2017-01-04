@@ -19,6 +19,7 @@ namespace PrintBot.Droid.Controls.Blocks
         public IBlock Block { get; set; }
         public View BlockLayout { get; set; }
         public Context BlockContext { get; set; }
+        private TextView txtBlockText;
 
         public EndBlockListItem(Context c, IBlock block)
         {
@@ -30,6 +31,8 @@ namespace PrintBot.Droid.Controls.Blocks
         private void init()
         {
             BlockLayout = LayoutInflater.From(BlockContext).Inflate(Resource.Layout.BlockListItem_EndBlock, null);
+            txtBlockText = BlockLayout.FindViewById<TextView>(Resource.Id.BlockListItem_EndBlock_Text);
+            txtBlockText.Text = Block is EndIf ? "End If" : "End Loop";
         }
     }
 }

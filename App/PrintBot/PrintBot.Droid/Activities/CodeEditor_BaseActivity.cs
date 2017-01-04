@@ -124,6 +124,11 @@ namespace PrintBot.Droid.Activities
                         tmp.BlockHolder = new EndBlockListItem(this, block);
                         List.Add(tmp);
                         break;
+                    case "Move Block":
+                        tmp.BlockType = BlockListItem.BlockTypeEnum.MoveMotor;
+                        tmp.BlockHolder = new MoveListItem(this, block);
+                        List.Add(tmp);
+                        break;
                     default:
                         break;
 

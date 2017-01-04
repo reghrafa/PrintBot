@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PrintBot.Domain.Models.Blocks
 {
-    public class LedBlock : IBlock
+    public class MoveBlock : IBlock
     {
         public string CodeText { get; set; }
 
@@ -16,14 +16,14 @@ namespace PrintBot.Domain.Models.Blocks
 
         public string Text { get; set; }
 
-        public bool IsOn { get; set; }
+        public int Acceleration { get; set; }
 
-        public LedBlock()
+        public MoveBlock()
         {
-            CodeText = "SomeLedMethod()";
-            Name = "Led Block";
-            Text = "It's me, LED";
-            IsOn = false;
+            CodeText = "SomeMoveMethod()";
+            Name = "Move Block";
+            Text = "Moving on";
+            Acceleration = 5;
         }
     }
 }

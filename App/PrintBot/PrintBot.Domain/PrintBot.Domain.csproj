@@ -50,6 +50,7 @@
     <Compile Include="Models\Blocks\Loops\CountingLoop.cs" />
     <Compile Include="Models\Blocks\Loops\EndlessLoop.cs" />
     <Compile Include="Models\Blocks\Loops\EndLoop.cs" />
+    <Compile Include="Models\Blocks\MoveBlock.cs" />
     <Compile Include="Models\Blocks\VariableBlock.cs" />
     <Compile Include="Models\BordEditor_ModulPhysical.cs" />
     <Compile Include="Models\BordEditor_PysicalPin.cs" />

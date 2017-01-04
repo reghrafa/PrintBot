@@ -56,6 +56,7 @@ namespace PrintBot.Droid.Controls
                     result.BlockHolder = new LEDListItem(Context, new LedBlock());
                     break;
                 case BlockTypeEnum.MoveMotor:
+                    result.BlockHolder = new MoveListItem(Context, new MoveBlock());
                     break;
                 case BlockTypeEnum.Variable:
                     result.BlockHolder = new VariableListItem(Context, new VariableBlock());

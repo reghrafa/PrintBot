@@ -76,31 +76,9 @@ namespace PrintBot.Droid
         {
             var item = List[position];
             var result = item.BlockHolder.BlockLayout;
-            switch (item.BlockType)
-            {
-                case BlockListItem.BlockTypeEnum.CountingLoop:
-                    var edit = result.FindViewById<EditText>(Resource.Id.CountingLoop_AmountOfLoops);
-                    edit.Text = ((CountingLoop)item.BlockHolder.Block).AmountOfLoops.ToString();
-                    break;
-                case BlockListItem.BlockTypeEnum.EndBlock:
-                    var txt = result.FindViewById<TextView>(Resource.Id.BlockListItem_EndBlock_Text);
-                    if (item.BlockHolder.Block is EndIf)
-                    {
-                        txt.Text = "End If";
-                    }
-                    else if (item.BlockHolder.Block is EndLoop)
-                    {
-                        txt.Text = "End Loop";
-                    }
-                    break;
-                default:
-                    break;
-            }
 
-            var leftMarginForBlock = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WrapContent,
-                RelativeLayout.LayoutParams.WrapContent);
             int amountOffset = ListOfIdents[position];
-            amountOffset *= 45;
+            amountOffset *= 60;
             amountOffset = amountOffset >= 0 ? amountOffset : 0;
             result.SetPadding(amountOffset, 0, 0, 0);
             result.SetMinimumHeight(150);
