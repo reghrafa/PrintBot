@@ -103,7 +103,7 @@ namespace PrintBot.Droid
             this.AddView(img);*/
 
             var pinW = 60;
-            var pinH = 20;
+            var pinH = 25;
 
             // digital
             int yOffset = 400;
