@@ -51,7 +51,6 @@
     <Compile Include="Models\Blocks\Loops\EndlessLoop.cs" />
     <Compile Include="Models\Blocks\Loops\EndLoop.cs" />
     <Compile Include="Models\Blocks\VariableBlock.cs" />
-    <Compile Include="Models\BluetoothDevice.cs" />
     <Compile Include="Models\BordEditor_ModulPhysical.cs" />
     <Compile Include="Models\BordEditor_PysicalPin.cs" />
     <Compile Include="Models\FileModel.cs" />

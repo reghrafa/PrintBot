@@ -12,6 +12,5 @@ namespace PrintBot.Domain.Models
         public string Title { get; set; }
         public DateTime CreationDate { get; set; }
         public string FileName { get; set; }
-        public string StringListOfBlocks { get; set; }
     }
 }
