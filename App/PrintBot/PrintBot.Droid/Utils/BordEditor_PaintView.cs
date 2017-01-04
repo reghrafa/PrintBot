@@ -4,6 +4,7 @@ using Android.Graphics;
 using Android.Content;
 using Android.Util;
 using Android.Widget;
+using static Android.Widget.AbsListView;
 
 namespace PrintBot.Droid
 {
@@ -36,6 +37,12 @@ namespace PrintBot.Droid
         protected override void OnDraw(Canvas canvas)
         {
             canvas.DrawPath(_drawPath, _drawPaint);
+        }
+
+        public void setSiz()
+        {
+            this.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
+
         }
 
         public void connectPins(Button pin1, Button pin2)

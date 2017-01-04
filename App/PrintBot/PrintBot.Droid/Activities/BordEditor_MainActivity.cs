@@ -23,7 +23,9 @@ namespace PrintBot.Droid.Activities
         private List<string> _modulFileNames = new List<string>();
         private ModuleSetupViewModel _vm;
 
-        private BordEditor_ModulSlot _mSlot1;
+        // ModulSlotPositions in px (dp*2)
+        private Point[] _mSlotPositions = new Point[] 
+        { new Point(0, 0), new Point(550, 0)};
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -35,27 +37,37 @@ namespace PrintBot.Droid.Activities
 
             _mainLayout = FindViewById<RelativeLayout>(Resource.Id.BordEditor_MainLayout);
 
-            _mSlot1 = new BordEditor_ModulSlot(this, new BordEditor_ListAdapter(this, _modulFileNames));
-            _mainLayout.AddView(_mSlot1);
-            _mSlot1.loadNamesBtn.Click += delegate
+            // Create MSlots at _mSlotPositions          
+            foreach (var point in _mSlotPositions)
             {
-                GetModulFileNames();
-                _mSlot1.Adapter.NotifyDataSetChanged();
-            };
-            _mSlot1.CreateBtn.Click += delegate
-            {
-                ReplaceModulSlot(_mSlot1);
-            };
-            _mSlot1.ModuleFileNamesList.ItemClick += ModulList1_ItemClick;
+                var tmp = new BordEditor_ModulSlot(this, new BordEditor_ListAdapter(this, _modulFileNames));
+                _mainLayout.AddView(tmp);
+
+                tmp.loadNamesBtn.Click += delegate
+                {
+                    GetModulFileNames();
+                    tmp.Adapter.NotifyDataSetChanged();
+                };
+                tmp.CreateBtn.Click += delegate
+                {
+                    ReplaceModulSlot(tmp);
+                };
+
+                tmp.ModuleFileNamesList.ItemClick +=
+                    (object o, AdapterView.ItemClickEventArgs e) => ModulList_ItemClick(o, e, tmp);
+
+                tmp.TranslationX = point.X;
+                tmp.TranslationY = point.Y;
+            }
 
             //Bord
             BordInit();
 
         }
 
-        private async void ModulList1_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        private async void ModulList_ItemClick(object sender, AdapterView.ItemClickEventArgs e, BordEditor_ModulSlot m)
         {
-            await ReplaceModulSlot(_mSlot1, _modulFileNames[e.Position]);
+            await ReplaceModulSlot(m, _modulFileNames[e.Position]);
         }
 
         public async void GetModulFileNames()
@@ -214,7 +226,7 @@ namespace PrintBot.Droid.Activities
                     modulPin.ConnectePin = bord.PinVin;
                 }
 
-                if (index.PinType != null) 
+                if (index.PinType != null)
                 {
                     // if Pin ist not set do no conection
                     modulPin.ConnectePin.pw.connectPins(modulPin.ConnectePin, modulPin);
@@ -238,6 +250,18 @@ namespace PrintBot.Droid.Activities
             }
             return 0;
 
+        }
+
+        private class Point
+        {
+            public float X { get; set; }
+            public float Y { get; set; }
+
+            public Point(float x, float y)
+            {
+                X = x;
+                Y = y;
+            }
         }
     }
 }

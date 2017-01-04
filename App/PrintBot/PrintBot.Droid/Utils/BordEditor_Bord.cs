@@ -102,30 +102,32 @@ namespace PrintBot.Droid
             img.SetImageResource(Resource.Drawable.Platine);
             this.AddView(img);*/
 
-            var pinW = 60;
-            var pinH = 20;
+            var pinW = 50;
+            var pinH = 50;
+            var offsetDec = 60;
+            var textSet = 145;
 
             // digital
-            int yOffset = 400;
+            int yOffset = 730;
             for (int i = 0; i <= 13; i++)
             {
                 BordEditor_DigitalPin pin = new BordEditor_DigitalPin(context);
                 pin.LayoutParameters = new LayoutParams(pinW, pinH);
-                pin.TranslationX = 170;
+                pin.TranslationX = 150;
                 pin.TranslationY = yOffset;
                 pin.parent = this;
                 pin.Nr = i;
                 this.AddView(pin);
                 DigitalPins.Add(pin);
 
-                AddText(145, yOffset, i + "", context);
+                AddText(130, yOffset, i + "", context);
 
-                yOffset -= 30;
+                yOffset -= offsetDec;
 
             }
 
             //Analog
-            yOffset = 400;
+            yOffset = 730;
             for (int i = 0; i < 7; i++)
             {
                 BordEditor_AnalogPin pin = new BordEditor_AnalogPin(context);
@@ -137,13 +139,13 @@ namespace PrintBot.Droid
                 this.AddView(pin);
                 AnalogPins.Add(pin);
 
-                AddText(65, yOffset, $"A{i}", context);
+                AddText(75, yOffset, $"A{i}", context);
 
-                yOffset -= 30;
+                yOffset -= offsetDec;
             }
 
             // GND
-            yOffset -= 60;
+            yOffset -= 2*offsetDec;
 
             //5V
             var pinV5 = new BordEditor_Pin5V(context);
@@ -154,7 +156,7 @@ namespace PrintBot.Droid
             this.AddView(pinV5);
             this._pin5V = pinV5;
             AddText(65, yOffset, "5V", context);
-            yOffset -= 30;
+            yOffset -= offsetDec;
 
             // 3V
             var pinV3 = new BordEditor_Pin3V(context);
@@ -165,7 +167,7 @@ namespace PrintBot.Droid
             this.AddView(pinV3);
             this._pin3V = pinV3;
             AddText(65, yOffset, "3V", context);
-            yOffset -= 30;
+            yOffset -= offsetDec;
 
             // Vin
             var pinVin = new BordEditor_PinVin(context);

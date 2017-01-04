@@ -52,6 +52,7 @@ namespace PrintBot.Droid
         {
             pw = new BordEditor_PaintView(context);
             pw.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
+            
         }
         public BordEditor_BordPin(Context context, IAttributeSet attrs) : base(context, attrs)
         {
@@ -68,5 +69,6 @@ namespace PrintBot.Droid
         { 
             return base.GetY() + Height / 2 + parent.GetY();
         }
+
     }
 }

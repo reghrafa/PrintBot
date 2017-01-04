@@ -82,7 +82,7 @@ namespace PrintBot.Droid
                     ClipData data = ClipData.NewPlainText("Bla", "Blub");
                     DragShadowBuilder shadowBuilder = new DragShadowBuilder(v);
                     // v.StartDrag(data, shadowBuilder, v, 0);
-                    v.StartDragAndDrop(data, shadowBuilder, v, 0);
+                   v.StartDragAndDrop(data, shadowBuilder, v, 0);
                     // v.SetVisibility(View.INVISIBLE) ?
                     return true;
                 }
