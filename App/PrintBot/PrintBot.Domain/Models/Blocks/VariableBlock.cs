@@ -16,18 +16,10 @@ namespace PrintBot.Domain.Models.Blocks
 
         public string Text { get; set; }
 
-        public bool IsStartBlock
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         public VariableBlock()
         {
             CodeText = "var x = 0";
-            Name = "Variable x";
+            Name = "Variable Block";
             Text = "Keine Ahnung";
             IsChild = false;
         }

@@ -13,17 +13,10 @@ namespace PrintBot.Domain.Models.Blocks
         public string Text { get; set; }
         public bool IsChild { get; set; }
 
-        public bool IsStartBlock
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         public EndLoop()
         {
             this.CodeText = "}";
+            Name = "End Loop";
         }
         
     }

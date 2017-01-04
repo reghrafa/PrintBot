@@ -9,12 +9,34 @@ using PrintBot.Droid.Controls;
 using PrintBot.Domain.Models.Blocks;
 using PrintBot.Droid.Controls.Blocks;
 using Android.Text;
+using PrintBot.Infrastructure.Services;
+using System.Collections.Generic;
 
 namespace PrintBot.Droid
 {
     public class DraggableListAdapter : BaseAdapter, IDraggableListAdapter
     {
         public ObservableCollection<BlockListItem> List { get; set; }
+        private ObservableCollection<IBlock> _listOfIBlocks;
+        public ObservableCollection<IBlock> ListOfIBlocks
+        {
+            get
+            {
+                _listOfIBlocks = new ObservableCollection<IBlock>();
+                foreach (BlockListItem b in List)
+                {
+                    _listOfIBlocks.Add(b.BlockHolder.Block);
+                }
+                return _listOfIBlocks;
+            }
+        }
+        public List<int> ListOfIdents
+        {
+            get
+            {
+                return CodeGenerator.GetIdentForBlocks(ListOfIBlocks);
+            }
+        }
         public int CellPosition { get; set; }
 
         Context context;
@@ -53,22 +75,39 @@ namespace PrintBot.Droid
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var item = List[position];
-            convertView = item.BlockHolder.BlockLayout;
+            var result = item.BlockHolder.BlockLayout;
             switch (item.BlockType)
             {
                 case BlockListItem.BlockTypeEnum.CountingLoop:
-                    var edit = convertView.FindViewById<EditText>(Resource.Id.CountingLoop_AmountOfLoops);
+                    var edit = result.FindViewById<EditText>(Resource.Id.CountingLoop_AmountOfLoops);
                     edit.Text = ((CountingLoop)item.BlockHolder.Block).AmountOfLoops.ToString();
+                    break;
+                case BlockListItem.BlockTypeEnum.EndBlock:
+                    var txt = result.FindViewById<TextView>(Resource.Id.BlockListItem_EndBlock_Text);
+                    if (item.BlockHolder.Block is EndIf)
+                    {
+                        txt.Text = "End If";
+                    }
+                    else if (item.BlockHolder.Block is EndLoop)
+                    {
+                        txt.Text = "End Loop";
+                    }
                     break;
                 default:
                     break;
             }
 
-            convertView.SetMinimumHeight(100);
-            convertView.Visibility = CellPosition == position ? ViewStates.Invisible : ViewStates.Visible;
-            convertView.TranslationY = 0;
+            var leftMarginForBlock = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WrapContent,
+                RelativeLayout.LayoutParams.WrapContent);
+            int amountOffset = ListOfIdents[position];
+            amountOffset *= 45;
+            amountOffset = amountOffset >= 0 ? amountOffset : 0;
+            result.SetPadding(amountOffset, 0, 0, 0);
+            result.SetMinimumHeight(150);
+            result.Visibility = CellPosition == position ? ViewStates.Invisible : ViewStates.Visible;
+            result.TranslationY = 0;
 
-            return convertView;
+            return result;
         }
 
         public void SwapItems(int from, int to)

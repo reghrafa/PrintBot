@@ -12,6 +12,5 @@ namespace PrintBot.Domain.Models.Blocks
         string Name { get; set; }
         string Text { get; set; }
         bool IsChild { get; set; }
-        bool IsStartBlock { get; }
     }
 }

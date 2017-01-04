@@ -14,18 +14,30 @@ using System.Collections.ObjectModel;
 using PrintBot.Droid.Controls;
 using PrintBot.Droid.Controls.Blocks;
 using PrintBot.Domain.Models.Blocks;
+using PrintBot.Infrastructure.Services;
+using PrintBot.Infrastructure.ViewModels;
+using PrintBot.Droid.Activities;
 
 namespace PrintBot.Droid
 {
     public class FragmentWorkspace : Fragment
     {
-        public ObservableCollection<BlockListItem> List { get; set; }
+        CodeEditor_BaseActivity _activity;
+        public ObservableCollection<BlockListItem> List
+        {
+            get
+            {
+                return _activity.List;
+            }
+        }
+
         DraggableListView listView;
         DraggableListAdapter adapter;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            List = new ObservableCollection<BlockListItem>();
+            _activity = (CodeEditor_BaseActivity)Activity;
+            //List = new ObservableCollection<BlockListItem>();
             adapter = new DraggableListAdapter(Context, List);
         }
 
@@ -39,6 +51,7 @@ namespace PrintBot.Droid
 
             return view;
         }
+
         void HandleDrag(object sender, View.DragEventArgs e)
         {
             var evt = e.Event;
@@ -74,21 +87,27 @@ namespace PrintBot.Droid
                     /* It's also probably time to get a bit of the data associated with the drag to know what
                      * you want to do with the information.
                      */
-                    ListView tmp = (ListView)sender;
+                    ListView lv = (ListView)sender;
                     var block = (BlockListItem)e.Event.LocalState;
-                    // Get the Instance for the List
-                    var tmp2 = block.GetAnInstanceAndInitialize();
-                    // Get the Position in the List
-                    var position = tmp.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
-                    position = position == -1 ? List.Count : position;
-                    List.Insert(position, tmp2);
-                    if (tmp2.BlockHolder.Block.IsStartBlock)
-                    {
-                        var tmp3 = block.GetAnInstanceOfEndBlock(block.BlockType);
-                        List.Insert(position + 1, tmp3);
-                    }
 
-                    //var parameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WrapContent, LinearLayout.LayoutParams.WrapContent);
+                    // Get the Instance for the List
+                    var tmpBlock = block.GetAnInstanceAndInitialize();
+
+                    // Get the Position in the List
+                    var position = lv.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
+                    position = position == -1 ? List.Count : position;
+                    List.Insert(position, tmpBlock);
+
+                    if (tmpBlock.BlockType == BlockListItem.BlockTypeEnum.IfBlock)
+                    {
+                        position++;
+                        List.Insert(position, block.GetAnInstanceOfElseBlock());
+                    }
+                    if (tmpBlock.BlockHolder.Block is StartBlock)
+                    {
+                        position++;
+                        List.Insert(position, block.GetAnInstanceOfEndBlock(block.BlockType));
+                    }
 
                     break;
                 case DragAction.Ended:
