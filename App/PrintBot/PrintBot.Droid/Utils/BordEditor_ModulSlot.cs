@@ -53,76 +53,98 @@ namespace PrintBot.Droid.Utils
 
         private int _pinCount = 2;
 
-        public BordEditor_ModulSlot(Context context, BordEditor_ListAdapter adapter) : base(context, null, 0)
+        public BordEditor_ModulSlot(Context context, BordEditor_ListAdapter adapter,bool isRightFromBorad) : base(context, null, 0)
         {
-            Init(context, adapter);
+            Init(context, adapter, isRightFromBorad);
         }
 
-        private void Init(Context context, BordEditor_ListAdapter adapter)
+        private void Init(Context context, BordEditor_ListAdapter adapter, bool isRightfromBorad)
         {
             Adapter = adapter;
 
-            this.LayoutParameters = new LayoutParams(200, 300);
+            var scale = PrintBot.Droid.Activities.BordEditor_MainActivity._scaleFactor;
+            var screenWidth = PrintBot.Droid.Activities.BordEditor_MainActivity._screenWidth;
+
+            int w = (int)scale * 100;
+            int h = (int)scale * 250;
+            int buttonHeight = (int)scale * 25;
+            int textViewHeight = (int)scale * 25;
+
+            int yOffset = 0; // postion of elements
+
+            this.LayoutParameters = new LayoutParams(w, h);
             this.SetBackgroundColor(Color.LightGray);
 
             //Create
             CreateBtn = new Button(context);
-            CreateBtn.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, 100);
+            CreateBtn.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, 2 * buttonHeight);
             CreateBtn.Text = "NEW";
+            CreateBtn.TranslationY = yOffset;
             this.AddView(CreateBtn);
+            yOffset += 2 * buttonHeight;
+
+            //Place Slot rigth From Bord;
+            if (isRightfromBorad)
+            {
+                this.TranslationX = screenWidth - w;
+            }
 
             //PinCount
             _pinCountTextView = new TextView(context);
-            _pinCountTextView.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, 50);
-            _pinCountTextView.TranslationY = 100;
+            _pinCountTextView.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, textViewHeight);
             _pinCountTextView.Text = $"{_pinCount} pins";
+            _pinCountTextView.TextAlignment = TextAlignment.Center;
             _pinCountTextView.SetTextColor(Color.Black);
+            _pinCountTextView.TranslationY = yOffset;
             this.AddView(_pinCountTextView);
+            yOffset += textViewHeight;
 
             // inc Pins
             _pinCountINC = new Button(context);
-            _pinCountINC.LayoutParameters = new LayoutParams(100, 50);
-            _pinCountINC.TranslationY = 150;
+            _pinCountINC.LayoutParameters = new LayoutParams(2 * buttonHeight, buttonHeight * 2);
             _pinCountINC.Text = "+";
+            _pinCountINC.TranslationY = yOffset;
             this.AddView(_pinCountINC);
             _pinCountINC.Click += delegate
             {
                 SetPinCount(1);
             };
 
+
             // dec Pins
             _pinCountDEC = new Button(context);
-            _pinCountDEC.LayoutParameters = new LayoutParams(100, 50);
-            _pinCountDEC.TranslationX = 100;
-            _pinCountDEC.TranslationY = 150;
+            _pinCountDEC.LayoutParameters = new LayoutParams(2 * buttonHeight, buttonHeight * 2);
+            _pinCountDEC.TranslationY = yOffset;
             _pinCountDEC.Text = "-";
+            _pinCountDEC.TranslationX = w / 2;
             this.AddView(_pinCountDEC);
             _pinCountDEC.Click += delegate
             {
                 SetPinCount(-1);
             };
+            yOffset += 2 * buttonHeight;
 
-            //Text
+            //load
             loadNamesBtn = new Button(context);
-            loadNamesBtn.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, 50);
-            loadNamesBtn.TranslationY = 200;
-            loadNamesBtn.Text = "Load Moduls";
-            loadNamesBtn.TextSize = 20;
+            loadNamesBtn.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, buttonHeight * 2);
+            loadNamesBtn.TranslationY = yOffset;
+            loadNamesBtn.Text = "Load";
             loadNamesBtn.SetTextColor(Color.White);
             this.AddView(loadNamesBtn);
+            yOffset += buttonHeight * 2;
 
             //scroll
             var tmp = new ScrollView(context);
-            tmp.LayoutParameters = new LayoutParams(300, LayoutParams.WrapContent);
+            tmp.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, buttonHeight * 2);
             tmp.SetBackgroundColor(Color.White);
-            tmp.TranslationY = 250;
+            tmp.TranslationY = yOffset;
             this.AddView(tmp);
 
             //list
             _moduleFileNamesList = new ListView(context);
-            _moduleFileNamesList.LayoutParameters = new LayoutParams(300, LayoutParams.WrapContent);
+            _moduleFileNamesList.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
             _moduleFileNamesList.Adapter = Adapter;
-            
+
             tmp.AddView(_moduleFileNamesList);
 
         }

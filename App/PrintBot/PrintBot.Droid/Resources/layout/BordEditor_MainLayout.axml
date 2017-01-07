@@ -5,10 +5,12 @@
     android:minWidth="25px"
     android:minHeight="25px"
     android:id="@+id/BordEditor_MainLayout">
-    <PrintBot.Droid.BordEditor_Bord
+  <!--
+       <PrintBot.Droid.BordEditor_Bord
         android:layout_width="100dp"
         android:layout_height="390dp"
         android:id="@+id/BordEditor_Bord"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
+        -->
 </RelativeLayout>

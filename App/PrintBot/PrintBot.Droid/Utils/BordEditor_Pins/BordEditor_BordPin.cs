@@ -21,6 +21,8 @@ namespace PrintBot.Droid
         public BordEditor_PaintView pw;
         public BordEditor_Bord parent;
         private string _type;  // to be set in child pin classes
+        public Color BackgroundColor { get; set; } // to be set in child pin classes
+        public BordEditor_Modul.ModulButton ConectetPin { get; set; }
 
         public int Nr
         {

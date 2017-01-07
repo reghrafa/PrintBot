@@ -93,41 +93,49 @@ namespace PrintBot.Droid
             }
         }
 
-        private void Init(Context context)
+        public void Init(Context context)
         {
             this.SetBackgroundColor(Color.Aqua);
-            /*ImageView img = new ImageView(context);
-            img.ScaleY = 1.5f;
-            img.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
-            img.SetImageResource(Resource.Drawable.Platine);
-            this.AddView(img);*/
 
-            var pinW = 50;
-            var pinH = 50;
-            var offsetDec = 60;
-            var textSet = 145;
+            var scale = (int)PrintBot.Droid.Activities.BordEditor_MainActivity._scaleFactor;
+
+            var w = 100 * scale;
+            var h = 390 * scale;
+
+            var pinW = 25 * scale;
+            var pinH = 25 * scale;
+            var pinTransX = w - pinW;
+
+            var OffsetDec = 30 * scale;
+            var textX = w - 2 * pinW;
+
+            this.LayoutParameters = new LayoutParams(w, h);
+
+            float tmp = PrintBot.Droid.Activities.BordEditor_MainActivity._screenWidth / 2;
+            this.TranslationX = tmp - w / 2;
 
             // digital
-            int yOffset = 730;
+            int yOffset = h - pinH;
             for (int i = 0; i <= 13; i++)
             {
                 BordEditor_DigitalPin pin = new BordEditor_DigitalPin(context);
                 pin.LayoutParameters = new LayoutParams(pinW, pinH);
-                pin.TranslationX = 150;
+                pin.TranslationX = pinTransX;
                 pin.TranslationY = yOffset;
                 pin.parent = this;
                 pin.Nr = i;
                 this.AddView(pin);
                 DigitalPins.Add(pin);
+                pin.Text = i + "";
 
-                AddText(130, yOffset, i + "", context);
+                //AddText(textX, yOffset, i + "", context);
 
-                yOffset -= offsetDec;
+                yOffset -= OffsetDec;
 
             }
 
             //Analog
-            yOffset = 730;
+            yOffset = h - pinH;
             for (int i = 0; i < 7; i++)
             {
                 BordEditor_AnalogPin pin = new BordEditor_AnalogPin(context);
@@ -138,14 +146,15 @@ namespace PrintBot.Droid
                 pin.Nr = i;
                 this.AddView(pin);
                 AnalogPins.Add(pin);
+                pin.Text = $"A{i}";
 
-                AddText(75, yOffset, $"A{i}", context);
+                //AddText(75, yOffset, $"A{i}", context);
 
-                yOffset -= offsetDec;
+                yOffset -= OffsetDec;
             }
 
             // GND
-            yOffset -= 2*offsetDec;
+            yOffset -= 2*OffsetDec;
 
             //5V
             var pinV5 = new BordEditor_Pin5V(context);
@@ -155,8 +164,8 @@ namespace PrintBot.Droid
             pinV5.parent = this;
             this.AddView(pinV5);
             this._pin5V = pinV5;
-            AddText(65, yOffset, "5V", context);
-            yOffset -= offsetDec;
+            pinV5.Text = "5V";
+            yOffset -= OffsetDec;
 
             // 3V
             var pinV3 = new BordEditor_Pin3V(context);
@@ -166,8 +175,8 @@ namespace PrintBot.Droid
             pinV3.parent = this;
             this.AddView(pinV3);
             this._pin3V = pinV3;
-            AddText(65, yOffset, "3V", context);
-            yOffset -= offsetDec;
+            pinV3.Text = "3V";
+            yOffset -= OffsetDec;
 
             // Vin
             var pinVin = new BordEditor_PinVin(context);
@@ -177,7 +186,7 @@ namespace PrintBot.Droid
             pinVin.parent = this;
             this.AddView(pinVin);
             this._pinVin = pinVin;
-            AddText(65, yOffset, "Vin", context);
+            pinVin.Text = "Vin";
 
 
         }

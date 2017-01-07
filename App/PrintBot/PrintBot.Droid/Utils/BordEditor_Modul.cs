@@ -30,74 +30,81 @@ namespace PrintBot.Droid
         public BordEditor_Modul(Context context, BordEditor_ModulPhysical modul) : base(context, null, 0)
         {
             Init(context, modul.PinList.Count);
+            _vm = ServiceLocator.Current.ModuleSetupViewModel;
+            enterModulName.Text = modul.Name;
 
         }
         //  public Modul_2Pins(Context context, IAttributeSet attrs) : base(context, attrs) { Init(context); }
         //  public Modul_2Pins(Context context, IAttributeSet attrs, int defStyle) : base(context, attrs, defStyle) { Init(context); }
 
+
         private void Init(Context context, int pinCount)
         {
+
+            var scale = (int) PrintBot.Droid.Activities.BordEditor_MainActivity._scaleFactor;
+            var enterTexHeiht = 40 * scale;
+            var buttonsize = 25 * scale;
+            var modulMinHeight = 55 * scale + 2 * buttonsize;
+
+
             pinCount += 1; // on extra for gnd
-            int modulHeight = 110 + (60 * pinCount);
-            this.LayoutParameters = new LayoutParams(200, modulHeight);
+            int modulHeight = modulMinHeight + (30 * pinCount * scale);
+            int modulWidth = 100 * scale;
+            this.LayoutParameters = new LayoutParams(modulWidth, modulHeight);
             this.SetBackgroundColor(Color.PowderBlue);
 
             //modul name
             enterModulName = new EditText(context);
-            enterModulName.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, 80);
+            enterModulName.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, enterTexHeiht);
             enterModulName.TextSize = 15;
+            enterModulName.SetTextColor( Color.Black);
             this.AddView(enterModulName);
             enterModulName.AfterTextChanged += delegate { SetModulName(enterModulName.Text); };
 
             //delet modul
             selfDestrucktion = new Button(context);
-            selfDestrucktion.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, 50);
+            selfDestrucktion.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, buttonsize);
             selfDestrucktion.TranslationX = 0;
-            selfDestrucktion.TranslationY = modulHeight - 50;
+            selfDestrucktion.TranslationY = modulHeight - buttonsize;
             selfDestrucktion.SetBackgroundColor(Color.Blue);
             this.AddView(selfDestrucktion);
 
             //save
             Button save = new Button(context);
-            save.LayoutParameters = new LayoutParams(75, 50);
+            save.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, buttonsize);
             save.TranslationX = 0;
-            save.TranslationY = modulHeight - 100;
+            save.TranslationY = modulHeight - 2*buttonsize;
             save.SetBackgroundColor(Color.Pink);
             this.AddView(save);
             save.Click += async delegate { await createPhysicalModul(); };
 
 
             //create pins
-            int yOffset = 60;
+            int yOffset =enterTexHeiht;
             for (int i = 0; i < pinCount; i++)
             {
                 var pin = new ModulButton(context, this);
-                pin.LayoutParameters = new LayoutParams(50, 50);
-                pin.TranslationX = 150;
+                pin.LayoutParameters = new LayoutParams(2* buttonsize, buttonsize); 
+
+                pin.TranslationX = 2* buttonsize;
                 pin.TranslationY = yOffset;
 
                 if (i == pinCount - 1)
                 {
                     pin.SetBackgroundColor(Color.Black);
                     pin.Clickable = false;
-                    TextView gnd = new TextView(context);
-                    gnd.SetTextColor(Color.Black);
-                    gnd.LayoutParameters = new LayoutParams(75, 50);
-                    gnd.Text = "Gnd";
-                    gnd.TranslationX = 75;
-                    gnd.TranslationY = yOffset;
-                    this.AddView(gnd);
-
+                    pin.Text = "GND";
+                    pin.SetTextColor(Color.White);
                 }
                 else
                 {
-                    pin.SetBackgroundColor(Color.Red);
+                    pin.SetBackgroundColor(Color.White);
                     modulPins.Add(pin);
                 }
 
                 this.AddView(pin);
 
-                yOffset += 60;
+                yOffset += 30 * scale;
             }
         }
 
@@ -147,6 +154,12 @@ namespace PrintBot.Droid
             public ModulButton(Context context, BordEditor_Modul parent) : base(context, null, 0) { Init(parent); }
 
             public ModulButton(Context context, IAttributeSet attrs) : base(context, attrs) { }
+
+            public void reset()
+            {
+                this.SetBackgroundColor(Color.White);
+                this.Text = "";
+            }
 
             private void Init(BordEditor_Modul rel)
             {
