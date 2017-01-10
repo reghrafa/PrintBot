@@ -16,6 +16,7 @@ using PrintBot.Droid.Controls;
 using PrintBot.Domain.Models.Blocks;
 using Newtonsoft.Json;
 using PrintBot.Droid.Controls.Blocks;
+using PrintBot.Droid.Fragments;
 
 namespace PrintBot.Droid.Activities
 {
@@ -40,6 +41,20 @@ namespace PrintBot.Droid.Activities
                 StartActivity(typeof(Settings_Editor));
             };
 
+            FindViewById<ToggleButton>(Resource.Id.CodeEditor_SwitchButton).Click += (s, e) =>
+            {
+                if ((s as ToggleButton).Checked)
+                {
+                    ChangeFragment(new FragmentWorkspace());
+                }
+                else
+                {
+                    ChangeFragment(new CodeViewFragment());
+                }
+
+
+            };
+
             FindViewById<Button>(Resource.Id.CodeEditor_SaveButton).Click += async delegate
             {
                 await _codeEditorViewModel.SaveFile(filename, _blockListViewController.ListOfIBlocks);
@@ -62,6 +77,12 @@ namespace PrintBot.Droid.Activities
             FragmentTransaction ft2 = FragmentManager.BeginTransaction();
             ft2.Add(Resource.Id.CodeEditor_FragmentContainerTools, new FragmentTools());
             ft2.Commit();
+        }
+        private void ChangeFragment(Fragment f)
+        {
+            FragmentTransaction ft = FragmentManager.BeginTransaction();
+            ft.Replace(Resource.Id.CodeEditor_FragmentContainer, f);
+            ft.Commit();
         }
 
         private void CreateSavedList(ObservableCollection<IBlock> listOfBlocks)
