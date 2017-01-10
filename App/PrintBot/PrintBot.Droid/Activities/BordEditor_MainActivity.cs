@@ -16,14 +16,16 @@ namespace PrintBot.Droid.Activities
     [Activity(Label = "Bord Editor", WindowSoftInputMode = Android.Views.SoftInput.AdjustNothing, MainLauncher = false, Icon = "@drawable/icon")]
     public class BordEditor_MainActivity : Activity
     {
+
+        public static float _scaleFactor;
+        public static float _screenWidth;
+
         private BordEditor_BordPin _boradPinTmp = null;
         private BordEditor_Modul.ModulButton _modulTmp = null;
         private RelativeLayout _mainLayout;
         private BordEditor_Bord bord;
         private List<string> _modulFileNames = new List<string>();
         private ModuleSetupViewModel _vm;
-
-        private BordEditor_ModulSlot _mSlot1;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -35,27 +37,43 @@ namespace PrintBot.Droid.Activities
 
             _mainLayout = FindViewById<RelativeLayout>(Resource.Id.BordEditor_MainLayout);
 
-            _mSlot1 = new BordEditor_ModulSlot(this, new BordEditor_ListAdapter(this, _modulFileNames));
-            _mainLayout.AddView(_mSlot1);
-            _mSlot1.loadNamesBtn.Click += delegate
-            {
-                GetModulFileNames();
-                _mSlot1.Adapter.NotifyDataSetChanged();
-            };
-            _mSlot1.CreateBtn.Click += delegate
-            {
-                ReplaceModulSlot(_mSlot1);
-            };
-            _mSlot1.ModuleFileNamesList.ItemClick += ModulList1_ItemClick;
+            _scaleFactor = Resources.DisplayMetrics.Density;
+            _screenWidth = Resources.DisplayMetrics.WidthPixels;
 
+            // Create MSlots at _mSlotPositions          
+            for (int i = 0; i < 2; i++)
+            {
+
+                // if has no reason it is just so, id needed a Selector
+                bool tmpBool = i % 2 == 0 ? true : false;
+
+                var tmp = new BordEditor_ModulSlot(this, new BordEditor_ListAdapter(this, _modulFileNames),tmpBool);
+                _mainLayout.AddView(tmp);
+
+                tmp.loadNamesBtn.Click += delegate
+                {
+                    GetModulFileNames();
+                    tmp.Adapter.NotifyDataSetChanged();
+                };
+                tmp.CreateBtn.Click += delegate
+                {
+                    ReplaceModulSlot(tmp);
+                };
+
+                tmp.ModuleFileNamesList.ItemClick +=
+                    (object o, AdapterView.ItemClickEventArgs e) => ModulList_ItemClick(o, e, tmp);
+
+                
+              
+            }
             //Bord
             BordInit();
 
         }
 
-        private async void ModulList1_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        private async void ModulList_ItemClick(object sender, AdapterView.ItemClickEventArgs e, BordEditor_ModulSlot m)
         {
-            await ReplaceModulSlot(_mSlot1, _modulFileNames[e.Position]);
+            await ReplaceModulSlot(m, _modulFileNames[e.Position]);
         }
 
         public async void GetModulFileNames()
@@ -73,7 +91,10 @@ namespace PrintBot.Droid.Activities
         private void BordInit()
         {
             //Each Pin needs a Paintview to Draw a Conection
-            bord = FindViewById<BordEditor_Bord>(Resource.Id.BordEditor_Bord);
+            bord = new BordEditor_Bord(this);
+            _mainLayout.AddView(bord);
+            
+
             foreach (BordEditor_BordPin p in bord.DigitalPins)
             {
                 AddPaintViewToPin(p);
@@ -115,19 +136,36 @@ namespace PrintBot.Droid.Activities
         {
             if (_boradPinTmp != null && _modulTmp != null)
             {
+
                 try
                 {
-                    _modulTmp.ConnectePin.pw.Clear(); // clear connected Wire
+                    _modulTmp.ConnectePin.pw.Clear(); // clear old connected Wire
+                    _modulTmp.ConnectePin = null;
                 }
                 catch { }
 
-                _boradPinTmp.pw.Clear(); // clear aktual Wire
-                _modulTmp.ConnectePin = null; // clear connected pen
+                try
+                {
+                    _boradPinTmp.ConectetPin.reset(); // reset old connected ModulPin
+                    _boradPinTmp.ConectetPin.ConnectePin = null;
+                    _boradPinTmp.ConectetPin = null;
+                }
+                catch { }
 
-                _modulTmp.ConnectePin = _boradPinTmp; // set connected pin
-                _boradPinTmp.pw.connectPins(_boradPinTmp, _modulTmp); // Grafik
-                _modulTmp.Modul.AttachSimulator(_boradPinTmp.Nr); // Real 
+                _boradPinTmp.pw.Clear(); // clear old Wire
+                
+                //setReferenzes
+                _modulTmp.ConnectePin = _boradPinTmp; 
+                _boradPinTmp.ConectetPin = _modulTmp;
 
+                // Grafik
+                _boradPinTmp.pw.connectPins(_boradPinTmp, _modulTmp); //Draw new Line
+                // let the ModulPin Look like the conected Board Pin
+                _modulTmp.Text = _modulTmp.ConnectePin.Text;
+                _modulTmp.SetTextColor(_modulTmp.ConnectePin.TextColors);
+                _modulTmp.SetBackgroundColor(_modulTmp.ConnectePin.BackgroundColor);
+
+                // reset
                 _boradPinTmp = null;
                 _modulTmp = null;
             }
@@ -186,6 +224,8 @@ namespace PrintBot.Droid.Activities
             modul.TranslationY = slot.GetY();
             modul.SwitchPinSideIfNeeded();
 
+            
+
             int i = 0;
             foreach (BordEditor_Modul.ModulButton modulPin in modul.modulPins)
             {
@@ -214,10 +254,13 @@ namespace PrintBot.Droid.Activities
                     modulPin.ConnectePin = bord.PinVin;
                 }
 
-                if (index.PinType != null) 
+                if (index.PinType != null)
                 {
                     // if Pin ist not set do no conection
-                    modulPin.ConnectePin.pw.connectPins(modulPin.ConnectePin, modulPin);
+                    // modulPin.ConnectePin.pw.connectPins(modulPin.ConnectePin, modulPin);
+                    setModulPin(modulPin);
+                    setPlatinePin(modulPin.ConnectePin);
+                    pinConect(); 
                 }
 
                 i++;
@@ -239,5 +282,6 @@ namespace PrintBot.Droid.Activities
             return 0;
 
         }
+
     }
 }

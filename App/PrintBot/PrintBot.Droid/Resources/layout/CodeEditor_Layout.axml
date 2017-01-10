@@ -13,20 +13,29 @@
             android:layout_alignParentRight="true"
             android:layout_height="wrap_content"
             android:text="Switch"
-            android:background="#00Aa00" />
+            style="@style/Button" />
+        <Button
+            android:id="@+id/CodeEditor_SaveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:layout_centerInParent="true"
+            style="@style/Button" />
         <Button
             android:id="@+id/CodeEditor_SettingsButton"
             android:layout_width="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_height="wrap_content"
             android:text="Settings"
-            android:background="#00Aa00" />
+            style="@style/Button" />
     </RelativeLayout>
 <!--CodeBlocks And CodeView-->
     <TextView
         android:id="@+id/main_ProgramName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Program name here"
+        android:textColor="@android:color/holo_blue_light" />
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/CodeEditor_FragmentContainer"

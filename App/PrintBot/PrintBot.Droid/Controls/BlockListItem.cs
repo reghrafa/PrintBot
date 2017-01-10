@@ -13,6 +13,7 @@ using Android.Util;
 using PrintBot.Domain.Models.Blocks;
 using PrintBot.Droid.Services;
 using PrintBot.Droid.Controls.Blocks;
+using System.Collections.ObjectModel;
 
 namespace PrintBot.Droid.Controls
 {
@@ -55,6 +56,7 @@ namespace PrintBot.Droid.Controls
                     result.BlockHolder = new LEDListItem(Context, new LedBlock());
                     break;
                 case BlockTypeEnum.MoveMotor:
+                    result.BlockHolder = new MoveListItem(Context, new MoveBlock());
                     break;
                 case BlockTypeEnum.Variable:
                     result.BlockHolder = new VariableListItem(Context, new VariableBlock());

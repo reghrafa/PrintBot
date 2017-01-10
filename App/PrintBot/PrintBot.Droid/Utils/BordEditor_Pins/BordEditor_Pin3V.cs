@@ -14,6 +14,8 @@ namespace PrintBot.Droid
             this.Type = "V3";
             pw._drawPaint.Color = Color.DarkRed;
             this.SetBackgroundColor(Color.Red);
+            this.SetTextColor(Color.DarkGreen);
+            this.BackgroundColor = Color.Red;
         }
     }
 }

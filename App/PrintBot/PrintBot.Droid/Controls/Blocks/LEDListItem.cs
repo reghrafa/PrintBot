@@ -19,6 +19,7 @@ namespace PrintBot.Droid.Controls.Blocks
         public IBlock Block { get; set; }
         public View BlockLayout { get; set; }
         public Context BlockContext { get; set; }
+        private ToggleButton tglIsOn;
 
         public LEDListItem(Context c, IBlock block)
         {
@@ -31,6 +32,14 @@ namespace PrintBot.Droid.Controls.Blocks
         {
             BlockLayout = LayoutInflater.From(BlockContext).Inflate(Resource.Layout.BlockListItem_LED, null);
             // Other Layout controls
+            tglIsOn = BlockLayout.FindViewById<ToggleButton>(Resource.Id.BlockListItem_LED_toggleIsOn);
+            tglIsOn.Checked = ((LedBlock)Block).IsOn;
+            tglIsOn.Click += TglIsOn_Click;
+        }
+
+        private void TglIsOn_Click(object sender, EventArgs e)
+        {
+            ((LedBlock)Block).IsOn = tglIsOn.Checked;
         }
     }
 }

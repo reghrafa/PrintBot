@@ -39,5 +39,11 @@
             android:layout_height="60dp"
             android:layout_marginLeft="5dp"
             android:background="@android:color/holo_green_light" />
+      <PrintBot.Droid.Controls.Blocks.MoveToolbar
+        android:id="@+id/tools_Move"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="5dp"
+        android:background="@android:color/holo_green_light" />
     </LinearLayout>
 </HorizontalScrollView>

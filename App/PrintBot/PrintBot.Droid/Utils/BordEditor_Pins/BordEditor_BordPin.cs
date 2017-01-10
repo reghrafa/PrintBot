@@ -21,6 +21,8 @@ namespace PrintBot.Droid
         public BordEditor_PaintView pw;
         public BordEditor_Bord parent;
         private string _type;  // to be set in child pin classes
+        public Color BackgroundColor { get; set; } // to be set in child pin classes
+        public BordEditor_Modul.ModulButton ConectetPin { get; set; }
 
         public int Nr
         {
@@ -52,6 +54,7 @@ namespace PrintBot.Droid
         {
             pw = new BordEditor_PaintView(context);
             pw.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, LayoutParams.MatchParent);
+            
         }
         public BordEditor_BordPin(Context context, IAttributeSet attrs) : base(context, attrs)
         {
@@ -68,5 +71,6 @@ namespace PrintBot.Droid
         { 
             return base.GetY() + Height / 2 + parent.GetY();
         }
+
     }
 }

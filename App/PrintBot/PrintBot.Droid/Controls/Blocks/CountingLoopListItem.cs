@@ -36,6 +36,7 @@ namespace PrintBot.Droid.Controls.Blocks
         {
             BlockLayout = LayoutInflater.From(BlockContext).Inflate(Resource.Layout.BlockListItem_CountingLoop, null);
             editAmountOfLoops = BlockLayout.FindViewById<EditText>(Resource.Id.CountingLoop_AmountOfLoops);
+            editAmountOfLoops.Text = ((CountingLoop)Block).AmountOfLoops.ToString();
             editAmountOfLoops.TextChanged += EditAmountOfLoops_TextChanged;
         }
 

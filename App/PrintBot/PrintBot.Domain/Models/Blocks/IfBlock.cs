@@ -9,7 +9,6 @@ namespace PrintBot.Domain.Models.Blocks
     public class IfBlock : StartBlock, IBlock
     {
         private Condition condition;
-        public ElseBlock elseBlock;
         public string CodeText { get; set; }
 
         public IfBlock()
@@ -17,7 +16,7 @@ namespace PrintBot.Domain.Models.Blocks
             Equals equ = new Equals();
             condition = new Condition(1, 3, equ);
             CodeText = "If (" + condition + ") {";
-            elseBlock = new ElseBlock();
+            Name = "If Block";
         }
         public bool IsChild { get; set; }
 

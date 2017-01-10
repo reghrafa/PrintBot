@@ -16,11 +16,14 @@ namespace PrintBot.Domain.Models.Blocks
 
         public string Text { get; set; }
 
+        public bool IsOn { get; set; }
+
         public LedBlock()
         {
             CodeText = "SomeLedMethod()";
             Name = "Led Block";
             Text = "It's me, LED";
+            IsOn = false;
         }
     }
 }

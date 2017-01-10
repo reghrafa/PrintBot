@@ -12,6 +12,7 @@ using Android.Widget;
 using PrintBot.Domain.Api.Clients;
 using PrintBot.Infrastructure.ViewModels;
 using PrintBot.Infrastructure.Services;
+using PrintBot.Droid.Controls;
 
 namespace PrintBot.Droid
 {
@@ -72,6 +73,12 @@ namespace PrintBot.Droid
         public CodeEditorViewModel CodeEditorViewModel
         {
             get { return _codeEditorViewModel ?? (_codeEditorViewModel = new CodeEditorViewModel()); }
+        }
+
+        private BlockListViewController _blockListViewController;
+        public BlockListViewController BlockListViewController
+        {
+            get { return _blockListViewController ?? (_blockListViewController = new BlockListViewController()); }
         }
     }
 }

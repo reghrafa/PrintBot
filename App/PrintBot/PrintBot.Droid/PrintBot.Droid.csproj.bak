@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -43,6 +43,10 @@
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PCLStorage, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PCLStorage.1.0.2\lib\monoandroid\PCLStorage.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +80,7 @@
     <Compile Include="Adapter\DraggableListAdapter.cs" />
     <Compile Include="Adapter\IDraggableListAdapter.cs" />
     <Compile Include="Controls\BlockListItem.cs" />
+    <Compile Include="Controls\BlockListViewController.cs" />
     <Compile Include="Controls\Blocks\CountingLoopListItem.cs" />
     <Compile Include="Controls\Blocks\CountingLoopToolbar.cs" />
     <Compile Include="Controls\Blocks\ElseListItem.cs" />
@@ -86,6 +91,8 @@
     <Compile Include="Controls\Blocks\IfToolbar.cs" />
     <Compile Include="Controls\Blocks\LEDListItem.cs" />
     <Compile Include="Controls\Blocks\LEDToolbar.cs" />
+    <Compile Include="Controls\Blocks\MoveListItem.cs" />
+    <Compile Include="Controls\Blocks\MoveToolbar.cs" />
     <Compile Include="Controls\Blocks\VariableListItem.cs" />
     <Compile Include="Controls\Blocks\VariableToolbar.cs" />
     <Compile Include="Controls\DraggableListView.cs" />
@@ -136,7 +143,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\FileOpened.axml" />
-    <AndroidResource Include="Resources\layout\ListRowItem.axml" />
+    <AndroidResource Include="Resources\layout\ListRowItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\LastUsedFileLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -185,6 +194,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\BlockListItem_Else.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Toolbar_Move.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BlockListItem_Move.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -236,10 +251,15 @@
     <AndroidResource Include="Resources\drawable\IfThenElseIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\Style.xml" />
+    <AndroidResource Include="Resources\drawable\MoveIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\blockCorners.xml" />
+    <AndroidResource Include="Resources\values\Styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\redbutton.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

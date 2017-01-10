@@ -16,6 +16,7 @@ namespace PrintBot.Domain.Models.Blocks
         public EndLoop()
         {
             this.CodeText = "}";
+            Name = "End Loop";
         }
         
     }

@@ -14,6 +14,8 @@ namespace PrintBot.Droid
             this.Type = "Vin";
             pw._drawPaint.Color = Color.Green;
             this.SetBackgroundColor(Color.DarkGreen);
+            this.SetTextColor(Color.Red);
+            this.BackgroundColor = Color.DarkGreen;
         }
     }
 }

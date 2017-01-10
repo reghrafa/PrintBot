@@ -22,6 +22,8 @@ namespace PrintBot.Droid
             this.Type = "Analog";
             pw._drawPaint.Color = Color.Blue;
             this.SetBackgroundColor(Color.DarkBlue);
+            this.SetTextColor(Color.Yellow);
+            this.BackgroundColor = Color.DarkBlue;
         }
     }
 }
