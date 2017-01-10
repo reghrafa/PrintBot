@@ -13,21 +13,21 @@
             android:layout_alignParentRight="true"
             android:layout_height="wrap_content"
             android:text="Switch"
-            android:background="#00Aa00" />
+            style="@style/Button" />
         <Button
             android:id="@+id/CodeEditor_SaveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save"
-            android:background="#00Aa00"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            style="@style/Button" />
         <Button
             android:id="@+id/CodeEditor_SettingsButton"
             android:layout_width="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_height="wrap_content"
             android:text="Settings"
-            android:background="#00Aa00" />
+            style="@style/Button" />
     </RelativeLayout>
 <!--CodeBlocks And CodeView-->
     <TextView
