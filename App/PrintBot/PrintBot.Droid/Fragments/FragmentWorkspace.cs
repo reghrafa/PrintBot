@@ -31,7 +31,7 @@ namespace PrintBot.Droid
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            adapter = new DraggableListAdapter(Context, _blockListViewController.List);
+            adapter = new DraggableListAdapter(this.Activity, _blockListViewController.List);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

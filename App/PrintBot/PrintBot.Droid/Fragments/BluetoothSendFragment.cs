@@ -36,7 +36,7 @@ namespace PrintBot.Droid.Fragments
 
             if (_vm.Connected)
             {
-                Toast.MakeText(Context,
+                Toast.MakeText(this.Activity,
                     string.Format("Succesfully connected with device {0}", _vm.ConnectedDevice.Name),
                     ToastLength.Short)
                     .Show();
