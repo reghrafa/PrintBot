@@ -23,16 +23,17 @@ namespace PrintBot.Droid.Activities
     class CodeEditor_BaseActivity : Activity
     {
         private CodeEditorViewModel _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
-        public LastUsedFileViewModel _lastUsedFileViewModel = ServiceLocator.Current.LastUsedFileViewModel;
         public BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;
-        protected override void OnCreate(Bundle bundle)
+        protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.CodeEditor_Layout);
             _blockListViewController.List = new ObservableCollection<BlockListItem>();
             string filename = Intent.GetStringExtra("Path") ?? "no Data";
-            string content = Intent.GetStringExtra("Content") ?? "no Data";
+            var content = await _codeEditorViewModel.LoadData(filename);
             FindViewById<TextView>(Resource.Id.main_ProgramName).Text = filename;
+
+
 
             FindViewById<Button>(Resource.Id.CodeEditor_SettingsButton).Click += delegate
             {
@@ -41,7 +42,7 @@ namespace PrintBot.Droid.Activities
 
             FindViewById<Button>(Resource.Id.CodeEditor_SaveButton).Click += async delegate
             {
-                await _lastUsedFileViewModel.SaveFile(filename, _blockListViewController.ListOfIBlocks);
+                await _codeEditorViewModel.SaveFile(filename, _blockListViewController.ListOfIBlocks);
                 Toast.MakeText(this, "Program saved.", ToastLength.Short).Show();
             };
 
