@@ -16,6 +16,8 @@ namespace PrintBot.Droid.Activities
     [Activity(Label = "PrintBot", WindowSoftInputMode = Android.Views.SoftInput.AdjustNothing, MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        BluetoothViewModel _bluetoothVM = ServiceLocator.Current.BluetoothViewModel;
+
         private LastUsedFileViewModel _lastUsedFileVM;
         ListView _listOldFiles;
         EditText NewProjectName;
@@ -26,7 +28,7 @@ namespace PrintBot.Droid.Activities
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
-            //StartActivity(typeof(BordEditor_MainActivity)); // shortCut for ModulSetup; just Testing
+            // StartActivity(typeof(BordEditor_MainActivity)); // shortCut for ModulSetup; just Testing
             _lastUsedFileVM = ServiceLocator.Current.LastUsedFileViewModel;
 
             var btn = FindViewById<Button>(Resource.Id.main_CreateButton);

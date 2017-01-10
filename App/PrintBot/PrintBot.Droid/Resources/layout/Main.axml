@@ -6,26 +6,22 @@
     android:background="#dddddd"
     android:weightSum="10">
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="Create Project"
-        android:textSize="22dp"
-        android:textColor="#000000" />
+        android:textSize="25dp"
+        style="@style/NormalText" />
     <EditText
         android:id="@+id/main_NewProjectName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000000" />
+        style="@style/NormalText" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/main_CreateButton"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="Create"
-            android:background="#00AA00" />
+            style="@style/Button"
+            android:text="Create" />
     </RelativeLayout>
     <ListView
         android:layout_width="match_parent"
@@ -36,21 +32,19 @@
         android:layout_height="wrap_content"
         android:background="#666666">
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:textSize="22dp"
+            style="@style/NormalText"
             android:text="Tutorial"
+            android:textColor="#ffffff"
+            android:textSize="35dp"
             android:gravity="center"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:translationY="20dp" />
         <Button
             android:id="@+id/main_TutorialButton"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
             android:text="Start"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="#00AA00" />
+            style="@style/Button" />
     </RelativeLayout>
 <!--old-->
 <!--
