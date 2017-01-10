@@ -59,8 +59,8 @@ namespace PrintBot.Droid.Fragments
             listViewKnownDevices.ItemClick += ListViewKnownDevices_ItemClick;
 
             // ListViews
-            listViewFoundDevices.Adapter = new BluetoothListAdapter(this.Context, _vm.FoundDevices);
-            listViewKnownDevices.Adapter = new BluetoothListAdapter(this.Context, _vm.PairedDevices);
+            listViewFoundDevices.Adapter = new BluetoothListAdapter(this.Activity, _vm.FoundDevices);
+            listViewKnownDevices.Adapter = new BluetoothListAdapter(this.Activity, _vm.PairedDevices);
 
             return view;
         }

@@ -81,14 +81,7 @@ namespace PrintBot.Infrastructure.ViewModels
         {
             await WriteAndRefresh();
         }
-
-        public async Task SaveFile(string filename, ObservableCollection<IBlock> list)
-        {
-            string listOfBlocks = JsonConvert.SerializeObject(list, Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto, TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple });
-            await _storageService.WriteFileAsync(filename, listOfBlocks);
-            await Save();
-        }
-
+        
 
         private async Task WriteAndRefresh()
         {

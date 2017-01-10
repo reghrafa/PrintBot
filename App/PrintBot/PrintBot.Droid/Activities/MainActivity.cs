@@ -39,14 +39,12 @@ namespace PrintBot.Droid.Activities
             await _lastUsedFileVM.LoadData();
             _listOldFiles = FindViewById<ListView>(Resource.Id.main_LastFileList);
             _listOldFiles.Adapter = new FileListAdapter(this, _lastUsedFileVM.FileList);
-            _listOldFiles.ItemClick += async (s, e) =>
+            _listOldFiles.ItemClick += (s, e) =>
             {
                 var filename = _lastUsedFileVM.ChangeCreationDate(e.Position);
-                var content = _lastUsedFileVM.LoadFileData(filename);
-                var content2 = await content;
+                
                 var tmp = new Intent(this, typeof(CodeEditor_BaseActivity));
                 tmp.PutExtra("Path", filename);
-                tmp.PutExtra("Content", content2);
                 StartActivity(tmp);
             };
         }

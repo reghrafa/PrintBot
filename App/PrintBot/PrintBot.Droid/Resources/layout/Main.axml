@@ -8,6 +8,8 @@
     <TextView
         android:text="Create Project"
         android:textSize="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         style="@style/NormalText" />
     <EditText
         android:id="@+id/main_NewProjectName"
@@ -33,12 +35,13 @@
         android:background="#666666">
         <TextView
             style="@style/NormalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Tutorial"
             android:textColor="#ffffff"
             android:textSize="35dp"
             android:gravity="center"
-            android:layout_centerHorizontal="true"
-            android:translationY="20dp" />
+            android:layout_centerHorizontal="true" />
         <Button
             android:id="@+id/main_TutorialButton"
             android:text="Start"
