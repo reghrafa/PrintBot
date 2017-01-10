@@ -80,6 +80,7 @@
     <Compile Include="Adapter\DraggableListAdapter.cs" />
     <Compile Include="Adapter\IDraggableListAdapter.cs" />
     <Compile Include="Controls\BlockListItem.cs" />
+    <Compile Include="Controls\BlockListViewController.cs" />
     <Compile Include="Controls\Blocks\CountingLoopListItem.cs" />
     <Compile Include="Controls\Blocks\CountingLoopToolbar.cs" />
     <Compile Include="Controls\Blocks\ElseListItem.cs" />

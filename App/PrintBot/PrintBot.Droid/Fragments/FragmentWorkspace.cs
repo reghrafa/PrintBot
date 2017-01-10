@@ -22,23 +22,16 @@ namespace PrintBot.Droid
 {
     public class FragmentWorkspace : Fragment
     {
-        CodeEditor_BaseActivity _activity;
-        public ObservableCollection<BlockListItem> List
-        {
-            get
-            {
-                return _activity.List;
-            }
-        }
-
+        BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;
         DraggableListView listView;
         DraggableListAdapter adapter;
+        int oldPos;
+        bool blockAdded = false;
+        BlockListItem draggedView;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            _activity = (CodeEditor_BaseActivity)Activity;
-            //List = new ObservableCollection<BlockListItem>();
-            adapter = new DraggableListAdapter(Context, List);
+            adapter = new DraggableListAdapter(Context, _blockListViewController.List);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -48,7 +41,6 @@ namespace PrintBot.Droid
             listView.Adapter = adapter;
             listView.ReorderingEnabled = true;
             listView.Drag += HandleDrag;
-
             return view;
         }
 
@@ -71,7 +63,24 @@ namespace PrintBot.Droid
 
                     break;
                 case DragAction.Entered:
-
+                    //if (!blockAdded)
+                    //{
+                    //    oldPos = _blockListViewController.List.Count;
+                    //    var block = (BlockListItem)e.Event.LocalState;
+                    //    var tmpBlock = block.GetAnInstanceAndInitialize();
+                    //    _blockListViewController.List.Add(tmpBlock);
+                    //    draggedView = tmpBlock;
+                    //    if (tmpBlock.BlockType == BlockListItem.BlockTypeEnum.IfBlock)
+                    //    {
+                    //        _blockListViewController.List.Add(block.GetAnInstanceOfElseBlock());
+                    //    }
+                    //    if (tmpBlock.BlockHolder.Block is StartBlock)
+                    //    {
+                    //        _blockListViewController.List.Add(block.GetAnInstanceOfEndBlock(block.BlockType));
+                    //    }
+                    //}
+                    //blockAdded = true;
+                    break;
                 case DragAction.Exited:
                     /* These two states allows you to know when the dragged view is contained atop your drop zone.
                      * Traditionally you will use that tip to display a focus ring or any other similar mechanism
@@ -87,28 +96,11 @@ namespace PrintBot.Droid
                     /* It's also probably time to get a bit of the data associated with the drag to know what
                      * you want to do with the information.
                      */
-                    ListView lv = (ListView)sender;
                     var block = (BlockListItem)e.Event.LocalState;
-
-                    // Get the Instance for the List
-                    var tmpBlock = block.GetAnInstanceAndInitialize();
-
                     // Get the Position in the List
-                    var position = lv.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
-                    position = position == -1 ? List.Count : position;
-                    List.Insert(position, tmpBlock);
-
-                    if (tmpBlock.BlockType == BlockListItem.BlockTypeEnum.IfBlock)
-                    {
-                        position++;
-                        List.Insert(position, block.GetAnInstanceOfElseBlock());
-                    }
-                    if (tmpBlock.BlockHolder.Block is StartBlock)
-                    {
-                        position++;
-                        List.Insert(position, block.GetAnInstanceOfEndBlock(block.BlockType));
-                    }
-
+                    var position = listView.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
+                    _blockListViewController.InsertBlockToList(block, position);
+                    blockAdded = false;
                     break;
                 case DragAction.Ended:
                     /* This is the final state, where you still have possibility to cancel the drop happened.
@@ -116,6 +108,24 @@ namespace PrintBot.Droid
                      */
                     e.Handled = true;
                     break;
+                case DragAction.Location:
+                    //int pos = listView.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
+                    //HandleCellSwitch(pos);
+                    //e.Handled = true;
+                    break;
+            }
+        }
+
+        private void HandleCellSwitch(int newPos)
+        {
+            if (newPos == -1)
+            {
+                newPos = _blockListViewController.List.Count - 1;
+            }
+            if (newPos != oldPos)
+            {
+                ((IDraggableListAdapter)listView.Adapter).SwapItems(oldPos, newPos);
+                oldPos = newPos;
             }
         }
     }
