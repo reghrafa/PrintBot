@@ -16,6 +16,8 @@ using PrintBot.Droid.Controls;
 using PrintBot.Domain.Models.Blocks;
 using Newtonsoft.Json;
 using PrintBot.Droid.Controls.Blocks;
+using Android.Graphics.Drawables;
+using Android.Graphics;
 
 namespace PrintBot.Droid.Activities
 {
@@ -34,6 +36,8 @@ namespace PrintBot.Droid.Activities
             LayoutInflater mInflater = LayoutInflater.From(this);
             View mCustomView = mInflater.Inflate(Resource.Layout.actionbar_layout, null);
             ActionBar.SetCustomView(mCustomView, lp);
+            ColorDrawable colorDrawable = new ColorDrawable(Color.ParseColor("#3b8686"));
+            ActionBar.SetBackgroundDrawable(colorDrawable);
             ActionBar.SetDisplayShowCustomEnabled(true);
             _blockListViewController.List = new ObservableCollection<BlockListItem>();
             string filename = Intent.GetStringExtra("Path") ?? "no Data";

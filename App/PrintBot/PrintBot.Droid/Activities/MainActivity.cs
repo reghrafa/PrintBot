@@ -10,6 +10,8 @@ using PrintBot.Droid.Fragments;
 using Android;
 using PrintBot.Droid.Adapter;
 using System.ComponentModel;
+using Android.Graphics.Drawables;
+using Android.Graphics;
 
 namespace PrintBot.Droid.Activities
 {
@@ -28,8 +30,9 @@ namespace PrintBot.Droid.Activities
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
-            StartActivity(typeof(BordEditor_MainActivity)); // shortCut for ModulSetup; just Testing
+            // StartActivity(typeof(BordEditor_MainActivity)); // shortCut for ModulSetup; just Testing
             _lastUsedFileVM = ServiceLocator.Current.LastUsedFileViewModel;
+
 
             var btn = FindViewById<Button>(Resource.Id.main_CreateButton);
             btn.Click += CreateFile;

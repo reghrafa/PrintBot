@@ -5,6 +5,8 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -19,6 +21,9 @@ namespace PrintBot.Droid.Activities
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Settings_Layout);
+
+            ColorDrawable colorDrawable = new ColorDrawable(Color.ParseColor("#3b8686"));
+            ActionBar.SetBackgroundDrawable(colorDrawable);
 
             FindViewById<LinearLayout>(Resource.Id.Settings_ModuleSetup).Click += delegate
             {
