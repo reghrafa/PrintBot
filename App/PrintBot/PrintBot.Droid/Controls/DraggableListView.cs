@@ -28,6 +28,10 @@ using Android.Graphics;
 using Android.Content;
 using Android.Util;
 using System;
+using PrintBot.Droid.Controls;
+using System.Collections.Generic;
+using System.Linq;
+using PrintBot.Droid.Controls.Blocks;
 
 namespace PrintBot.Droid
 {
@@ -64,6 +68,20 @@ namespace PrintBot.Droid
         int mDownX = -1;
         int mTotalOffset = 0;
         int mActivePointerId = INVALID_POINTER_ID;
+        public int EndBlockPosition
+        {
+            get
+            {
+                return ((DraggableListAdapter)Adapter).GetItemPosition(selectedView.EndBlock);
+            }
+        }
+        public int StartBlockPosition
+        {
+            get
+            {
+                return ((DraggableListAdapter)Adapter).GetItemPosition(selectedView);
+            }
+        }
 
         bool mCellIsMobile = false;
 
@@ -76,6 +94,8 @@ namespace PrintBot.Droid
         Rect mHoverCellOriginalBounds;
         BitmapDrawable mHoverCell;
         GestureDetector dectector;
+        List<View> mobileViews;
+        private BlockListItem selectedView;
 
         ///
         /// Constructors
@@ -133,7 +153,10 @@ namespace PrintBot.Droid
             mHoverCell = null;
             Enabled = true;
             Invalidate();
-
+            foreach (View v in mobileViews)
+            {
+                v.Visibility = ViewStates.Visible;
+            }
             mobileView.Visibility = ViewStates.Visible;
         }
 
@@ -172,15 +195,58 @@ namespace PrintBot.Droid
                 return;
 
             int itemNum = position - FirstVisiblePosition;
+            var x = GetChildAt(position);
+            selectedView = ((DraggableListAdapter)Adapter).GetItem(position) as BlockListItem;
+            mobileViews = new List<View>();
+            if (selectedView.BlockHolder is EndBlockListItem || selectedView.BlockHolder is ElseListItem)
+            {
 
-            View selectedView = GetChildAt(itemNum);
-            mMobileItemId = Adapter.GetItemId(position); // use this varable to keep track of which view is currently moving
-            mHoverCell = GetAndAddHoverView(selectedView);
-            selectedView.Visibility = ViewStates.Invisible; // set the visibility of the selected view to invisible
-
-            mCellIsMobile = true;
-
-            UpdateNeighborViewsForID(mMobileItemId);
+            }
+            else
+            {
+                if (selectedView.EndBlock != null)
+                {
+                    mMobileItemId = position; // use this varable to keep track of which view is currently moving
+                    var drawables = new List<BitmapDrawable>();
+                    for (int i = position; i <= EndBlockPosition; i++)
+                    {
+                        var y = GetChildAt(i);
+                        drawables.Add(GetAndAddHoverView(y, false));
+                        y.Visibility = ViewStates.Invisible;
+                        mobileViews.Add(y);
+                    }
+                    var heightsum = drawables.Select(s => s.IntrinsicHeight).Sum();
+                    Bitmap big = Bitmap.CreateBitmap(drawables[0].IntrinsicWidth, heightsum, Bitmap.Config.Argb8888);
+                    Canvas canvas = new Canvas(big);
+                    for (int i = 0; i < drawables.Count; i++)
+                    {
+                        var posy = 0;
+                        for (int w = 1; w <= i; w++)
+                        {
+                            posy += drawables[w - 1].IntrinsicHeight;
+                        }
+                        canvas.DrawBitmap(drawables[i].Bitmap, 0, posy, null);
+                        //canvas.Save();
+                    }
+                    mHoverCellOriginalBounds = new Rect(0, x.Top, drawables[0].IntrinsicWidth, x.Top + heightsum);
+                    mHoverCellCurrentBounds = new Rect(mHoverCellOriginalBounds);
+                    Paint paint = new Paint();
+                    paint.SetStyle(Paint.Style.Stroke);
+                    paint.StrokeWidth = LINE_THICKNESS;
+                    paint.Color = Color.Gray;
+                    canvas.DrawRect(new Rect(0, 0, drawables[0].IntrinsicWidth, heightsum), paint);
+                    mHoverCell = new BitmapDrawable(big);
+                    mHoverCell.Draw(canvas);
+                }
+                else
+                {
+                    mMobileItemId = Adapter.GetItemId(position); // use this varable to keep track of which view is currently moving
+                    mHoverCell = GetAndAddHoverView(x, true);
+                    x.Visibility = ViewStates.Invisible; // set the visibility of the selected view to invisible
+                }
+                mCellIsMobile = true;
+                UpdateNeighborViewsForID(mMobileItemId);
+            }
         }
 
         public bool OnScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
@@ -201,7 +267,7 @@ namespace PrintBot.Droid
         /// size. The hover cell's BitmapDrawable is drawn on top of the bitmap every
         /// single time an invalidate call is made.
         /// </summary>
-        BitmapDrawable GetAndAddHoverView(View v)
+        BitmapDrawable GetAndAddHoverView(View v, bool single)
         {
 
             int w = v.Width;
@@ -209,14 +275,16 @@ namespace PrintBot.Droid
             int top = v.Top;
             int left = v.Left;
 
-            Bitmap b = GetBitmapWithBorder(v);
+            Bitmap b = GetBitmapWithBorder(v, single);
 
             BitmapDrawable drawable = new BitmapDrawable(Resources, b);
 
             mHoverCellOriginalBounds = new Rect(left, top, left + w, top + h);
             mHoverCellCurrentBounds = new Rect(mHoverCellOriginalBounds);
-
-            drawable.SetBounds(left, top, left + w, top + h);
+            if (single)
+            {
+                drawable.SetBounds(left, top, left + w, top + h);
+            }
 
             return drawable;
         }
@@ -224,7 +292,7 @@ namespace PrintBot.Droid
         /// <summary>
         /// Draws a red border over the screenshot of the view passed in.
         /// </summary>
-        static Bitmap GetBitmapWithBorder(View v)
+        static Bitmap GetBitmapWithBorder(View v, bool single)
         {
             Bitmap bitmap = GetBitmapFromView(v);
             Canvas can = new Canvas(bitmap);
@@ -234,11 +302,12 @@ namespace PrintBot.Droid
             Paint paint = new Paint();
             paint.SetStyle(Paint.Style.Stroke);
             paint.StrokeWidth = LINE_THICKNESS;
-            paint.Color = Color.Red;
-
+            paint.Color = Color.Gray;
             can.DrawBitmap(bitmap, 0, 0, null);
-            can.DrawRect(rect, paint);
-
+            if (single)
+            {
+                can.DrawRect(rect, paint);
+            }
             return bitmap;
         }
 
@@ -273,8 +342,14 @@ namespace PrintBot.Droid
         {
             int position = GetPositionForID(itemID);
             mAboveItemId = Adapter.GetItemId(position - 1);
-            mBelowItemId = Adapter.GetItemId(position + 1);
-
+            if (mobileViews.Count > 0)
+            {
+                mBelowItemId = EndBlockPosition + 1;
+            }
+            else
+            {
+                mBelowItemId = Adapter.GetItemId(position + 1);
+            }
         }
 
         /// <summary>
@@ -407,9 +482,9 @@ namespace PrintBot.Droid
 
                     // Lets animate the view sliding into its new position. Remember: the listview cell corresponding the mobile item is invisible so it looks like 
                     // the switch view is just sliding into position
-                    ObjectAnimator anim = ObjectAnimator.OfFloat(switchView, "TranslationY", switchView.TranslationY, switchView.TranslationY + diff);
-                    anim.SetDuration(100);
-                    anim.Start();
+                    //ObjectAnimator anim = ObjectAnimator.OfFloat(switchView, "TranslationY", switchView.TranslationY, switchView.TranslationY + diff);
+                    //anim.SetDuration(100);
+                    //anim.Start();
 
 
                     // Swap out the mobile item id
@@ -418,16 +493,21 @@ namespace PrintBot.Droid
                     // Since the mobile item id has been updated, we also need to make sure and update the above and below item ids
                     UpdateNeighborViewsForID(mMobileItemId);
 
-                    // One the animation ends, we want to adjust out visiblity 
-                    anim.AnimationEnd += (sender, e) =>
-                    {
-                        // Swap the visbility of the views corresponding to the data items being swapped - since the "switchView" will become the "mobileView"
-                        //						mobileView.Visibility = ViewStates.Visible;
-                        //						switchView.Visibility = ViewStates.Invisible;
 
-                        // Swap the items in the data source and then NotifyDataSetChanged()
-                        ((IDraggableListAdapter)Adapter).SwapItems(GetPositionForView(mobileView), GetPositionForView(switchView));
-                    };
+                    // One the animation ends, we want to adjust out visiblity 
+                    // anim.AnimationEnd += (sender, e) =>
+                    //{
+                    // Swap the visbility of the views corresponding to the data items being swapped - since the "switchView" will become the "mobileView"
+                    //						mobileView.Visibility = ViewStates.Visible;
+                    //						switchView.Visibility = ViewStates.Invisible;
+
+                    // Swap the items in the data source and then NotifyDataSetChanged()
+                    //((IDraggableListAdapter)Adapter).SwapItems(GetPositionForView(mobileView), GetPositionForView(switchView), isAbove);
+                    //};
+
+                    ((IDraggableListAdapter)Adapter).SwapItems(StartBlockPosition, GetPositionForView(switchView), isAbove);
+                    UpdateNeighborViewsForID(mMobileItemId);
+                    System.Diagnostics.Debug.WriteLine($"swap: {StartBlockPosition} -> {GetPositionForView(switchView)}");
                 }
             }
             catch (Exception ex)

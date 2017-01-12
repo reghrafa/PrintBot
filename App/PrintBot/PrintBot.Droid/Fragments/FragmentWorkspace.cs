@@ -124,7 +124,7 @@ namespace PrintBot.Droid
             }
             if (newPos != oldPos)
             {
-                ((IDraggableListAdapter)listView.Adapter).SwapItems(oldPos, newPos);
+                ((IDraggableListAdapter)listView.Adapter).SwapItems(oldPos, newPos, false);
                 oldPos = newPos;
             }
         }
