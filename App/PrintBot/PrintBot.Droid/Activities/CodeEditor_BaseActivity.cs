@@ -39,6 +39,7 @@ namespace PrintBot.Droid.Activities
             _blockListViewController.List = new ObservableCollection<BlockListItem>();
             string filename = Intent.GetStringExtra("Path") ?? "no Data";
             var content = await _codeEditorViewModel.LoadData(filename);
+            
             FindViewById<TextView>(Resource.Id.main_ProgramName).Text = filename;
             var SwitchButton = FindViewById<ImageButton>(Resource.Id.CodeEditor_SwitchButton);
             SwitchButton.Click += delegate
@@ -46,10 +47,13 @@ namespace PrintBot.Droid.Activities
                 if (_isOnCodePage)
                 {
                     SwitchButton.SetImageResource(Resource.Drawable.ListIcon);
+                    ChangeFragment(new CodeViewFragment());
+                    _codeEditorViewModel.GenerateCode(_blockListViewController.ListOfIBlocks);
                 }
                 else
                 {
                     SwitchButton.SetImageResource(Resource.Drawable.CodeIcon);
+                    ChangeFragment(new FragmentWorkspace());
                 }
                 _isOnCodePage = !_isOnCodePage;
             };
@@ -59,22 +63,9 @@ namespace PrintBot.Droid.Activities
             {
                 StartActivity(typeof(Settings_Editor));
             };
+            
 
-            FindViewById<ToggleButton>(Resource.Id.CodeEditor_SwitchButton).Click += (s, e) =>
-            {
-                if ((s as ToggleButton).Checked)
-                {
-                    ChangeFragment(new FragmentWorkspace());
-                }
-                else
-                {
-                    ChangeFragment(new CodeViewFragment());
-                }
-
-
-            };
-
-            FindViewById<Button>(Resource.Id.CodeEditor_SaveButton).Click += async delegate
+            FindViewById<ImageButton>(Resource.Id.CodeEditor_SaveButton).Click += async delegate
             {
                 await _codeEditorViewModel.SaveFile(filename, _blockListViewController.ListOfIBlocks);
                 Toast.MakeText(this, "Program saved.", ToastLength.Short).Show();

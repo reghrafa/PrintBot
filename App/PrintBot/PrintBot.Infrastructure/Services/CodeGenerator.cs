@@ -58,7 +58,7 @@ namespace PrintBot.Infrastructure.Services
             var itemType = item.GetType();
 
             //decrease offset amount
-            if (itemType == typeof(EndLoop))
+            if (itemType == typeof(EndLoop) || itemType == typeof(EndIf))
             {
                 _whiteSpaceOffsetCount--;
             }
