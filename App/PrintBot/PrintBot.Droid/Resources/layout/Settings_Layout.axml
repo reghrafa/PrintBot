@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="#0b486b"
     android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/Settings_ModuleSetup"
@@ -10,6 +11,7 @@
         android:layout_height="wrap_content"
         android:weightSum="7">
         <ImageView
+            android:src="@drawable/ModuleIcon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -29,6 +31,7 @@
         android:layout_height="wrap_content"
         android:weightSum="7">
         <ImageView
+            android:src="@drawable/BluetoothIcon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -48,6 +51,7 @@
         android:layout_height="wrap_content"
         android:weightSum="7">
         <ImageView
+            android:src="@drawable/OtherIcon"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

@@ -13,7 +13,7 @@ namespace PrintBot.Infrastructure.ViewModels
 {
     public class CodeEditorViewModel : ViewModelBase
     {
-        
+        private string _code;
 
         private StorageService _storageService;
 
@@ -21,11 +21,25 @@ namespace PrintBot.Infrastructure.ViewModels
         {
             _storageService = new StorageService();
         }
+        public string Code
+        {
+            get{
+                return _code;
+            }
+            private set
+            {
+                SetProperty(ref _code, value);
+            }
+        }
 
         public async Task SaveFile(string filename, ObservableCollection<IBlock> list)
         {
             string listOfBlocks = JsonConvert.SerializeObject(list, Formatting.Indented, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto, TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple });
             await _storageService.WriteFileAsync(filename, listOfBlocks);
+        }
+        public void GenerateCode(ObservableCollection<IBlock> list)
+        {
+            Code = CodeGenerator.CreateCode(list);
         }
 
         public async Task<string> LoadData(string filename)

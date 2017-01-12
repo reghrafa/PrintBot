@@ -21,7 +21,7 @@
 		/// </summary>
 		/// <param name="from">From.</param>
 		/// <param name="to">To.</param>
-		void SwapItems (int from, int to);
+		void SwapItems (int from, int to, bool isAbove);
 	}
 }
 

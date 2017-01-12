@@ -4,12 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="50dp">
     <TextView
+        style="@style/CodeText"
         android:text="Variable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1"
-        android:layout_gravity="center_vertical"
-        android:textColor="@android:color/holo_green_light" />
+        android:id="@+id/textView1" />
     <Spinner
         android:id="@+id/BlockListItem_Variable_Spinner"
         android:layout_width="wrap_content"
@@ -18,21 +15,15 @@
         android:layout_gravity="center_vertical"
         android:background="@android:color/darker_gray" />
     <TextView
+        style="@style/CodeText"
         android:text="="
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:layout_marginLeft="5dp"
-        android:layout_gravity="center_vertical"
-        android:textColor="@android:color/holo_green_light" />
+        android:layout_marginLeft="5dp" />
     <EditText
+        style="@style/CodeText"
         android:id="@+id/BlockListItem_Variable_Value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="0"
         android:layout_marginLeft="5dp"
-        android:textSize="12dp"
-        android:layout_gravity="center_vertical"
-        android:textColor="@android:color/holo_green_light" />
+        android:textSize="12dp" />
 </LinearLayout>

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Program name here"
-        android:textColor="@android:color/holo_blue_light" />
+        android:textColor="#3b8686" />
     <FrameLayout
         android:id="@+id/CodeEditor_FragmentContainer"
         android:layout_weight="1"

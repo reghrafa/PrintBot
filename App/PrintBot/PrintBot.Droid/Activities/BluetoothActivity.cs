@@ -5,6 +5,8 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -23,6 +25,9 @@ namespace PrintBot.Droid.Activities
             FragmentTransaction ft = FragmentManager.BeginTransaction();
             ft.Replace(Resource.Id.bluetooth_fragment_container, new BluetoothScanFragment());
             ft.Commit();
+
+            ColorDrawable colorDrawable = new ColorDrawable(Color.ParseColor("#3b8686"));
+            ActionBar.SetBackgroundDrawable(colorDrawable);
         }
     }
 }

@@ -10,6 +10,8 @@ using System.IO;
 using System.Threading.Tasks;
 using Android;
 using PrintBot.Droid.Utils;
+using Android.Graphics.Drawables;
+using Android.Graphics;
 
 namespace PrintBot.Droid.Activities
 {
@@ -31,6 +33,9 @@ namespace PrintBot.Droid.Activities
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.BordEditor_MainLayout);
+
+            ColorDrawable colorDrawable = new ColorDrawable(Color.ParseColor("#3b8686"));
+            ActionBar.SetBackgroundDrawable(colorDrawable);
 
             _vm = ServiceLocator.Current.ModuleSetupViewModel;
             GetModulFileNames();//get ModulFiles

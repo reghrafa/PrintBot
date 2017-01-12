@@ -4,10 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp">
     <TextView
+        style="@style/CodeText"
         android:id="@+id/BlockListItem_EndBlock_Text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="End Block"
-        android:layout_gravity="center_vertical"
-        android:textColor="@android:color/holo_green_light" />
+        android:text="End Block" />
 </LinearLayout>

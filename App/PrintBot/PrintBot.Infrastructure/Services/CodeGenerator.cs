@@ -43,7 +43,16 @@ namespace PrintBot.Infrastructure.Services
                 {
                     offsetcount--;
                 }
-                idents.Add(offsetcount);
+                if (item is ElseBlock)
+                {
+                    offsetcount--;
+                    idents.Add(offsetcount);
+                    offsetcount++;
+                }
+                else
+                {
+                    idents.Add(offsetcount);
+                }
                 if (item is StartBlock)
                 {
                     offsetcount++;
@@ -58,7 +67,7 @@ namespace PrintBot.Infrastructure.Services
             var itemType = item.GetType();
 
             //decrease offset amount
-            if (itemType == typeof(EndLoop))
+            if (itemType == typeof(EndLoop) || itemType == typeof(EndIf))
             {
                 _whiteSpaceOffsetCount--;
             }

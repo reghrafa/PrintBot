@@ -16,6 +16,9 @@ using PrintBot.Droid.Controls;
 using PrintBot.Domain.Models.Blocks;
 using Newtonsoft.Json;
 using PrintBot.Droid.Controls.Blocks;
+using Android.Graphics.Drawables;
+using Android.Graphics;
+using PrintBot.Droid.Fragments;
 
 namespace PrintBot.Droid.Activities
 {
@@ -34,10 +37,13 @@ namespace PrintBot.Droid.Activities
             LayoutInflater mInflater = LayoutInflater.From(this);
             View mCustomView = mInflater.Inflate(Resource.Layout.actionbar_layout, null);
             ActionBar.SetCustomView(mCustomView, lp);
+            ColorDrawable colorDrawable = new ColorDrawable(Color.ParseColor("#3b8686"));
+            ActionBar.SetBackgroundDrawable(colorDrawable);
             ActionBar.SetDisplayShowCustomEnabled(true);
             _blockListViewController.List = new ObservableCollection<BlockListItem>();
             string filename = Intent.GetStringExtra("Path") ?? "no Data";
             var content = await _codeEditorViewModel.LoadData(filename);
+            
             FindViewById<TextView>(Resource.Id.main_ProgramName).Text = filename;
             var SwitchButton = FindViewById<ImageButton>(Resource.Id.CodeEditor_SwitchButton);
             SwitchButton.Click += delegate
@@ -45,10 +51,13 @@ namespace PrintBot.Droid.Activities
                 if (_isOnCodePage)
                 {
                     SwitchButton.SetImageResource(Resource.Drawable.ListIcon);
+                    ChangeFragment(new CodeViewFragment());
+                    _codeEditorViewModel.GenerateCode(_blockListViewController.ListOfIBlocks);
                 }
                 else
                 {
                     SwitchButton.SetImageResource(Resource.Drawable.CodeIcon);
+                    ChangeFragment(new FragmentWorkspace());
                 }
                 _isOnCodePage = !_isOnCodePage;
             };
@@ -58,6 +67,7 @@ namespace PrintBot.Droid.Activities
             {
                 StartActivity(typeof(Settings_Editor));
             };
+            
 
             FindViewById<ImageButton>(Resource.Id.CodeEditor_SaveButton).Click += async delegate
             {
@@ -81,6 +91,12 @@ namespace PrintBot.Droid.Activities
             FragmentTransaction ft2 = FragmentManager.BeginTransaction();
             ft2.Add(Resource.Id.CodeEditor_FragmentContainerTools, new FragmentTools());
             ft2.Commit();
+        }
+        private void ChangeFragment(Fragment f)
+        {
+            FragmentTransaction ft = FragmentManager.BeginTransaction();
+            ft.Replace(Resource.Id.CodeEditor_FragmentContainer, f);
+            ft.Commit();
         }
 
         private void CreateSavedList(ObservableCollection<IBlock> listOfBlocks)

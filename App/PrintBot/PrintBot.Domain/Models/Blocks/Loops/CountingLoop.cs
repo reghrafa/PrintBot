@@ -20,6 +20,7 @@ namespace PrintBot.Domain.Models.Blocks
                 _amountOfLoops = value;
             }
         }
+        
 
         public CountingLoop()
         {

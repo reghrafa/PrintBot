@@ -47,11 +47,13 @@ namespace PrintBot.Droid.Controls
             {
                 position++;
                 List.Insert(position, block.GetAnInstanceOfElseBlock());
+                tmpBlock.ElseBlock = List[position];
             }
             if (tmpBlock.BlockHolder.Block is StartBlock)
             {
                 position++;
                 List.Insert(position, block.GetAnInstanceOfEndBlock(block.BlockType));
+                tmpBlock.EndBlock = List[position];
             }
         }
     }
