@@ -46,18 +46,21 @@ namespace PrintBot.Droid.Activities
             
             FindViewById<TextView>(Resource.Id.main_ProgramName).Text = filename;
             var SwitchButton = FindViewById<ImageButton>(Resource.Id.CodeEditor_SwitchButton);
+            var toolbarFragment = FindViewById<FrameLayout>(Resource.Id.CodeEditor_FragmentContainerTools);
             SwitchButton.Click += delegate
             {
                 if (_isOnCodePage)
                 {
                     SwitchButton.SetImageResource(Resource.Drawable.ListIcon);
                     ChangeFragment(new CodeViewFragment());
+                    toolbarFragment.Visibility = ViewStates.Gone;
                     _codeEditorViewModel.GenerateCode(_blockListViewController.ListOfIBlocks);
                 }
                 else
                 {
                     SwitchButton.SetImageResource(Resource.Drawable.CodeIcon);
                     ChangeFragment(new FragmentWorkspace());
+                    toolbarFragment.Visibility = ViewStates.Visible;
                 }
                 _isOnCodePage = !_isOnCodePage;
             };

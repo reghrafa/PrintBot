@@ -25,17 +25,17 @@ namespace PrintBot.Droid.Activities
             ColorDrawable colorDrawable = new ColorDrawable(Color.ParseColor("#3b8686"));
             ActionBar.SetBackgroundDrawable(colorDrawable);
 
-            FindViewById<LinearLayout>(Resource.Id.Settings_ModuleSetup).Click += delegate
+            FindViewById<Button>(Resource.Id.Settings_ModuleSetup).Click += delegate
             {
                 StartActivity(typeof(BordEditor_MainActivity));
             };
 
-            FindViewById<LinearLayout>(Resource.Id.Settings_Bluetooth).Click += delegate
+            FindViewById<Button>(Resource.Id.Settings_Bluetooth).Click += delegate
             {
                 StartActivity(typeof(BluetoothActivity));
             };
 
-            FindViewById<LinearLayout>(Resource.Id.Settings_Other).Click += delegate
+            FindViewById<Button>(Resource.Id.Settings_Other).Click += delegate
             {
 
             };
