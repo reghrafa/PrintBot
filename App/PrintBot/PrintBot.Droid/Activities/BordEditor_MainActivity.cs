@@ -47,7 +47,9 @@ namespace PrintBot.Droid.Activities
                 // if has no reason it is just so, id needed a Selector
                 bool tmpBool = i % 2 == 0 ? true : false;
 
-                var tmp = new BordEditor_ModulSlot(this, new BordEditor_ListAdapter(this, _modulFileNames),tmpBool);
+                CreateModulSlot(tmpBool);
+
+              /*  var tmp = new BordEditor_ModulSlot(this, new BordEditor_ListAdapter(this, _modulFileNames),tmpBool);
                 _mainLayout.AddView(tmp);
 
                 tmp.loadNamesBtn.Click += delegate
@@ -62,7 +64,7 @@ namespace PrintBot.Droid.Activities
 
                 tmp.ModuleFileNamesList.ItemClick +=
                     (object o, AdapterView.ItemClickEventArgs e) => ModulList_ItemClick(o, e, tmp);
-
+                */
                 
               
             }
@@ -86,6 +88,28 @@ namespace PrintBot.Droid.Activities
                 _modulFileNames.Add(item.Name); //Get Module FileNames
             }
 
+        }
+
+        private BordEditor_ModulSlot CreateModulSlot(bool isRight)
+        {
+
+            var tmp = new BordEditor_ModulSlot(this, new BordEditor_ListAdapter(this, _modulFileNames), isRight);
+            _mainLayout.AddView(tmp);
+
+            tmp.loadNamesBtn.Click += delegate
+            {
+                GetModulFileNames();
+                tmp.Adapter.NotifyDataSetChanged();
+            };
+            tmp.CreateBtn.Click += delegate
+            {
+                ReplaceModulSlot(tmp);
+            };
+
+            tmp.ModuleFileNamesList.ItemClick +=
+                (object o, AdapterView.ItemClickEventArgs e) => ModulList_ItemClick(o, e, tmp);
+
+            return tmp;
         }
 
         private void BordInit()
@@ -190,6 +214,7 @@ namespace PrintBot.Droid.Activities
                         pin.ConnectePin.pw.Clear();
                     }
                     catch (NullReferenceException e) { }
+              
 
                 }
                 _mainLayout.RemoveView(modul);
@@ -197,6 +222,8 @@ namespace PrintBot.Droid.Activities
             modul.TranslationX = slot.GetX();
             modul.TranslationY = slot.GetY();
             modul.SwitchPinSideIfNeeded();
+            
+
 
         }
 
@@ -206,6 +233,7 @@ namespace PrintBot.Droid.Activities
             var loadedModul = await _vm.LoadModuleAsync();
             int modulIndex = GetModulFileIndexByName(filename, loadedModul);//get Index of wanted Modul
             BordEditor_Modul modul = new BordEditor_Modul(this, loadedModul[modulIndex]);
+            modul.SetModulTyp(loadedModul[modulIndex].ModulType);
             _mainLayout.AddView(modul);
             modul.selfDestrucktion.Click += delegate
             {
@@ -216,6 +244,8 @@ namespace PrintBot.Droid.Activities
                         pin.ConnectePin.pw.Clear();
                     }
                     catch { }
+                    var newModulSlot = CreateModulSlot(true);
+                    newModulSlot.TranslationX = modul.GetX();
 
                 }
                 _mainLayout.RemoveView(modul);
@@ -223,7 +253,7 @@ namespace PrintBot.Droid.Activities
             modul.TranslationX = slot.GetX();
             modul.TranslationY = slot.GetY();
             modul.SwitchPinSideIfNeeded();
-
+           // _mainLayout.RemoveView(slot);
             
 
             int i = 0;

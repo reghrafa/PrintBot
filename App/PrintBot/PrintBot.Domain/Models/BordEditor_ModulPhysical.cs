@@ -7,6 +7,8 @@ namespace PrintBot.Domain.Models
     {
         public string Name { get; set; }
 
+        public string ModulType { get; set; }
+
         public List<BordEditor_PysicalPin> PinList { get; set; }
 
         public BordEditor_ModulPhysical()

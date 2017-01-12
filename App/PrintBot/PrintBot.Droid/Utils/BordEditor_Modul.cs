@@ -17,6 +17,10 @@ namespace PrintBot.Droid
         public List<ModulButton> modulPins = new List<ModulButton>();
         public Button selfDestrucktion;
         public EditText enterModulName;
+        Button changeTypeBtn;
+
+        public String CurrentModulType { get; set; }
+        private int _modulTypeIndex = 0;
 
         private ModuleSetupViewModel _vm;
 
@@ -42,24 +46,44 @@ namespace PrintBot.Droid
         {
 
             var scale = (int) PrintBot.Droid.Activities.BordEditor_MainActivity._scaleFactor;
-            var enterTexHeiht = 40 * scale;
+            var enterTexHeiht = 50 * scale;
             var buttonsize = 25 * scale;
-            var modulMinHeight = 55 * scale + 2 * buttonsize;
-
+            var modulMinHeight = 55 * scale + 4 * buttonsize;
 
             pinCount += 1; // on extra for gnd
             int modulHeight = modulMinHeight + (30 * pinCount * scale);
             int modulWidth = 100 * scale;
+
+            string[] modulTypes = new string[] { "LED","Motor","Custom", "Sensor"};
+            int typeButtonWidth = modulWidth / modulTypes.Length;
+
             this.LayoutParameters = new LayoutParams(modulWidth, modulHeight);
             this.SetBackgroundColor(Color.PowderBlue);
 
             //modul name
             enterModulName = new EditText(context);
             enterModulName.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, enterTexHeiht);
-            enterModulName.TextSize = 15;
+            enterModulName.TextSize = 5.5f * scale;
             enterModulName.SetTextColor( Color.Black);
             this.AddView(enterModulName);
             enterModulName.AfterTextChanged += delegate { SetModulName(enterModulName.Text); };
+
+            //setType
+            changeTypeBtn = new Button(context);
+            changeTypeBtn.LayoutParameters = new LayoutParams(LayoutParams.MatchParent, 2*buttonsize);
+            changeTypeBtn.TranslationY = enterTexHeiht;
+            changeTypeBtn.TextSize = 5.5f * scale;
+            changeTypeBtn.Gravity = GravityFlags.Left;
+            changeTypeBtn.Text = modulTypes[0];
+            changeTypeBtn.SetBackgroundColor(Color.Gray);
+            this.AddView(changeTypeBtn);
+            changeTypeBtn.Click += delegate
+            {
+                _modulTypeIndex += 1;
+                _modulTypeIndex = _modulTypeIndex % modulTypes.Length;
+                CurrentModulType = modulTypes[_modulTypeIndex];
+                changeTypeBtn.Text = CurrentModulType;
+            };
 
             //delet modul
             selfDestrucktion = new Button(context);
@@ -80,7 +104,7 @@ namespace PrintBot.Droid
 
 
             //create pins
-            int yOffset =enterTexHeiht;
+            int yOffset =enterTexHeiht + 2*buttonsize;
             for (int i = 0; i < pinCount; i++)
             {
                 var pin = new ModulButton(context, this);
@@ -106,6 +130,13 @@ namespace PrintBot.Droid
 
                 yOffset += 30 * scale;
             }
+        }
+
+        public void SetModulTyp( string s)
+        {
+            this.CurrentModulType = s;
+            changeTypeBtn.Text = s;
+            
         }
 
         public void AttachSimulator(int pinNr)
@@ -209,6 +240,7 @@ namespace PrintBot.Droid
             // Save modul by serializertion
             BordEditor_ModulPhysical tmp = new BordEditor_ModulPhysical();
             tmp.Name = this.enterModulName.Text;
+            tmp.ModulType = this.CurrentModulType;
             foreach (ModulButton pin in this.modulPins)
             {
                 try

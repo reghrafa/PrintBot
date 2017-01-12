@@ -25,18 +25,37 @@ namespace PrintBot.Droid.Activities
     {
         private CodeEditorViewModel _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
         public BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;
+        private bool _isOnCodePage = false;
         protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.CodeEditor_Layout);
+
+            ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.WrapContent, ActionBar.LayoutParams.WrapContent, GravityFlags.Right | GravityFlags.CenterVertical);
+            LayoutInflater mInflater = LayoutInflater.From(this);
+            View mCustomView = mInflater.Inflate(Resource.Layout.actionbar_layout, null);
+            ActionBar.SetCustomView(mCustomView, lp);
+            ActionBar.SetDisplayShowCustomEnabled(true);
             _blockListViewController.List = new ObservableCollection<BlockListItem>();
             string filename = Intent.GetStringExtra("Path") ?? "no Data";
             var content = await _codeEditorViewModel.LoadData(filename);
             FindViewById<TextView>(Resource.Id.main_ProgramName).Text = filename;
+            var SwitchButton = FindViewById<ImageButton>(Resource.Id.CodeEditor_SwitchButton);
+            SwitchButton.Click += delegate
+            {
+                if (_isOnCodePage)
+                {
+                    SwitchButton.SetImageResource(Resource.Drawable.ListIcon);
+                }
+                else
+                {
+                    SwitchButton.SetImageResource(Resource.Drawable.CodeIcon);
+                }
+                _isOnCodePage = !_isOnCodePage;
+            };
 
 
-
-            FindViewById<Button>(Resource.Id.CodeEditor_SettingsButton).Click += delegate
+            FindViewById<ImageButton>(Resource.Id.CodeEditor_SettingsButton).Click += delegate
             {
                 StartActivity(typeof(Settings_Editor));
             };
