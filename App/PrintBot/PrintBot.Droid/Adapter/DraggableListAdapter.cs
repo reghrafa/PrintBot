@@ -82,7 +82,7 @@ namespace PrintBot.Droid
             amountOffset *= 60;
             amountOffset = amountOffset >= 0 ? amountOffset : 0;
             result.SetPadding(amountOffset, 0, 0, 0);
-            result.SetMinimumHeight(150);
+            result.SetMinimumHeight(0);
             result.Visibility = CellPosition == position ? ViewStates.Invisible : ViewStates.Visible;
             result.TranslationY = 0;
             return result;
