@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="100dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+  <LinearLayout
+      style="@style/CommandBlockLayout">
     <TextView
         style="@style/CodeText"
         android:text="LED" />
@@ -12,4 +13,5 @@
         android:id="@+id/BlockListItem_LED_toggleIsOn"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="5dp" />
-</LinearLayout>
+  </LinearLayout>
+</RelativeLayout>

@@ -33,6 +33,9 @@ namespace PrintBot.Droid.Controls.Blocks
             BlockLayout = LayoutInflater.From(BlockContext).Inflate(Resource.Layout.BlockListItem_EndBlock, null);
             txtBlockText = BlockLayout.FindViewById<TextView>(Resource.Id.BlockListItem_EndBlock_Text);
             txtBlockText.Text = Block is EndIf ? "End If" : "End Loop";
+            var mainLayout = BlockLayout.FindViewById<LinearLayout>(Resource.Id.block_endblock_layout);
+            var drawableRes = Block is EndIf ? Resource.Drawable.block_orange_bg : Resource.Drawable.block_purple_bg;
+            mainLayout.SetBackgroundResource(drawableRes);
         }
     }
 }

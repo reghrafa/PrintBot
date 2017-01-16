@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView
-        style="@style/CodeText"
-        android:text="Amount of Loops" />
-    <EditText
-        style="@style/CodeText"
-        android:id="@+id/CountingLoop_AmountOfLoops"
-        android:text="0"
-        android:inputType="number"
-        android:numeric="integer" />
-</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        style="@style/LoopBlockLayout">
+        <TextView
+            style="@style/CodeText"
+            android:text="Loop" />
+        <EditText
+            style="@style/CodeText"
+            android:id="@+id/CountingLoop_AmountOfLoops"
+            android:text="2"
+            android:inputType="number"
+            android:numeric="integer"
+            android:ellipsize="start"
+            android:gravity="center" />
+        <TextView
+            style="@style/CodeText"
+            android:text="times" />
+    </LinearLayout>
+</RelativeLayout>

@@ -10,7 +10,26 @@
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_gravity">center_vertical</item>
-    <item name="android:textColor">#3b8686</item>
+    <item name="android:textColor">@android:color/white</item>
+  </style>
+  <style name="BlockLayout">
+    <item name="android:orientation">horizontal</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">50dp</item>
+    <item name="android:paddingLeft">10dp</item>
+    <item name="android:paddingRight">10dp</item>
+  </style>
+  <style name="LoopBlockLayout" parent="BlockLayout">
+    <item name="android:background">@drawable/block_purple_bg</item>
+  </style>
+  <style name="IfBlockLayout" parent="BlockLayout">
+    <item name="android:background">@drawable/block_orange_bg</item>
+  </style>
+  <style name="CommandBlockLayout" parent="BlockLayout">
+    <item name="android:background">@drawable/block_red_bg</item>
+  </style>
+  <style name="VarBlockLayout" parent="BlockLayout">
+    <item name="android:background">@drawable/block_green_bg</item>
   </style>
   <style name="Button">
     <item name="android:layout_width">100dp</item>
