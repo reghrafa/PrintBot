@@ -37,6 +37,17 @@ namespace PrintBot.Droid.Controls
         }
         public BlockListViewController() { }
 
+        public void SetEndBlockInstances()
+        {
+            foreach (BlockListItem item in List)
+            {
+                if (item.BlockHolder.Block.EndBlockPosition > 0)
+                {
+                    item.EndBlock = List[item.BlockHolder.Block.EndBlockPosition];
+                }
+            }
+        }
+
         public void InsertBlockToList(BlockListItem block, int position)
         {
             var tmpBlock = block.GetAnInstanceAndInitialize();

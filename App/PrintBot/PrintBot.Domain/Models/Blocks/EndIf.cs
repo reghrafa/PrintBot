@@ -9,6 +9,7 @@ namespace PrintBot.Domain.Models.Blocks
     public class EndIf : EndBlock, IBlock
     {
         public string CodeText { get; set; }
+        public int EndBlockPosition { get; set; }
         public string Name { get; set; }
         public string Text { get; set; }
         public bool IsChild { get; set; }

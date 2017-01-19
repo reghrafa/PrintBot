@@ -10,6 +10,7 @@ namespace PrintBot.Domain.Models.Blocks
     {
         private Condition condition;
         public string CodeText { get; set; }
+        public int EndBlockPosition { get; set; }
 
         public IfBlock()
         {

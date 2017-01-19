@@ -78,6 +78,10 @@ namespace PrintBot.Droid
         {
             var item = List[position];
             var result = item.BlockHolder.BlockLayout;
+            if (item.EndBlock != null)
+            {
+                item.BlockHolder.Block.EndBlockPosition = GetItemPosition(item.EndBlock);
+            }
             int amountOffset = ListOfIdents[position];
             amountOffset *= 60;
             amountOffset = amountOffset >= 0 ? amountOffset : 0;

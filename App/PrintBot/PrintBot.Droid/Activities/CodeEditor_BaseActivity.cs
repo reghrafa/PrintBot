@@ -43,7 +43,7 @@ namespace PrintBot.Droid.Activities
             _blockListViewController.List = new ObservableCollection<BlockListItem>();
             string filename = Intent.GetStringExtra("Path") ?? "no Data";
             var content = await _codeEditorViewModel.LoadData(filename);
-            
+
             FindViewById<TextView>(Resource.Id.main_ProgramName).Text = filename;
             var SwitchButton = FindViewById<ImageButton>(Resource.Id.CodeEditor_SwitchButton);
             var toolbarFragment = FindViewById<FrameLayout>(Resource.Id.CodeEditor_FragmentContainerTools);
@@ -70,7 +70,7 @@ namespace PrintBot.Droid.Activities
             {
                 StartActivity(typeof(Settings_Editor));
             };
-            
+
 
             FindViewById<ImageButton>(Resource.Id.CodeEditor_SaveButton).Click += async delegate
             {
@@ -159,6 +159,7 @@ namespace PrintBot.Droid.Activities
 
                 }
             }
+            _blockListViewController.SetEndBlockInstances();
         }
     }
 }

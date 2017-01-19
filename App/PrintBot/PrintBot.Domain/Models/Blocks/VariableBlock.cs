@@ -9,6 +9,7 @@ namespace PrintBot.Domain.Models.Blocks
     public class VariableBlock : IBlock
     {
         public string CodeText { get; set; }
+        public int EndBlockPosition { get; set; }
 
         public bool IsChild { get; set; }
 

@@ -25,6 +25,7 @@ namespace PrintBot.Droid.Controls
         public BlockTypeEnum BlockType { get; set; }
         public IBlockHolder BlockHolder;
         public BlockListItem EndBlock { get; set; }
+        public int EndBlockPosition { get; set; }
         public BlockListItem ElseBlock { get; set; }
 
         public BlockListItem(Context context) : base(context)
