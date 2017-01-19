@@ -15,7 +15,7 @@ using Android.Widget;
 namespace PrintBot.Droid.Activities
 {
     [Activity(Label = "Code Editor")]
-    class Settings_Editor : Activity
+    class Settings_Editor : PortraitActivity
     {
         protected override void OnCreate(Bundle bundle)
         {

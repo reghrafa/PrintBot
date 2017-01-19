@@ -23,7 +23,7 @@ using PrintBot.Droid.Fragments;
 namespace PrintBot.Droid.Activities
 {
     [Activity(Label = "Code Editor")]
-    class CodeEditor_BaseActivity : Activity
+    class CodeEditor_BaseActivity : PortraitActivity
     {
         private CodeEditorViewModel _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
         public BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;

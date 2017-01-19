@@ -16,7 +16,7 @@ using Android.Graphics;
 namespace PrintBot.Droid.Activities
 {
     [Activity(Label = "PrintBot", WindowSoftInputMode = Android.Views.SoftInput.AdjustNothing, MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : PortraitActivity
     {
         BluetoothViewModel _bluetoothVM = ServiceLocator.Current.BluetoothViewModel;
 
