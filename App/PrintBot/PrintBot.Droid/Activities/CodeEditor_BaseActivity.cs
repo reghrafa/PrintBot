@@ -28,6 +28,7 @@ namespace PrintBot.Droid.Activities
         private CodeEditorViewModel _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
         public BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;
         private bool _isOnCodePage = false;
+        public ImageView DeleteBlockImage { get; set; }
         protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -40,6 +41,7 @@ namespace PrintBot.Droid.Activities
             ColorDrawable colorDrawable = new ColorDrawable(Color.ParseColor("#3b8686"));
             ActionBar.SetBackgroundDrawable(colorDrawable);
             ActionBar.SetDisplayShowCustomEnabled(true);
+
             _blockListViewController.List = new ObservableCollection<BlockListItem>();
             string filename = Intent.GetStringExtra("Path") ?? "no Data";
             var content = await _codeEditorViewModel.LoadData(filename);
@@ -47,6 +49,9 @@ namespace PrintBot.Droid.Activities
             FindViewById<TextView>(Resource.Id.main_ProgramName).Text = filename;
             var SwitchButton = FindViewById<ImageButton>(Resource.Id.CodeEditor_SwitchButton);
             var toolbarFragment = FindViewById<FrameLayout>(Resource.Id.CodeEditor_FragmentContainerTools);
+            DeleteBlockImage = FindViewById<ImageView>(Resource.Id.CodeEditor_deleteButton);
+            //DeleteBlockImage.Visibility = ViewStates.Gone;
+            //DeleteBlockImage.Drag += DeleteBlockImage_Drag;
             SwitchButton.Click += delegate
             {
                 if (_isOnCodePage)
@@ -81,7 +86,7 @@ namespace PrintBot.Droid.Activities
             try
             {
                 var iBlocks = JsonConvert.DeserializeObject<ObservableCollection<IBlock>>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-                CreateSavedList(iBlocks);
+                _blockListViewController.CreateSavedList(this, iBlocks);
             }
             catch (Exception e)
             {
@@ -95,71 +100,37 @@ namespace PrintBot.Droid.Activities
             ft2.Add(Resource.Id.CodeEditor_FragmentContainerTools, new FragmentTools());
             ft2.Commit();
         }
+
+        private void DeleteBlockImage_Drag(object sender, View.DragEventArgs e)
+        {
+            var evt = e.Event;            
+            var item = (BlockListItem)sender;
+            switch (evt.Action)
+            {
+                case DragAction.Started:
+                    e.Handled = true;
+                    break;
+                case DragAction.Entered:
+                    break;
+                case DragAction.Exited:
+                    break;
+                case DragAction.Drop:
+                    e.Handled = true;
+                    _blockListViewController.DeleteBlockByObject(item);
+                    break;
+                case DragAction.Ended:
+                    e.Handled = true;
+                    break;
+                case DragAction.Location:
+                    break;
+            }
+        }
+
         private void ChangeFragment(Fragment f)
         {
             FragmentTransaction ft = FragmentManager.BeginTransaction();
             ft.Replace(Resource.Id.CodeEditor_FragmentContainer, f);
             ft.Commit();
-        }
-
-        private void CreateSavedList(ObservableCollection<IBlock> listOfBlocks)
-        {
-            foreach (IBlock block in listOfBlocks)
-            {
-                var tmp = new BlockListItem(this);
-                switch (block.Name)
-                {
-                    case "Counting Loop":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.CountingLoop;
-                        tmp.BlockHolder = new CountingLoopListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "Endless Loop":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.EndlessLoop;
-                        tmp.BlockHolder = new EndlessLoopListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "Variable Block":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.Variable;
-                        tmp.BlockHolder = new VariableListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "Else Block":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.Else;
-                        tmp.BlockHolder = new ElseListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "Led Block":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.LED;
-                        tmp.BlockHolder = new LEDListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "If Block":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.IfBlock;
-                        tmp.BlockHolder = new IfListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "End If":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.EndBlock;
-                        tmp.BlockHolder = new EndBlockListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "End Loop":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.EndBlock;
-                        tmp.BlockHolder = new EndBlockListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "Move Block":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.MoveMotor;
-                        tmp.BlockHolder = new MoveListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    default:
-                        break;
-
-                }
-            }
-            _blockListViewController.SetEndBlockInstances();
         }
     }
 }

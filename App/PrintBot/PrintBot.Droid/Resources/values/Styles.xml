@@ -57,4 +57,10 @@
     <item name="android:shadowColor">@android:color/transparent</item>
     <item name="android:stateListAnimator">@null</item>
   </style>
+  <style name="delete_block_button">
+    <item name="android:layout_width">50dp</item>
+    <item name="android:layout_height">50dp</item>
+    <item name="android:src">@drawable/dustbin</item>
+    <item name="android:padding">10dp</item>
+  </style>
 </resources>

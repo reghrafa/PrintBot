@@ -3,7 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
   <LinearLayout
-      style="@style/CommandBlockLayout">
+      style="@style/CommandBlockLayout"
+      android:id="@+id/led_block_parent">
     <TextView
         style="@style/CodeText"
         android:text="LED" />
@@ -14,4 +15,8 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="5dp" />
   </LinearLayout>
+  <ImageView
+    android:id="@+id/delete_button"
+        style="@style/delete_block_button"
+        android:layout_toRightOf="@id/led_block_parent" />
 </RelativeLayout>

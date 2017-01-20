@@ -13,11 +13,13 @@ using PrintBot.Infrastructure.Services;
 using System.Collections.Generic;
 using System.Linq;
 using Android.Graphics;
+using PrintBot.Domain.Models.Blocks.Abstract_Classes;
 
 namespace PrintBot.Droid
 {
     public class DraggableListAdapter : BaseAdapter, IDraggableListAdapter
     {
+        
         public ObservableCollection<BlockListItem> List { get; set; }
         private ObservableCollection<IBlock> _listOfIBlocks;
         public ObservableCollection<IBlock> ListOfIBlocks
@@ -82,6 +84,14 @@ namespace PrintBot.Droid
             {
                 item.BlockHolder.Block.EndBlockPosition = GetItemPosition(item.EndBlock);
             }
+
+            if (item.BlockHolder.Block is StartBlock || item.BlockHolder.Block is CommandBlock)
+            {
+                var delete_image = ((ViewGroup)result).GetChildAt(((ViewGroup)result).ChildCount - 1);
+                delete_image.Visibility = item.ShowsDeleteButton ? ViewStates.Visible : ViewStates.Gone;
+                delete_image.Clickable = true;
+            }
+
             int amountOffset = ListOfIdents[position];
             amountOffset *= 60;
             amountOffset = amountOffset >= 0 ? amountOffset : 0;
@@ -95,6 +105,26 @@ namespace PrintBot.Droid
         public int GetItemPosition(BlockListItem item)
         {
             return List.ToList().FindIndex(a => a == item);
+        }
+
+        public void AddDeleteImageView(int position)
+        {
+            var image = new ImageView(context, null, Resource.Style.delete_block_button);
+            List[position].AddView(image);
+        }
+
+        public void DeleteImageView(int position)
+        {
+            var image = new ImageView(context, null, Resource.Style.delete_block_button);
+            List[position].RemoveViewAt(List[position].ChildCount - 1);
+        }
+
+        public void HideAllDeleteButtons()
+        {
+            foreach (BlockListItem item in List)
+            {
+                item.ShowsDeleteButton = false;
+            }
         }
 
         public void SwapItems(int from, int to, bool isAbove)

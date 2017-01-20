@@ -4,8 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffffff">
+    <ImageView
+        android:id="@+id/workspace_delete_button"
+        android:src="@drawable/dustbin"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal" />
     <PrintBot.Droid.DraggableListView
         android:id="@+id/workspace_listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+  <!--<ListView
+        android:id="@+id/workspace_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />-->
 </LinearLayout>
