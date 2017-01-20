@@ -51,5 +51,10 @@ namespace PrintBot.Infrastructure.ViewModels
             }
             return null;
         }
+
+        public void DeleteFileByName(string _fileName)
+        {
+            
+        }
     }
 }

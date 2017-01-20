@@ -14,6 +14,15 @@ namespace PrintBot.Infrastructure.Services
         {
 
         }
+
+        public async Task DeleteFileAsync(string filename)
+        {
+            IFolder rootFolder = FileSystem.Current.LocalStorage;
+            IFolder folder = await rootFolder.CreateFolderAsync(_mainFolder,
+                CreationCollisionOption.OpenIfExists);
+            IFile file = await folder.GetFileAsync(filename);
+            await file.DeleteAsync();
+        }
         public async Task WriteFileAsync(string filename, string content)
         {
             IFolder rootFolder = FileSystem.Current.LocalStorage;
