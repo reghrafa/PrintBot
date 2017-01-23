@@ -31,5 +31,4 @@
         android:drawablePadding="20dp"
         android:text="Other"
         style="@style/Button_basic" />
-
 </LinearLayout>

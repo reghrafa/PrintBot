@@ -15,7 +15,7 @@ using PrintBot.Droid.Fragments;
 
 namespace PrintBot.Droid.Activities
 {
-    [Activity(Label = "BluetoothActivity")]
+    [Activity(Label = "Bluetooth Setup")]
     public class BluetoothActivity : PortraitActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

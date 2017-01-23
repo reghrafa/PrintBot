@@ -8,7 +8,7 @@ namespace PrintBot.Domain.Models.Blocks
 {
     public interface IBlock
     {
-        string CodeText { get; set; }
+        string CodeText { get; }
         int EndBlockPosition { get; set; }
         string Name { get; set; }
         string Text { get; set; }

@@ -19,7 +19,7 @@ namespace PrintBot.Droid
 {
     public class DraggableListAdapter : BaseAdapter, IDraggableListAdapter
     {
-        
+
         public ObservableCollection<BlockListItem> List { get; set; }
         private ObservableCollection<IBlock> _listOfIBlocks;
         public ObservableCollection<IBlock> ListOfIBlocks
@@ -68,7 +68,8 @@ namespace PrintBot.Droid
 
         public override Java.Lang.Object GetItem(int position)
         {
-            return List[position];
+            if (position > -1) return List[position];
+            return null;
         }
 
         public override long GetItemId(int position)

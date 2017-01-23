@@ -168,9 +168,12 @@ namespace PrintBot.Droid
         {
             ((DraggableListAdapter)Adapter).HideAllDeleteButtons();
             int position = PointToPosition((int)e.GetX(), (int)e.GetY());
-            var item = ((DraggableListAdapter)Adapter).GetItem(position) as BlockListItem;
-            item.ShowsDeleteButton = true;
-            ((DraggableListAdapter)Adapter).NotifyDataSetChanged();
+            if (position > -1)
+            {
+                var item = ((DraggableListAdapter)Adapter).GetItem(position) as BlockListItem;
+                item.ShowsDeleteButton = true;
+                ((DraggableListAdapter)Adapter).NotifyDataSetChanged();
+            }
             return true;
         }
 

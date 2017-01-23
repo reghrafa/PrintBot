@@ -22,7 +22,7 @@ namespace PrintBot.Droid.Controls
     /// </summary>
     public class BlockListItem : RelativeLayout
     {
-        BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;
+        BlockListController _blockListController = ServiceLocator.Current.BlockListController;
         public BlockTypeEnum BlockType { get; set; }
         public IBlockHolder BlockHolder;
         public BlockListItem EndBlock { get; set; }
@@ -134,7 +134,7 @@ namespace PrintBot.Droid.Controls
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            _blockListViewController.DeleteBlockByObject(this);
+            _blockListController.DeleteBlockByObject(this);
         }
 
         public BlockListItem GetAnInstanceOfEndBlock(BlockTypeEnum blockType)

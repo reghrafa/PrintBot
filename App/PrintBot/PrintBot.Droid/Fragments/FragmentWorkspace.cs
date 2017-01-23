@@ -23,7 +23,7 @@ namespace PrintBot.Droid
 {
     public class FragmentWorkspace : Fragment
     {
-        BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;
+        BlockListController _blockListController = ServiceLocator.Current.BlockListController;
         DraggableListView listView;
         DraggableListAdapter adapter;
         int oldPos;
@@ -33,7 +33,7 @@ namespace PrintBot.Droid
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            adapter = new DraggableListAdapter(this.Activity, _blockListViewController.List);
+            adapter = new DraggableListAdapter(this.Activity, _blockListController.List);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -103,7 +103,7 @@ namespace PrintBot.Droid
                     var block = (BlockListItem)e.Event.LocalState;
                     // Get the Position in the List
                     var position = listView.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
-                    _blockListViewController.InsertBlockToList(Context, block, position);
+                    _blockListController.InsertBlockToList(Context, block, position);
                     blockAdded = false;
                     break;
                 case DragAction.Ended:
@@ -125,7 +125,7 @@ namespace PrintBot.Droid
         {
             if (newPos == -1)
             {
-                newPos = _blockListViewController.List.Count - 1;
+                newPos = _blockListController.List.Count - 1;
             }
             if (newPos != oldPos)
             {

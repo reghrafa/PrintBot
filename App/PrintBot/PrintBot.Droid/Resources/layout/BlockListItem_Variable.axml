@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_gravity="center_vertical"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/transparent" />
     <TextView
         style="@style/CodeText"
         android:text="="
@@ -26,8 +26,7 @@
         style="@style/CodeText"
         android:id="@+id/BlockListItem_Variable_Value"
         android:text="0"
-        android:layout_marginLeft="5dp"
-        android:textSize="12dp" />
+        android:layout_marginLeft="5dp" />
   </LinearLayout>
   <ImageView
     android:id="@+id/delete_button"

@@ -9,7 +9,13 @@ namespace PrintBot.Domain.Models.Blocks
 {
     public class MoveBlock : CommandBlock, IBlock
     {
-        public string CodeText { get; set; }
+        public string CodeText
+        {
+            get
+            {
+                return "SetAcceleration(" + Acceleration.ToString() + ");";
+            }
+        }
         public int EndBlockPosition { get; set; }
 
         public bool IsChild { get; set; }
@@ -22,7 +28,6 @@ namespace PrintBot.Domain.Models.Blocks
 
         public MoveBlock()
         {
-            CodeText = "SomeMoveMethod()";
             Name = "Move Block";
             Text = "Moving on";
             Acceleration = 5;

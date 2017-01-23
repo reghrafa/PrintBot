@@ -4,38 +4,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
   <Button
-      android:text="Scan"
-      android:layout_width="match_parent"
+      android:text="Start scanning"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:id="@+id/bluetooth_ScanButton" />
-  <TextView
-      android:text="Known devices"
-      android:textAppearance="?android:attr/textAppearanceMedium"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/textView1"
-      android:layout_marginTop="15dp" />
-  <ListView
-      android:minWidth="25dp"
-      android:minHeight="25dp"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/bluetooth_ListViewKnownDevices" />
-  <TextView
-      android:text="Found devices"
-      android:textAppearance="?android:attr/textAppearanceMedium"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/textView1"
-      android:layout_marginTop="15dp" />
-  <ListView
-      android:minWidth="25dp"
-      android:minHeight="25dp"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/bluetooth_ListViewFoundDevices" />
-  <ProgressBar
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/bluetooth_ProgressBar" />
+      android:id="@+id/bluetooth_ScanButton"
+      android:drawableLeft="@drawable/bluetooth_scan_small"
+      android:drawablePadding="20dp"
+      android:layout_margin="10dp"
+      style="@style/Button_basic" />
+    <TextView
+        android:text="Known devices"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Bluetooth_KnownDevicesTextView"
+        android:layout_marginTop="15dp"
+        android:layout_margin="10dp"
+        style="Button_basic" />
+    <ListView
+        android:minWidth="25dp"
+        android:minHeight="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bluetooth_ListViewKnownDevices"
+        android:layout_margin="10dp" />
+    <TextView
+        android:text="Found devices"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Bluetooth_FoundDevicesTextView"
+        android:layout_marginTop="15dp"
+        style="Button_basic"
+        android:layout_margin="10dp" />
+    <ListView
+        android:minWidth="25dp"
+        android:minHeight="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bluetooth_ListViewFoundDevices"
+        android:layout_margin="10dp" />
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bluetooth_ProgressBar"
+        android:layout_margin="10dp" />
 </LinearLayout>

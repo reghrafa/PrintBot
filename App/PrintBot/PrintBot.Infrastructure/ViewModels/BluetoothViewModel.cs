@@ -97,6 +97,12 @@ namespace PrintBot.Infrastructure.ViewModels
             _client.DeviceConnectionLost += _client_DeviceConnectionLost;
             _client.DeviceDisconnected += _client_DeviceDisconnected;
             _client.ScanTimeoutElapsed += _client_ScanTimeoutElapsed;
+            FoundDevices.CollectionChanged += FoundDevices_CollectionChanged;
+        }
+
+        private void FoundDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged("FoundDevices");
         }
 
         #region Events

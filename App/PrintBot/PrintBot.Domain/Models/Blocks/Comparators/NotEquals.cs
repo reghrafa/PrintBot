@@ -11,14 +11,7 @@ namespace PrintBot.Domain.Models.Blocks
         {
             Name = "Ist gleich Komparator";
             Text = "ungleich";
-        }
-
-        public new string ToString
-        {
-            get
-            {
-                return "!=";
-            }
+            ToString = "!=";
         }
     }
 }

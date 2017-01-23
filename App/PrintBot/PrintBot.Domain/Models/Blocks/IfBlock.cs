@@ -8,15 +8,20 @@ namespace PrintBot.Domain.Models.Blocks
 {
     public class IfBlock : StartBlock, IBlock
     {
-        private Condition condition;
-        public string CodeText { get; set; }
+        public Condition Condition;
+        public string CodeText
+        {
+            get
+            {
+                return "if (" + Condition.ToString + ") {";
+            }
+        }
         public int EndBlockPosition { get; set; }
-
+    
         public IfBlock()
         {
             Equals equ = new Equals();
-            condition = new Condition(1, 3, equ);
-            CodeText = "If (" + condition + ") {";
+            Condition = new Condition(1, 1, equ);            
             Name = "If Block";
         }
         public bool IsChild { get; set; }

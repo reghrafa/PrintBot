@@ -15,7 +15,6 @@ namespace PrintBot.Domain.Models.Blocks
             Name = "Condition Loop";
             Text = "Schleife bis";
             Condition = new Condition();
-            SetCodeText("while (" + Condition.ToString + ") {");
         }
 
     }

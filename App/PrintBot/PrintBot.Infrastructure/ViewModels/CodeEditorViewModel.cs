@@ -54,7 +54,7 @@ namespace PrintBot.Infrastructure.ViewModels
 
         public void DeleteFileByName(string _fileName)
         {
-            
+            //_storageService.DeleteFileAsync(_fileName);
         }
     }
 }

@@ -9,7 +9,13 @@ namespace PrintBot.Domain.Models.Blocks
 {
     public class LedBlock : CommandBlock, IBlock
     {
-        public string CodeText { get; set; }
+        public string CodeText
+        {
+            get
+            {
+                return "SetLedStatus(" + IsOn.ToString() + ");";
+            }
+        }
         public int EndBlockPosition { get; set; }
 
         public bool IsChild { get; set; }
@@ -22,7 +28,6 @@ namespace PrintBot.Domain.Models.Blocks
 
         public LedBlock()
         {
-            CodeText = "SomeLedMethod()";
             Name = "Led Block";
             Text = "It's me, LED";
             IsOn = false;

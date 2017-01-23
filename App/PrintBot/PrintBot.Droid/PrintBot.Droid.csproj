@@ -78,10 +78,11 @@
     <Compile Include="Activities\Settings_Editor.cs" />
     <Compile Include="Adapter\BluetoothListAdapter.cs" />
     <Compile Include="Adapter\BordEditor_ListAdapter.cs" />
+    <Compile Include="Adapter\ComparatorSpinnerAdapter.cs" />
     <Compile Include="Adapter\DraggableListAdapter.cs" />
     <Compile Include="Adapter\IDraggableListAdapter.cs" />
     <Compile Include="Controls\BlockListItem.cs" />
-    <Compile Include="Controls\BlockListViewController.cs" />
+    <Compile Include="Controls\BlockListController.cs" />
     <Compile Include="Controls\Blocks\CountingLoopListItem.cs" />
     <Compile Include="Controls\Blocks\CountingLoopToolbar.cs" />
     <Compile Include="Controls\Blocks\ElseListItem.cs" />
@@ -319,6 +320,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\FileListItemPressed.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bluetooth_scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bluetooth_scan_small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
