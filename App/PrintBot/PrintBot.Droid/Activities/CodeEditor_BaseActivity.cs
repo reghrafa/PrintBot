@@ -104,7 +104,19 @@ namespace PrintBot.Droid.Activities
 
         private void DeleteFileImage_Click(object sender, EventArgs e)
         {
-            //_codeEditorViewModel.DeleteFileByName(_fileName);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetPositiveButton("Delete", (s, evt) => {
+                Intent i = new Intent(this, typeof(MainActivity));
+                i.PutExtra("DeletedFileName", _fileName);
+                StartActivity(i);
+                this.Finish();
+            });
+            builder.SetNegativeButton("Cancel", (s, evt) =>
+            {
+                
+            });
+            builder.SetMessage($"Do you really want to delete file {_fileName}?");
+            builder.Show();
         }
 
         private void DeleteBlockImage_Drag(object sender, View.DragEventArgs e)

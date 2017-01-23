@@ -59,7 +59,7 @@ namespace PrintBot.Droid
                      * you need to set the event as handled
                      */
                     e.Handled = true;
-                    deleteButton.Visibility = ViewStates.Visible;
+                    //deleteButton.Visibility = ViewStates.Visible;
                     /* An important thing to know is that drop zones need to be visible (i.e. their Visibility)
                      * property set to something other than Gone or Invisible) in order to be considered. A nice workaround
                      * if you need them hidden initially is to have their layout_height set to 1.
