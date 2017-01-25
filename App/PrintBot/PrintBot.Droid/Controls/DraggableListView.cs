@@ -166,6 +166,14 @@ namespace PrintBot.Droid
 
         public bool OnDown(MotionEvent e)
         {
+            ((DraggableListAdapter)Adapter).HideAllDeleteButtons();
+            int position = PointToPosition((int)e.GetX(), (int)e.GetY());
+            if (position > -1)
+            {
+                var item = ((DraggableListAdapter)Adapter).GetItem(position) as BlockListItem;
+                item.ShowsDeleteButton = true;
+                ((DraggableListAdapter)Adapter).NotifyDataSetChanged();
+            }
             return true;
         }
 
@@ -246,6 +254,7 @@ namespace PrintBot.Droid
                 }
                 mCellIsMobile = true;
                 UpdateNeighborViewsForID(mMobileItemId);
+                //selectedView.StartDrag(ClipData.NewPlainText("", ""), new DragShadowBuilder(selectedView), selectedView, 0);
             }
         }
 

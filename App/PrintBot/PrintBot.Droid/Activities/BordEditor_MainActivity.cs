@@ -16,7 +16,7 @@ using Android.Graphics;
 namespace PrintBot.Droid.Activities
 {
     [Activity(Label = "Bord Editor", WindowSoftInputMode = Android.Views.SoftInput.AdjustNothing, MainLauncher = false, Icon = "@drawable/icon")]
-    public class BordEditor_MainActivity : Activity
+    public class BordEditor_MainActivity : PortraitActivity
     {
 
         public static float _scaleFactor;

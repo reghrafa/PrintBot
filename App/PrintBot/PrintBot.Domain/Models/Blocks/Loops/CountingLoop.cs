@@ -20,7 +20,14 @@ namespace PrintBot.Domain.Models.Blocks
                 _amountOfLoops = value;
             }
         }
-        
+
+        public string CodeText
+        {
+            get
+            {
+                return "for (int i = 0; i < " + AmountOfLoops.ToString() + "; i++) {";
+            }
+        }
 
         public CountingLoop()
         {
@@ -28,7 +35,6 @@ namespace PrintBot.Domain.Models.Blocks
             Text = "Zählschleife";
             AmountOfLoops = 5;
             CodeBody = "";
-            SetCodeText("for (i = 0; i < " + AmountOfLoops.ToString() + "; i++) {");
         }
     }
 }

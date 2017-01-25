@@ -24,6 +24,8 @@ namespace PrintBot.Droid.Fragments
         Button btnScan;
         ListView listViewKnownDevices;
         ListView listViewFoundDevices;
+        TextView textKnownDevices;
+        TextView textFoundDevices;
         ProgressBar progressBar;
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -39,6 +41,10 @@ namespace PrintBot.Droid.Fragments
             {
                 progressBar.Visibility = _vm.ScanStatus ? ViewStates.Visible : ViewStates.Gone;
             }
+            if (e.PropertyName == "FoundDevices")
+            {
+                textFoundDevices.Visibility = _vm.FoundDevices.Count > 0 ? ViewStates.Visible : ViewStates.Gone;
+            }
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -50,8 +56,18 @@ namespace PrintBot.Droid.Fragments
             listViewFoundDevices = view.FindViewById<ListView>(Resource.Id.bluetooth_ListViewFoundDevices);
             listViewKnownDevices = view.FindViewById<ListView>(Resource.Id.bluetooth_ListViewKnownDevices);
             progressBar = view.FindViewById<ProgressBar>(Resource.Id.bluetooth_ProgressBar);
+            textFoundDevices = view.FindViewById<TextView>(Resource.Id.Bluetooth_FoundDevicesTextView);
+            textKnownDevices = view.FindViewById<TextView>(Resource.Id.Bluetooth_KnownDevicesTextView);
 
             progressBar.Visibility = ViewStates.Gone;
+            textFoundDevices.Visibility = ViewStates.Gone;
+            textKnownDevices.Visibility = ViewStates.Gone;
+
+            _vm.GetPairedOrKnownDevices();
+            if (_vm.PairedDevices.Count > 0)
+            {
+                textKnownDevices.Visibility = ViewStates.Visible;
+            }
 
             // Events
             btnScan.Click += delegate { _vm.StartScanningForDevicesAsync(); };

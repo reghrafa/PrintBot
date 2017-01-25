@@ -49,14 +49,11 @@ namespace PrintBot.Infrastructure.ViewModels
             }
         }
 
-        public async Task<string> LoadFileData(string filename)
+        public async Task DeleteFile(FileModel file)
         {
-            if (await _storageService.FileExistsAsync(filename))
-            {
-                var content = await _storageService.ReadFileAsync(filename);
-                return content;
-            }
-            return null;
+            FileList.Remove(file);
+            await WriteAndRefresh();
+            await _storageService.DeleteFileAsync(file.FileName);
         }
 
         public string ChangeCreationDate(int position)
@@ -81,7 +78,7 @@ namespace PrintBot.Infrastructure.ViewModels
         {
             await WriteAndRefresh();
         }
-        
+
 
         private async Task WriteAndRefresh()
         {

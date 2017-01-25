@@ -34,11 +34,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Models\Blocks\Abstract Classes\CommandBlock.cs" />
     <Compile Include="Models\Blocks\Abstract Classes\Comparator.cs" />
     <Compile Include="Models\Blocks\Abstract Classes\EndBlock.cs" />
     <Compile Include="Models\Blocks\Abstract Classes\Loop.cs" />
     <Compile Include="Models\Blocks\Abstract Classes\StartBlock.cs" />
     <Compile Include="Models\Blocks\Comparators\Equals.cs" />
+    <Compile Include="Models\Blocks\Comparators\GreaterOrEqualThan.cs" />
+    <Compile Include="Models\Blocks\Comparators\GreaterThan.cs" />
+    <Compile Include="Models\Blocks\Comparators\LessOrEqualThan.cs" />
+    <Compile Include="Models\Blocks\Comparators\LessThan.cs" />
     <Compile Include="Models\Blocks\Comparators\NotEquals.cs" />
     <Compile Include="Models\Blocks\Condition.cs" />
     <Compile Include="Models\Blocks\ElseBlock.cs" />

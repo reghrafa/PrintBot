@@ -12,13 +12,14 @@ using Android.Widget;
 
 namespace PrintBot.Droid.Activities
 {
-    [Activity(Label = "FileOpenedActivity")]
-    public class FileOpenedActivity : PortraitActivity
+    [Activity(Label = "PortraitActivity")]
+    public class PortraitActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             base.OnCreate(savedInstanceState);
-
+            
             // Create your application here
         }
     }

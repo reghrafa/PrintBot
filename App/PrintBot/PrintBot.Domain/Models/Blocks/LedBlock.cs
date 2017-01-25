@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PrintBot.Domain.Models.Blocks.Abstract_Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,16 @@ using System.Threading.Tasks;
 
 namespace PrintBot.Domain.Models.Blocks
 {
-    public class LedBlock : IBlock
+    public class LedBlock : CommandBlock, IBlock
     {
-        public string CodeText { get; set; }
+        public string CodeText
+        {
+            get
+            {
+                return "SetLedStatus(" + IsOn.ToString() + ");";
+            }
+        }
+        public int EndBlockPosition { get; set; }
 
         public bool IsChild { get; set; }
 
@@ -20,7 +28,6 @@ namespace PrintBot.Domain.Models.Blocks
 
         public LedBlock()
         {
-            CodeText = "SomeLedMethod()";
             Name = "Led Block";
             Text = "It's me, LED";
             IsOn = false;

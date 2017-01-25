@@ -3,7 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <LinearLayout
-        style="@style/LoopBlockLayout">
+        style="@style/LoopBlockLayout"
+        android:id="@+id/counting_loop_parent">
         <TextView
             style="@style/CodeText"
             android:text="Loop" />
@@ -19,4 +20,8 @@
             style="@style/CodeText"
             android:text="times" />
     </LinearLayout>
+    <ImageView
+        android:id="@+id/delete_button"
+        style="@style/delete_block_button"
+        android:layout_toRightOf="@id/counting_loop_parent" />
 </RelativeLayout>

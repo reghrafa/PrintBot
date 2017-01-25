@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="17dp"
-        android:textColor="#ffffff"
+        android:textColor="#000000"
         android:lineSpacingExtra="3dp"
         android:paddingLeft="10dp"
         android:paddingTop="5dp" />
@@ -17,7 +17,7 @@
         android:id="@+id/Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ffffff"
+        android:textColor="#000000"
         android:typeface="monospace"
         android:layout_below="@+id/Title"
         android:paddingLeft="10dp"

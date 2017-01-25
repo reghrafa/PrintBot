@@ -23,11 +23,13 @@ using PrintBot.Droid.Fragments;
 namespace PrintBot.Droid.Activities
 {
     [Activity(Label = "Code Editor")]
-    class CodeEditor_BaseActivity : Activity
+    class CodeEditor_BaseActivity : PortraitActivity
     {
         private CodeEditorViewModel _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
-        public BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;
+        public BlockListController _blockListController = ServiceLocator.Current.BlockListController;
         private bool _isOnCodePage = false;
+        private string _fileName;
+        public ImageView DeleteFileImage { get; set; }
         protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -40,21 +42,25 @@ namespace PrintBot.Droid.Activities
             ColorDrawable colorDrawable = new ColorDrawable(Color.ParseColor("#3b8686"));
             ActionBar.SetBackgroundDrawable(colorDrawable);
             ActionBar.SetDisplayShowCustomEnabled(true);
-            _blockListViewController.List = new ObservableCollection<BlockListItem>();
-            string filename = Intent.GetStringExtra("Path") ?? "no Data";
-            var content = await _codeEditorViewModel.LoadData(filename);
-            
-            FindViewById<TextView>(Resource.Id.main_ProgramName).Text = filename;
+
+            _blockListController.List = new ObservableCollection<BlockListItem>();
+            _fileName = Intent.GetStringExtra("Path") ?? "no Data";
+            var content = await _codeEditorViewModel.LoadData(_fileName);
+
+            FindViewById<TextView>(Resource.Id.main_ProgramName).Text = _fileName;
             var SwitchButton = FindViewById<ImageButton>(Resource.Id.CodeEditor_SwitchButton);
+            SwitchButton.SetImageResource(Resource.Drawable.CodeIcon);
             var toolbarFragment = FindViewById<FrameLayout>(Resource.Id.CodeEditor_FragmentContainerTools);
+            DeleteFileImage = FindViewById<ImageView>(Resource.Id.CodeEditor_deleteButton);
+            DeleteFileImage.Click += DeleteFileImage_Click;
             SwitchButton.Click += delegate
             {
-                if (_isOnCodePage)
+                if (!_isOnCodePage)
                 {
                     SwitchButton.SetImageResource(Resource.Drawable.ListIcon);
                     ChangeFragment(new CodeViewFragment());
                     toolbarFragment.Visibility = ViewStates.Gone;
-                    _codeEditorViewModel.GenerateCode(_blockListViewController.ListOfIBlocks);
+                    _codeEditorViewModel.GenerateCode(_blockListController.ListOfIBlocks);
                 }
                 else
                 {
@@ -70,18 +76,18 @@ namespace PrintBot.Droid.Activities
             {
                 StartActivity(typeof(Settings_Editor));
             };
-            
+
 
             FindViewById<ImageButton>(Resource.Id.CodeEditor_SaveButton).Click += async delegate
             {
-                await _codeEditorViewModel.SaveFile(filename, _blockListViewController.ListOfIBlocks);
+                await _codeEditorViewModel.SaveFile(_fileName, _blockListController.ListOfIBlocks);
                 Toast.MakeText(this, "Program saved.", ToastLength.Short).Show();
             };
 
             try
             {
                 var iBlocks = JsonConvert.DeserializeObject<ObservableCollection<IBlock>>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-                CreateSavedList(iBlocks);
+                _blockListController.CreateSavedList(this, iBlocks);
             }
             catch (Exception e)
             {
@@ -95,70 +101,54 @@ namespace PrintBot.Droid.Activities
             ft2.Add(Resource.Id.CodeEditor_FragmentContainerTools, new FragmentTools());
             ft2.Commit();
         }
+
+        private void DeleteFileImage_Click(object sender, EventArgs e)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetPositiveButton("Delete", (s, evt) => {
+                Intent i = new Intent(this, typeof(MainActivity));
+                i.PutExtra("DeletedFileName", _fileName);
+                StartActivity(i);
+                this.Finish();
+            });
+            builder.SetNegativeButton("Cancel", (s, evt) =>
+            {
+                
+            });
+            builder.SetMessage($"Do you really want to delete file {_fileName}?");
+            builder.Show();
+        }
+
+        private void DeleteBlockImage_Drag(object sender, View.DragEventArgs e)
+        {
+            var evt = e.Event;
+            var item = (BlockListItem)sender;
+            switch (evt.Action)
+            {
+                case DragAction.Started:
+                    e.Handled = true;
+                    break;
+                case DragAction.Entered:
+                    break;
+                case DragAction.Exited:
+                    break;
+                case DragAction.Drop:
+                    e.Handled = true;
+                    _blockListController.DeleteBlockByObject(item);
+                    break;
+                case DragAction.Ended:
+                    e.Handled = true;
+                    break;
+                case DragAction.Location:
+                    break;
+            }
+        }
+
         private void ChangeFragment(Fragment f)
         {
             FragmentTransaction ft = FragmentManager.BeginTransaction();
             ft.Replace(Resource.Id.CodeEditor_FragmentContainer, f);
             ft.Commit();
-        }
-
-        private void CreateSavedList(ObservableCollection<IBlock> listOfBlocks)
-        {
-            foreach (IBlock block in listOfBlocks)
-            {
-                var tmp = new BlockListItem(this);
-                switch (block.Name)
-                {
-                    case "Counting Loop":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.CountingLoop;
-                        tmp.BlockHolder = new CountingLoopListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "Endless Loop":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.EndlessLoop;
-                        tmp.BlockHolder = new EndlessLoopListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "Variable Block":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.Variable;
-                        tmp.BlockHolder = new VariableListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "Else Block":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.Else;
-                        tmp.BlockHolder = new ElseListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "Led Block":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.LED;
-                        tmp.BlockHolder = new LEDListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "If Block":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.IfBlock;
-                        tmp.BlockHolder = new IfListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "End If":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.EndBlock;
-                        tmp.BlockHolder = new EndBlockListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "End Loop":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.EndBlock;
-                        tmp.BlockHolder = new EndBlockListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    case "Move Block":
-                        tmp.BlockType = BlockListItem.BlockTypeEnum.MoveMotor;
-                        tmp.BlockHolder = new MoveListItem(this, block);
-                        _blockListViewController.List.Add(tmp);
-                        break;
-                    default:
-                        break;
-
-                }
-            }
         }
     }
 }

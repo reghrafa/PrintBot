@@ -11,10 +11,11 @@ using Android.Views;
 using Android.Widget;
 using System.Collections.ObjectModel;
 using PrintBot.Domain.Models.Blocks;
+using PrintBot.Droid.Controls.Blocks;
 
 namespace PrintBot.Droid.Controls
 {
-    public class BlockListViewController
+    public class BlockListController
     {
         private ObservableCollection<BlockListItem> _list;
         public ObservableCollection<BlockListItem> List
@@ -35,11 +36,51 @@ namespace PrintBot.Droid.Controls
                 return _listOfIBlocks;
             }
         }
-        public BlockListViewController() { }
+        public BlockListController() { }
 
-        public void InsertBlockToList(BlockListItem block, int position)
+        public void SetEndBlockInstances()
         {
-            var tmpBlock = block.GetAnInstanceAndInitialize();
+            foreach (BlockListItem item in List)
+            {
+                if (item.BlockHolder.Block.EndBlockPosition > 0)
+                {
+                    item.EndBlock = List[item.BlockHolder.Block.EndBlockPosition];
+                }
+            }
+        }
+
+        public void CreateSavedList(Context context, ObservableCollection<IBlock> list)
+        {
+            foreach (IBlock block in list)
+            {
+                List.Add(BlockListItem.GetASavedInstance(context, block));
+            }
+            SetEndBlockInstances();
+        }
+
+        public void DeleteBlockByObject(BlockListItem item)
+        {
+            if (item.EndBlock != null)
+            {
+                var pos = List.IndexOf(item);
+                var endPos = List.IndexOf(item.EndBlock);
+                if (pos >= 0 && endPos >= 0)
+                {
+                    for (int i = endPos; i >= pos; i--)
+                    {
+                        List.RemoveAt(i);
+                    }
+                }
+            }
+            else
+            {
+                List.Remove(item);
+            }
+        }
+
+        public void InsertBlockToList(Context c, BlockListItem block, int position)
+        {
+            var tmpBlock = BlockListItem.GetAnInstanceAndInitialize(c, block);
             position = position == -1 ? List.Count : position;
             List.Insert(position, tmpBlock);
 

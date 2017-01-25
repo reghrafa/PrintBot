@@ -17,26 +17,30 @@ using PrintBot.Domain.Models.Blocks;
 using PrintBot.Infrastructure.Services;
 using PrintBot.Infrastructure.ViewModels;
 using PrintBot.Droid.Activities;
+using static Android.Views.View;
 
 namespace PrintBot.Droid
 {
     public class FragmentWorkspace : Fragment
     {
-        BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;
+        BlockListController _blockListController = ServiceLocator.Current.BlockListController;
         DraggableListView listView;
         DraggableListAdapter adapter;
         int oldPos;
         bool blockAdded = false;
         BlockListItem draggedView;
+        ImageView deleteButton;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            adapter = new DraggableListAdapter(this.Activity, _blockListViewController.List);
+            adapter = new DraggableListAdapter(this.Activity, _blockListController.List);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.fragment_workspace, container, false);
+            deleteButton = view.FindViewById<ImageView>(Resource.Id.workspace_delete_button);
+            deleteButton.Visibility = ViewStates.Gone;
             listView = view.FindViewById<DraggableListView>(Resource.Id.workspace_listView);
             listView.Adapter = adapter;
             listView.ReorderingEnabled = true;
@@ -55,7 +59,7 @@ namespace PrintBot.Droid
                      * you need to set the event as handled
                      */
                     e.Handled = true;
-
+                    //deleteButton.Visibility = ViewStates.Visible;
                     /* An important thing to know is that drop zones need to be visible (i.e. their Visibility)
                      * property set to something other than Gone or Invisible) in order to be considered. A nice workaround
                      * if you need them hidden initially is to have their layout_height set to 1.
@@ -99,7 +103,7 @@ namespace PrintBot.Droid
                     var block = (BlockListItem)e.Event.LocalState;
                     // Get the Position in the List
                     var position = listView.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
-                    _blockListViewController.InsertBlockToList(block, position);
+                    _blockListController.InsertBlockToList(Context, block, position);
                     blockAdded = false;
                     break;
                 case DragAction.Ended:
@@ -107,6 +111,7 @@ namespace PrintBot.Droid
                      * You will generally want to set Handled to true.
                      */
                     e.Handled = true;
+                    deleteButton.Visibility = ViewStates.Gone;
                     break;
                 case DragAction.Location:
                     //int pos = listView.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
@@ -120,7 +125,7 @@ namespace PrintBot.Droid
         {
             if (newPos == -1)
             {
-                newPos = _blockListViewController.List.Count - 1;
+                newPos = _blockListController.List.Count - 1;
             }
             if (newPos != oldPos)
             {

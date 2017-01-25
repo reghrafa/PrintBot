@@ -22,10 +22,14 @@ namespace PrintBot.Droid.Controls
     /// </summary>
     public class BlockListItem : RelativeLayout
     {
+        BlockListController _blockListController = ServiceLocator.Current.BlockListController;
         public BlockTypeEnum BlockType { get; set; }
         public IBlockHolder BlockHolder;
         public BlockListItem EndBlock { get; set; }
+        public int EndBlockPosition { get; set; }
         public BlockListItem ElseBlock { get; set; }
+        public bool ShowsDeleteButton { get; set; }
+        public ImageView DeleteButton { get; set; }
 
         public BlockListItem(Context context) : base(context)
         {
@@ -39,32 +43,98 @@ namespace PrintBot.Droid.Controls
         {
         }
 
-        public BlockListItem GetAnInstanceAndInitialize()
+        public static BlockListItem GetASavedInstance(Context c, IBlock block)
         {
-            var result = new BlockListItem(Context);
-            result.BlockType = BlockType;
-            switch (result.BlockType)
+            var result = new BlockListItem(c);
+            switch (block.Name)
             {
-                case BlockTypeEnum.CountingLoop:
-                    result.BlockHolder = new CountingLoopListItem(Context, new CountingLoop());
+                case "Counting Loop":
+                    result.BlockType = BlockTypeEnum.CountingLoop;
+                    result.BlockHolder = new CountingLoopListItem(c, block);
+                    result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+                    result.DeleteButton.Click += result.DeleteButton_Click;
                     break;
-                case BlockTypeEnum.EndlessLoop:
-                    result.BlockHolder = new EndlessLoopListItem(Context, new EndlessLoop());
+                case "Endless Loop":
+                    result.BlockType = BlockTypeEnum.EndlessLoop;
+                    result.BlockHolder = new EndlessLoopListItem(c, block);
+                    result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+                    result.DeleteButton.Click += result.DeleteButton_Click;
                     break;
-                case BlockTypeEnum.IfBlock:
-                    result.BlockHolder = new IfListItem(Context, new IfBlock());
+                case "Variable Block":
+                    result.BlockType = BlockTypeEnum.Variable;
+                    result.BlockHolder = new VariableListItem(c, block);
+                    result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+                    result.DeleteButton.Click += result.DeleteButton_Click;
                     break;
-                case BlockTypeEnum.LED:
-                    result.BlockHolder = new LEDListItem(Context, new LedBlock());
+                case "Else Block":
+                    result.BlockType = BlockTypeEnum.Else;
+                    result.BlockHolder = new ElseListItem(c, block);
                     break;
-                case BlockTypeEnum.MoveMotor:
-                    result.BlockHolder = new MoveListItem(Context, new MoveBlock());
+                case "Led Block":
+                    result.BlockType = BlockTypeEnum.LED;
+                    result.BlockHolder = new LEDListItem(c, block);
+                    result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+                    result.DeleteButton.Click += result.DeleteButton_Click;
                     break;
-                case BlockTypeEnum.Variable:
-                    result.BlockHolder = new VariableListItem(Context, new VariableBlock());
+                case "If Block":
+                    result.BlockType = BlockTypeEnum.IfBlock;
+                    result.BlockHolder = new IfListItem(c, block);
+                    result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+                    result.DeleteButton.Click += result.DeleteButton_Click;
+                    break;
+                case "End If":
+                    result.BlockType = BlockTypeEnum.EndBlock;
+                    result.BlockHolder = new EndBlockListItem(c, block);
+                    break;
+                case "End Loop":
+                    result.BlockType = BlockTypeEnum.EndBlock;
+                    result.BlockHolder = new EndBlockListItem(c, block);
+                    break;
+                case "Move Block":
+                    result.BlockType = BlockTypeEnum.MoveMotor;
+                    result.BlockHolder = new MoveListItem(c, block);
+                    result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+                    result.DeleteButton.Click += result.DeleteButton_Click;
+                    break;
+                default:
                     break;
             }
             return result;
+        }
+
+        public static BlockListItem GetAnInstanceAndInitialize(Context c, BlockListItem item)
+        {
+            var result = new BlockListItem(c);
+            result.BlockType = item.BlockType;
+            switch (result.BlockType)
+            {
+                case BlockTypeEnum.CountingLoop:
+                    result.BlockHolder = new CountingLoopListItem(c, new CountingLoop());
+                    break;
+                case BlockTypeEnum.EndlessLoop:
+                    result.BlockHolder = new EndlessLoopListItem(c, new EndlessLoop());
+                    break;
+                case BlockTypeEnum.IfBlock:
+                    result.BlockHolder = new IfListItem(c, new IfBlock());
+                    break;
+                case BlockTypeEnum.LED:
+                    result.BlockHolder = new LEDListItem(c, new LedBlock());
+                    break;
+                case BlockTypeEnum.MoveMotor:
+                    result.BlockHolder = new MoveListItem(c, new MoveBlock());
+                    break;
+                case BlockTypeEnum.Variable:
+                    result.BlockHolder = new VariableListItem(c, new VariableBlock());
+                    break;
+            }
+            result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+            result.DeleteButton.Click += result.DeleteButton_Click;
+            return result;
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            _blockListController.DeleteBlockByObject(this);
         }
 
         public BlockListItem GetAnInstanceOfEndBlock(BlockTypeEnum blockType)

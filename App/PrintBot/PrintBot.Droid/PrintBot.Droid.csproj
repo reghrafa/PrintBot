@@ -74,13 +74,15 @@
     <Compile Include="Activities\CodeEditor_BaseActivity.cs" />
     <Compile Include="Activities\FileOpenedActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
+    <Compile Include="Activities\PortraitActivity.cs" />
     <Compile Include="Activities\Settings_Editor.cs" />
     <Compile Include="Adapter\BluetoothListAdapter.cs" />
     <Compile Include="Adapter\BordEditor_ListAdapter.cs" />
+    <Compile Include="Adapter\ComparatorSpinnerAdapter.cs" />
     <Compile Include="Adapter\DraggableListAdapter.cs" />
     <Compile Include="Adapter\IDraggableListAdapter.cs" />
     <Compile Include="Controls\BlockListItem.cs" />
-    <Compile Include="Controls\BlockListViewController.cs" />
+    <Compile Include="Controls\BlockListController.cs" />
     <Compile Include="Controls\Blocks\CountingLoopListItem.cs" />
     <Compile Include="Controls\Blocks\CountingLoopToolbar.cs" />
     <Compile Include="Controls\Blocks\ElseListItem.cs" />
@@ -209,6 +211,12 @@
     <AndroidResource Include="Resources\layout\actionbar_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\delete_block.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\actionbar_main_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -290,16 +298,40 @@
     <AndroidResource Include="Resources\drawable\CodeIcon.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\block_green_bg.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\block_orange_bg.xml" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable\block_purple_bg.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\block_red_bg.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\block_orange_bg.xml" />
+    <AndroidResource Include="Resources\drawable\blockCorners.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\block_green_bg.xml" />
+    <AndroidResource Include="Resources\drawable\dustbin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\FileListSelector.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\FileListItemPressed.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bluetooth_scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bluetooth_scan_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\add_white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
