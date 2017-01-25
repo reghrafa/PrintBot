@@ -103,7 +103,7 @@ namespace PrintBot.Droid
                     var block = (BlockListItem)e.Event.LocalState;
                     // Get the Position in the List
                     var position = listView.PointToPosition((int)e.Event.GetX(), (int)e.Event.GetY());
-                    _blockListController.InsertBlockToList(Context, block, position);
+                    _blockListController.InsertBlockToList(Activity, block, position);
                     blockAdded = false;
                     break;
                 case DragAction.Ended:

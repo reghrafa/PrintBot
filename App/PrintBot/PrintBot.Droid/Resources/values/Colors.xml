@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <item name="printbot_green" type="color" >#8A9B0F</item>
+  <item name="printbot_orange" type="color">#E97F02</item>
+  <item name="printbot_purple" type="color">#490A3D</item>
+  <item name="printbot_red" type="color">#BD1550</item>
+</resources>
