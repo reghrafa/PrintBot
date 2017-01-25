@@ -177,29 +177,32 @@ namespace PrintBot.Droid
 			// aapt resource value: 0x7f070014
 			public const int BlockListItem_Move_Acceleration = 2131165204;
 			
-			// aapt resource value: 0x7f070016
-			public const int BlockListItem_Variable_Spinner = 2131165206;
+			// aapt resource value: 0x7f070015
+			public const int BlockListItem_Rotate_Degrees = 2131165205;
 			
 			// aapt resource value: 0x7f070018
-			public const int BlockListItem_Variable_Value = 2131165208;
+			public const int BlockListItem_Variable_Spinner = 2131165208;
 			
-			// aapt resource value: 0x7f07001e
-			public const int Bluetooth_FoundDevicesTextView = 2131165214;
+			// aapt resource value: 0x7f070019
+			public const int BlockListItem_Variable_Value = 2131165209;
 			
-			// aapt resource value: 0x7f07001c
-			public const int Bluetooth_KnownDevicesTextView = 2131165212;
+			// aapt resource value: 0x7f07001f
+			public const int Bluetooth_FoundDevicesTextView = 2131165215;
 			
-			// aapt resource value: 0x7f070022
-			public const int BordEditor_ListView_Row_filename = 2131165218;
+			// aapt resource value: 0x7f07001d
+			public const int Bluetooth_KnownDevicesTextView = 2131165213;
 			
 			// aapt resource value: 0x7f070023
-			public const int BordEditor_MainLayout = 2131165219;
+			public const int BordEditor_ListView_Row_filename = 2131165219;
 			
-			// aapt resource value: 0x7f070025
-			public const int CodeEditor_FragmentContainer = 2131165221;
+			// aapt resource value: 0x7f070024
+			public const int BordEditor_MainLayout = 2131165220;
 			
 			// aapt resource value: 0x7f070026
-			public const int CodeEditor_FragmentContainerTools = 2131165222;
+			public const int CodeEditor_FragmentContainer = 2131165222;
+			
+			// aapt resource value: 0x7f070027
+			public const int CodeEditor_FragmentContainerTools = 2131165223;
 			
 			// aapt resource value: 0x7f070001
 			public const int CodeEditor_SaveButton = 2131165185;
@@ -213,17 +216,17 @@ namespace PrintBot.Droid
 			// aapt resource value: 0x7f070000
 			public const int CodeEditor_deleteButton = 2131165184;
 			
-			// aapt resource value: 0x7f070027
-			public const int CodeView_content = 2131165223;
+			// aapt resource value: 0x7f070028
+			public const int CodeView_content = 2131165224;
 			
 			// aapt resource value: 0x7f070007
 			public const int CountingLoop_AmountOfLoops = 2131165191;
 			
-			// aapt resource value: 0x7f070038
-			public const int Description = 2131165240;
+			// aapt resource value: 0x7f070039
+			public const int Description = 2131165241;
 			
-			// aapt resource value: 0x7f070035
-			public const int FileList = 2131165237;
+			// aapt resource value: 0x7f070036
+			public const int FileList = 2131165238;
 			
 			// aapt resource value: 0x7f070005
 			public const int Main_addButton = 2131165189;
@@ -231,44 +234,44 @@ namespace PrintBot.Droid
 			// aapt resource value: 0x7f070004
 			public const int Main_deleteButton = 2131165188;
 			
-			// aapt resource value: 0x7f07003c
-			public const int Settings_Bluetooth = 2131165244;
-			
-			// aapt resource value: 0x7f07003b
-			public const int Settings_ModuleSetup = 2131165243;
-			
 			// aapt resource value: 0x7f07003d
-			public const int Settings_Other = 2131165245;
+			public const int Settings_Bluetooth = 2131165245;
 			
-			// aapt resource value: 0x7f070037
-			public const int Title = 2131165239;
+			// aapt resource value: 0x7f07003c
+			public const int Settings_ModuleSetup = 2131165244;
+			
+			// aapt resource value: 0x7f07003e
+			public const int Settings_Other = 2131165246;
+			
+			// aapt resource value: 0x7f070038
+			public const int Title = 2131165240;
 			
 			// aapt resource value: 0x7f070009
 			public const int block_endblock_layout = 2131165193;
 			
-			// aapt resource value: 0x7f07001f
-			public const int bluetooth_ListViewFoundDevices = 2131165215;
-			
-			// aapt resource value: 0x7f07001d
-			public const int bluetooth_ListViewKnownDevices = 2131165213;
-			
 			// aapt resource value: 0x7f070020
-			public const int bluetooth_ProgressBar = 2131165216;
+			public const int bluetooth_ListViewFoundDevices = 2131165216;
 			
-			// aapt resource value: 0x7f07001b
-			public const int bluetooth_ScanButton = 2131165211;
-			
-			// aapt resource value: 0x7f070019
-			public const int bluetooth_fragment_container = 2131165209;
-			
-			// aapt resource value: 0x7f07001a
-			public const int bluetooth_listview_name = 2131165210;
+			// aapt resource value: 0x7f07001e
+			public const int bluetooth_ListViewKnownDevices = 2131165214;
 			
 			// aapt resource value: 0x7f070021
-			public const int bluetooth_send_SendButton = 2131165217;
+			public const int bluetooth_ProgressBar = 2131165217;
 			
-			// aapt resource value: 0x7f070034
-			public const int button1 = 2131165236;
+			// aapt resource value: 0x7f07001c
+			public const int bluetooth_ScanButton = 2131165212;
+			
+			// aapt resource value: 0x7f07001a
+			public const int bluetooth_fragment_container = 2131165210;
+			
+			// aapt resource value: 0x7f07001b
+			public const int bluetooth_listview_name = 2131165211;
+			
+			// aapt resource value: 0x7f070022
+			public const int bluetooth_send_SendButton = 2131165218;
+			
+			// aapt resource value: 0x7f070035
+			public const int button1 = 2131165237;
 			
 			// aapt resource value: 0x7f070006
 			public const int counting_loop_parent = 2131165190;
@@ -276,35 +279,35 @@ namespace PrintBot.Droid
 			// aapt resource value: 0x7f070008
 			public const int delete_button = 2131165192;
 			
-			// aapt resource value: 0x7f070033
-			public const int editText1 = 2131165235;
+			// aapt resource value: 0x7f070034
+			public const int editText1 = 2131165236;
 			
 			// aapt resource value: 0x7f07000b
 			public const int endless_loop_parent = 2131165195;
 			
-			// aapt resource value: 0x7f070029
-			public const int fileOpenedTextView = 2131165225;
+			// aapt resource value: 0x7f07002a
+			public const int fileOpenedTextView = 2131165226;
 			
 			// aapt resource value: 0x7f07000c
 			public const int if_block_parent = 2131165196;
 			
-			// aapt resource value: 0x7f070028
-			public const int imageView1 = 2131165224;
+			// aapt resource value: 0x7f070029
+			public const int imageView1 = 2131165225;
 			
 			// aapt resource value: 0x7f070010
 			public const int led_block_parent = 2131165200;
 			
-			// aapt resource value: 0x7f070036
-			public const int listView_button = 2131165238;
-			
-			// aapt resource value: 0x7f070039
-			public const int main_LastFileList = 2131165241;
-			
-			// aapt resource value: 0x7f070024
-			public const int main_ProgramName = 2131165220;
+			// aapt resource value: 0x7f070037
+			public const int listView_button = 2131165239;
 			
 			// aapt resource value: 0x7f07003a
-			public const int main_TutorialButton = 2131165242;
+			public const int main_LastFileList = 2131165242;
+			
+			// aapt resource value: 0x7f070025
+			public const int main_ProgramName = 2131165221;
+			
+			// aapt resource value: 0x7f07003b
+			public const int main_TutorialButton = 2131165243;
 			
 			// aapt resource value: 0x7f070012
 			public const int move_block_parent = 2131165202;
@@ -312,38 +315,38 @@ namespace PrintBot.Droid
 			// aapt resource value: 0x7f070013
 			public const int textView1 = 2131165203;
 			
-			// aapt resource value: 0x7f070017
-			public const int textView2 = 2131165207;
-			
-			// aapt resource value: 0x7f07002b
-			public const int tools_CountingLoop = 2131165227;
+			// aapt resource value: 0x7f070016
+			public const int textView2 = 2131165206;
 			
 			// aapt resource value: 0x7f07002c
-			public const int tools_EndlessLoop = 2131165228;
+			public const int tools_CountingLoop = 2131165228;
 			
 			// aapt resource value: 0x7f07002d
-			public const int tools_If = 2131165229;
+			public const int tools_EndlessLoop = 2131165229;
 			
 			// aapt resource value: 0x7f07002e
-			public const int tools_LED = 2131165230;
-			
-			// aapt resource value: 0x7f070030
-			public const int tools_Move = 2131165232;
+			public const int tools_If = 2131165230;
 			
 			// aapt resource value: 0x7f07002f
-			public const int tools_Variable = 2131165231;
-			
-			// aapt resource value: 0x7f07002a
-			public const int tools_scrollview = 2131165226;
-			
-			// aapt resource value: 0x7f070015
-			public const int var_block_parent = 2131165205;
+			public const int tools_LED = 2131165231;
 			
 			// aapt resource value: 0x7f070031
-			public const int workspace_delete_button = 2131165233;
+			public const int tools_Move = 2131165233;
+			
+			// aapt resource value: 0x7f070030
+			public const int tools_Variable = 2131165232;
+			
+			// aapt resource value: 0x7f07002b
+			public const int tools_scrollview = 2131165227;
+			
+			// aapt resource value: 0x7f070017
+			public const int var_block_parent = 2131165207;
 			
 			// aapt resource value: 0x7f070032
-			public const int workspace_listView = 2131165234;
+			public const int workspace_delete_button = 2131165234;
+			
+			// aapt resource value: 0x7f070033
+			public const int workspace_listView = 2131165235;
 			
 			static Id()
 			{
@@ -386,79 +389,82 @@ namespace PrintBot.Droid
 			public const int BlockListItem_Move = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int BlockListItem_Variable = 2130903049;
+			public const int BlockListItem_Rotate = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int bluetooth_layout = 2130903050;
+			public const int BlockListItem_Variable = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int bluetooth_listview_item = 2130903051;
+			public const int bluetooth_layout = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int bluetooth_scan_layout = 2130903052;
+			public const int bluetooth_listview_item = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int bluetooth_send_layout = 2130903053;
+			public const int bluetooth_scan_layout = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int BordEditor_ListView_Row = 2130903054;
+			public const int bluetooth_send_layout = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int BordEditor_MainLayout = 2130903055;
+			public const int BordEditor_ListView_Row = 2130903055;
 			
 			// aapt resource value: 0x7f030010
-			public const int CodeEditor_Layout = 2130903056;
+			public const int BordEditor_MainLayout = 2130903056;
 			
 			// aapt resource value: 0x7f030011
-			public const int CodeViewFragment = 2130903057;
+			public const int CodeEditor_Layout = 2130903057;
 			
 			// aapt resource value: 0x7f030012
-			public const int delete_block = 2130903058;
+			public const int CodeViewFragment = 2130903058;
 			
 			// aapt resource value: 0x7f030013
-			public const int FileOpened = 2130903059;
+			public const int delete_block = 2130903059;
 			
 			// aapt resource value: 0x7f030014
-			public const int fragment_tools = 2130903060;
+			public const int FileOpened = 2130903060;
 			
 			// aapt resource value: 0x7f030015
-			public const int fragment_workspace = 2130903061;
+			public const int fragment_tools = 2130903061;
 			
 			// aapt resource value: 0x7f030016
-			public const int LastUsedFileLayout = 2130903062;
+			public const int fragment_workspace = 2130903062;
 			
 			// aapt resource value: 0x7f030017
-			public const int list_view_item = 2130903063;
+			public const int LastUsedFileLayout = 2130903063;
 			
 			// aapt resource value: 0x7f030018
-			public const int ListRowItem = 2130903064;
+			public const int list_view_item = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int Main = 2130903065;
+			public const int ListRowItem = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int Settings_Layout = 2130903066;
+			public const int Main = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int Toolbar_CountingLoop = 2130903067;
+			public const int Settings_Layout = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int Toolbar_EndlessLoop = 2130903068;
+			public const int Toolbar_CountingLoop = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int Toolbar_If = 2130903069;
+			public const int Toolbar_EndlessLoop = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int Toolbar_LED = 2130903070;
+			public const int Toolbar_If = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int Toolbar_Move = 2130903071;
+			public const int Toolbar_LED = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int Toolbar_Variable = 2130903072;
+			public const int Toolbar_Move = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int Variable_Datatype_SpinnerItem = 2130903073;
+			public const int Toolbar_Variable = 2130903073;
+			
+			// aapt resource value: 0x7f030022
+			public const int Variable_Datatype_SpinnerItem = 2130903074;
 			
 			static Layout()
 			{

@@ -93,6 +93,8 @@
     <Compile Include="Controls\Blocks\IfToolbar.cs" />
     <Compile Include="Controls\Blocks\LEDListItem.cs" />
     <Compile Include="Controls\Blocks\LEDToolbar.cs" />
+    <Compile Include="Controls\Blocks\RotateToolbar.cs" />
+    <Compile Include="Controls\Blocks\RotateListItem.cs" />
     <Compile Include="Controls\Blocks\MoveListItem.cs" />
     <Compile Include="Controls\Blocks\MoveToolbar.cs" />
     <Compile Include="Controls\Blocks\VariableListItem.cs" />
@@ -215,6 +217,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\actionbar_main_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BlockListItem_Rotate.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

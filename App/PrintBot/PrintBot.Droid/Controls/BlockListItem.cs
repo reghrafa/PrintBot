@@ -96,6 +96,12 @@ namespace PrintBot.Droid.Controls
                     result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
                     result.DeleteButton.Click += result.DeleteButton_Click;
                     break;
+                case "Rotate Block":
+                    result.BlockType = BlockTypeEnum.Rotate;
+                    result.BlockHolder = new RotateListItem(c, block);
+                    result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+                    result.DeleteButton.Click += result.DeleteButton_Click;
+                    break;
                 default:
                     break;
             }
@@ -122,6 +128,9 @@ namespace PrintBot.Droid.Controls
                     break;
                 case BlockTypeEnum.MoveMotor:
                     result.BlockHolder = new MoveListItem(c, new MoveBlock());
+                    break;
+                case BlockTypeEnum.Rotate:
+                    result.BlockHolder = new RotateListItem(c, new RotateBlock());
                     break;
                 case BlockTypeEnum.Variable:
                     result.BlockHolder = new VariableListItem(c, new VariableBlock());
@@ -173,7 +182,8 @@ namespace PrintBot.Droid.Controls
             LED = 7,
             IfBlock = 8,
             Else = 9,
-            EndBlock = 10
+            EndBlock = 10,
+            Rotate = 11
         }
     }
 }
