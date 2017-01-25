@@ -33,17 +33,23 @@
             android:layout_height="60dp"
             android:layout_marginLeft="5dp"
             android:background="@color/printbot_red" />
+      <PrintBot.Droid.Controls.Blocks.MoveToolbar
+            android:id="@+id/tools_Move"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:background="@color/printbot_red" />
+      <PrintBot.Droid.Controls.Blocks.RotateToolbar
+            android:id="@+id/tools_Rotate"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:background="@color/printbot_red" />
         <PrintBot.Droid.Controls.Blocks.VariableToolbar
             android:id="@+id/tools_Variable"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="5dp"
             android:background="@color/printbot_green" />
-        <PrintBot.Droid.Controls.Blocks.MoveToolbar
-            android:id="@+id/tools_Move"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="5dp"
-            android:background="@color/printbot_red" />
     </LinearLayout>
 </HorizontalScrollView>

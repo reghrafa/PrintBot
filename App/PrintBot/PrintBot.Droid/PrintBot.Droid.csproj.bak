@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -78,10 +78,11 @@
     <Compile Include="Activities\Settings_Editor.cs" />
     <Compile Include="Adapter\BluetoothListAdapter.cs" />
     <Compile Include="Adapter\BordEditor_ListAdapter.cs" />
+    <Compile Include="Adapter\ComparatorSpinnerAdapter.cs" />
     <Compile Include="Adapter\DraggableListAdapter.cs" />
     <Compile Include="Adapter\IDraggableListAdapter.cs" />
     <Compile Include="Controls\BlockListItem.cs" />
-    <Compile Include="Controls\BlockListViewController.cs" />
+    <Compile Include="Controls\BlockListController.cs" />
     <Compile Include="Controls\Blocks\CountingLoopListItem.cs" />
     <Compile Include="Controls\Blocks\CountingLoopToolbar.cs" />
     <Compile Include="Controls\Blocks\ElseListItem.cs" />
@@ -92,6 +93,8 @@
     <Compile Include="Controls\Blocks\IfToolbar.cs" />
     <Compile Include="Controls\Blocks\LEDListItem.cs" />
     <Compile Include="Controls\Blocks\LEDToolbar.cs" />
+    <Compile Include="Controls\Blocks\RotateToolbar.cs" />
+    <Compile Include="Controls\Blocks\RotateListItem.cs" />
     <Compile Include="Controls\Blocks\MoveListItem.cs" />
     <Compile Include="Controls\Blocks\MoveToolbar.cs" />
     <Compile Include="Controls\Blocks\VariableListItem.cs" />
@@ -210,6 +213,18 @@
     <AndroidResource Include="Resources\layout\actionbar_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\delete_block.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\actionbar_main_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Toolbar_Rotate.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BlockListItem_Rotate.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -250,7 +265,7 @@
     <AndroidResource Include="Resources\drawable\EndlessLoopicon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\LEDIcon.png" />
+    <AndroidResource Include="Resources\drawable\LEDIcon_alt.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\VariableIcon.png" />
@@ -259,7 +274,7 @@
     <AndroidResource Include="Resources\drawable\IfThenElseIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\MoveIcon.png" />
+    <AndroidResource Include="Resources\drawable\MoveIcon_alt.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Styles.xml">
@@ -289,6 +304,54 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\CodeIcon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\block_green_bg.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\block_orange_bg.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\block_purple_bg.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\block_red_bg.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\blockCorners.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\dustbin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\FileListSelector.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\FileListItemPressed.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bluetooth_scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bluetooth_scan_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\add_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Colors.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\RotateIcon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\LEDIcon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\MoveIcon.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
