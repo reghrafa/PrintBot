@@ -24,6 +24,6 @@
     </LinearLayout>
     <ImageView
         android:id="@+id/delete_button"
-        style="@style/delete_block_button"
+        style="@style/delete_block_button_red"
         android:layout_toRightOf="@id/move_block_parent" />
 </RelativeLayout>

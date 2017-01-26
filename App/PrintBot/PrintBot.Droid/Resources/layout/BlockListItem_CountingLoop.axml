@@ -22,6 +22,7 @@
     </LinearLayout>
     <ImageView
         android:id="@+id/delete_button"
-        style="@style/delete_block_button"
-        android:layout_toRightOf="@id/counting_loop_parent" />
+        style="@style/delete_block_button_red"
+        android:layout_toRightOf="@id/counting_loop_parent"
+        android:scaleType="fitCenter" />
 </RelativeLayout>

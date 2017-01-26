@@ -2,32 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-  <LinearLayout
-      style="@style/IfBlockLayout"
-      android:id="@+id/if_block_parent">
-    <TextView
-        style="@style/CodeText"
-        android:text="If" />
-    <EditText
-      style="@style/CodeText"
-      android:id="@+id/BlockListItem_If_Variable"
-      android:text="0"
-      android:layout_marginLeft="5dp" />
-    <Spinner
-  android:id="@+id/BlockListItem_If_Spinner"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:layout_marginLeft="5dp"
-  android:layout_gravity="center_vertical"
-  android:background="@android:color/transparent" />
-    <EditText
-      style="@style/CodeText"
-      android:id="@+id/BlockListItem_If_Value"
-      android:text="0"
-      android:layout_marginLeft="5dp" />
-  </LinearLayout>
-  <ImageView
-      android:id="@+id/delete_button"
-      style="@style/delete_block_button"
-      android:layout_toRightOf="@id/if_block_parent" />
+    <LinearLayout
+        style="@style/IfBlockLayout"
+        android:id="@+id/if_block_parent">
+        <TextView
+            style="@style/CodeText"
+            android:text="If" />
+        <EditText
+            style="@style/CodeText"
+            android:id="@+id/BlockListItem_If_Variable"
+            android:text="0"
+            android:layout_marginLeft="5dp" />
+        <Spinner
+            android:id="@+id/BlockListItem_If_Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent" />
+        <EditText
+            style="@style/CodeText"
+            android:id="@+id/BlockListItem_If_Value"
+            android:text="0"
+            android:layout_marginLeft="5dp" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/delete_button"
+        style="@style/delete_block_button_red"
+        android:layout_toRightOf="@id/if_block_parent" />
 </RelativeLayout>

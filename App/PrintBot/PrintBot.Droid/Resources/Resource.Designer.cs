@@ -133,52 +133,55 @@ namespace PrintBot.Droid
 			public const int dustbin = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int EndlessLoopicon = 2130837518;
+			public const int dustbin_red = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int FileListItemPressed = 2130837519;
+			public const int EndlessLoopicon = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int FileListSelector = 2130837520;
+			public const int FileListItemPressed = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int Icon = 2130837521;
+			public const int FileListSelector = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int IfThenElseIcon = 2130837522;
+			public const int Icon = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int LEDIcon = 2130837523;
+			public const int IfThenElseIcon = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int LEDIcon_alt = 2130837524;
+			public const int LEDIcon = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int ListIcon = 2130837525;
+			public const int LEDIcon_alt = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int ModuleIcon = 2130837526;
+			public const int ListIcon = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int MoveIcon = 2130837527;
+			public const int ModuleIcon = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int MoveIcon_alt = 2130837528;
+			public const int MoveIcon = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int OtherIcon = 2130837529;
+			public const int MoveIcon_alt = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int RotateIcon = 2130837530;
+			public const int OtherIcon = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int SaveIcon = 2130837531;
+			public const int RotateIcon = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int SettingsIcon = 2130837532;
+			public const int SaveIcon = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int VariableIcon = 2130837533;
+			public const int SettingsIcon = 2130837533;
+			
+			// aapt resource value: 0x7f02001e
+			public const int VariableIcon = 2130837534;
 			
 			static Drawable()
 			{
@@ -567,6 +570,9 @@ namespace PrintBot.Droid
 			
 			// aapt resource value: 0x7f070009
 			public const int delete_block_button = 2131165193;
+			
+			// aapt resource value: 0x7f07000a
+			public const int delete_block_button_red = 2131165194;
 			
 			static Style()
 			{
