@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:weightSum="1"
     android:layout_width="match_parent"
@@ -17,6 +18,16 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
+    <com.refractored.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/Play"
+        fab:fab_colorNormal="#3b8686"
+        fab:fab_colorPressed="#be8f00"
+        fab:fab_colorRipple="#ffffff" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

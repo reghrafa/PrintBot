@@ -19,6 +19,7 @@ using PrintBot.Droid.Controls.Blocks;
 using Android.Graphics.Drawables;
 using Android.Graphics;
 using PrintBot.Droid.Fragments;
+using com.refractored.fab;
 
 namespace PrintBot.Droid.Activities
 {
@@ -45,7 +46,7 @@ namespace PrintBot.Droid.Activities
 
             _blockListController.List = new ObservableCollection<BlockListItem>();
             _fileName = Intent.GetStringExtra("Path") ?? "no Data";
-            var content = await _codeEditorViewModel.LoadData(_fileName);
+            var content = await _codeEditorViewModel.LoadData(_fileName);           
 
             FindViewById<TextView>(Resource.Id.main_ProgramName).Text = _fileName;
             var SwitchButton = FindViewById<ImageButton>(Resource.Id.CodeEditor_SwitchButton);
@@ -69,6 +70,15 @@ namespace PrintBot.Droid.Activities
                     toolbarFragment.Visibility = ViewStates.Visible;
                 }
                 _isOnCodePage = !_isOnCodePage;
+            };
+
+            FindViewById<FloatingActionButton>(Resource.Id.fab).Click += delegate
+            {
+                var Dialog = new AlertDialog.Builder(this);
+                Dialog.SetTitle("Wait");
+                Dialog.SetMessage("Submitting Your Code ...");
+                Dialog.SetCancelable(false);
+                Dialog.Show();
             };
 
 
