@@ -37,7 +37,7 @@ namespace PrintBot.Droid.Activities
 
             FindViewById<Button>(Resource.Id.Settings_Other).Click += delegate
             {
-
+                StartActivity(typeof(TestActivity));
             };
 
         }

@@ -46,7 +46,8 @@ namespace PrintBot.Droid.Fragments
 
         private async void SendStuff()
         {
-            await _vm.WriteAsync(Encoding.ASCII.GetBytes("Hallo Test"));
+             _vm.WriteAsync(Encoding.ASCII.GetBytes("Hallo Test"));
+            _vm.ReadAsync();
         }
 
         private void _vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

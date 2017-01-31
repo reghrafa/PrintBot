@@ -309,6 +309,9 @@ namespace PrintBot.Droid
 			// aapt resource value: 0x7f070012
 			public const int move_block_parent = 2131165202;
 			
+			// aapt resource value: 0x7f07003e
+			public const int test_epic_shit = 2131165246;
+			
 			// aapt resource value: 0x7f070013
 			public const int textView1 = 2131165203;
 			
@@ -440,25 +443,28 @@ namespace PrintBot.Droid
 			public const int Settings_Layout = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int Toolbar_CountingLoop = 2130903067;
+			public const int TestActivityLayout = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int Toolbar_EndlessLoop = 2130903068;
+			public const int Toolbar_CountingLoop = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int Toolbar_If = 2130903069;
+			public const int Toolbar_EndlessLoop = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int Toolbar_LED = 2130903070;
+			public const int Toolbar_If = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int Toolbar_Move = 2130903071;
+			public const int Toolbar_LED = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int Toolbar_Variable = 2130903072;
+			public const int Toolbar_Move = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int Variable_Datatype_SpinnerItem = 2130903073;
+			public const int Toolbar_Variable = 2130903073;
+			
+			// aapt resource value: 0x7f030022
+			public const int Variable_Datatype_SpinnerItem = 2130903074;
 			
 			static Layout()
 			{
