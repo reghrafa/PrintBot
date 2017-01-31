@@ -63,4 +63,10 @@
     <item name="android:src">@drawable/dustbin</item>
     <item name="android:padding">10dp</item>
   </style>
+  <style name="delete_block_button_red">
+    <item name="android:layout_width">50dp</item>
+    <item name="android:layout_height">50dp</item>
+    <item name="android:src">@drawable/dustbin_red</item>
+    <item name="android:padding">10dp</item>
+  </style>
 </resources>

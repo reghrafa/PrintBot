@@ -7,15 +7,20 @@
         android:id="@+id/move_block_parent">
         <TextView
             style="@style/CodeText"
-            android:text="Move Acceleration ="
+            android:text="Rotate by"
             android:id="@+id/textView1" />
         <EditText
-            android:id="@+id/BlockListItem_Move_Acceleration"
+            android:id="@+id/BlockListItem_Rotate_Degrees"
             android:text="0"
+            android:gravity="center"
             android:layout_marginLeft="5dp"
             style="@style/CodeText"
             android:inputType="number"
             android:numeric="integer" />
+        <TextView
+            style="@style/CodeText"
+            android:text="degrees"
+            android:id="@+id/textView2" />
     </LinearLayout>
     <ImageView
         android:id="@+id/delete_button"
