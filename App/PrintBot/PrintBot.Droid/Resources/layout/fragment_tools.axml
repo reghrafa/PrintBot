@@ -39,6 +39,12 @@
             android:layout_height="60dp"
             android:layout_marginLeft="5dp"
             android:background="@color/printbot_red" />
+      <PrintBot.Droid.Controls.Blocks.DelayToolbar
+            android:id="@+id/tools_Delay"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:background="@color/printbot_red" />
       <PrintBot.Droid.Controls.Blocks.RotateToolbar
             android:id="@+id/tools_Rotate"
             android:layout_width="60dp"

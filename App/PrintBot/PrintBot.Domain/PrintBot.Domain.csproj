@@ -46,6 +46,7 @@
     <Compile Include="Models\Blocks\Comparators\LessThan.cs" />
     <Compile Include="Models\Blocks\Comparators\NotEquals.cs" />
     <Compile Include="Models\Blocks\Condition.cs" />
+    <Compile Include="Models\Blocks\DelayBlock.cs" />
     <Compile Include="Models\Blocks\ElseBlock.cs" />
     <Compile Include="Models\Blocks\EndIf.cs" />
     <Compile Include="Models\Blocks\IfBlock.cs" />

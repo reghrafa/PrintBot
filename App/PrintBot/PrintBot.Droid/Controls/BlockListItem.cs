@@ -102,6 +102,12 @@ namespace PrintBot.Droid.Controls
                     result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
                     result.DeleteButton.Click += result.DeleteButton_Click;
                     break;
+                case "Delay Block":
+                    result.BlockType = BlockTypeEnum.Delay;
+                    result.BlockHolder = new DelayListItem(c, block);
+                    result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+                    result.DeleteButton.Click += result.DeleteButton_Click;
+                    break;
                 default:
                     break;
             }
@@ -134,6 +140,9 @@ namespace PrintBot.Droid.Controls
                     break;
                 case BlockTypeEnum.Variable:
                     result.BlockHolder = new VariableListItem(c, new VariableBlock());
+                    break;
+                case BlockTypeEnum.Delay:
+                    result.BlockHolder = new DelayListItem(c, new DelayBlock());
                     break;
             }
             result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
@@ -183,7 +192,8 @@ namespace PrintBot.Droid.Controls
             IfBlock = 8,
             Else = 9,
             EndBlock = 10,
-            Rotate = 11
+            Rotate = 11,
+            Delay
         }
     }
 }

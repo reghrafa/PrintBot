@@ -25,6 +25,7 @@ namespace PrintBot.Droid
         VariableToolbar variableToolbar;
         MoveToolbar moveToolbar;
         RotateToolbar rotateToolbar;
+        DelayToolbar delayToolbar;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,6 +44,7 @@ namespace PrintBot.Droid
             variableToolbar = view.FindViewById<VariableToolbar>(Resource.Id.tools_Variable);
             moveToolbar = view.FindViewById<MoveToolbar>(Resource.Id.tools_Move);
             rotateToolbar = view.FindViewById<RotateToolbar>(Resource.Id.tools_Rotate);
+            delayToolbar = view.FindViewById<DelayToolbar>(Resource.Id.tools_Delay);
 
 
             countingLoopToolbar.LongClick += HandleClick;
@@ -52,6 +54,7 @@ namespace PrintBot.Droid
             variableToolbar.LongClick += HandleClick;
             moveToolbar.LongClick += HandleClick;
             rotateToolbar.LongClick += HandleClick;
+            delayToolbar.LongClick += HandleClick;
 
             return view;
         }

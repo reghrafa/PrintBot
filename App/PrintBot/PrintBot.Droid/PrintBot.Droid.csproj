@@ -85,6 +85,8 @@
     <Compile Include="Controls\BlockListController.cs" />
     <Compile Include="Controls\Blocks\CountingLoopListItem.cs" />
     <Compile Include="Controls\Blocks\CountingLoopToolbar.cs" />
+    <Compile Include="Controls\Blocks\DelayListItem.cs" />
+    <Compile Include="Controls\Blocks\DelayToolbar.cs" />
     <Compile Include="Controls\Blocks\ElseListItem.cs" />
     <Compile Include="Controls\Blocks\EndBlockListItem.cs" />
     <Compile Include="Controls\Blocks\EndlessLoopListItem.cs" />
@@ -225,6 +227,12 @@
     <AndroidResource Include="Resources\layout\BlockListItem_Rotate.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\BlockListItem_Delay.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Toolbar_Delay.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -355,6 +363,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\dustbin_red.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\delayicon.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
