@@ -26,7 +26,6 @@ namespace PrintBot.Droid.Activities
         private LastUsedFileViewModel _lastUsedFileVM = ServiceLocator.Current.LastUsedFileViewModel;
         ListView _listOldFiles;
         private FileModel _selectedFile;
-        private ImageView _deleteButton;
         private ImageView _addButton;
         protected override async void OnCreate(Bundle bundle)
         {
@@ -41,9 +40,6 @@ namespace PrintBot.Droid.Activities
             ColorDrawable colorDrawable = new ColorDrawable(Color.ParseColor("#3b8686"));
             ActionBar.SetBackgroundDrawable(colorDrawable);
             ActionBar.SetDisplayShowCustomEnabled(true);
-            _deleteButton = mCustomView.FindViewById<ImageView>(Resource.Id.Main_deleteButton);
-            _deleteButton.Click += _deleteButton_Click;
-            _deleteButton.Visibility = _selectedFile == null ? ViewStates.Gone : ViewStates.Visible;
             _addButton = mCustomView.FindViewById<ImageView>(Resource.Id.Main_addButton);
             _addButton.Click += _addButton_Click;
 
@@ -58,29 +54,44 @@ namespace PrintBot.Droid.Activities
 
             _listOldFiles = FindViewById<ListView>(Resource.Id.main_LastFileList);
             _listOldFiles.Adapter = new FileListAdapter(this, _lastUsedFileVM.FileList);
+                
+       
             _listOldFiles.ItemClick += (s, e) =>
             {
-                if (_selectedFile != null)
-                {
-                    if (_selectedFile == _lastUsedFileVM.FileList[e.Position])
-                    {
                         var filename = _lastUsedFileVM.ChangeCreationDate(e.Position);
                         var tmp = new Intent(this, typeof(CodeEditor_BaseActivity));
                         tmp.PutExtra("Path", filename);
                         StartActivity(tmp);
-                    }
-                }
-                _selectedFile = _lastUsedFileVM.FileList[e.Position];
-                _deleteButton.Visibility = _selectedFile == null ? ViewStates.Gone : ViewStates.Visible;
             };
-            _listOldFiles.NothingSelected += _listOldFiles_NothingSelected;
+            _listOldFiles.ItemLongClick += (s, e) =>
+            {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.SetPositiveButton("Delete", async (se, evt) =>
+                    {
+                        var index = _lastUsedFileVM.FileList.IndexOf(_selectedFile);
+                        await _lastUsedFileVM.DeleteFile(_selectedFile);
+                        if (_lastUsedFileVM.FileList.Count > 0)
+                        {
+                            _listOldFiles.SetSelection(index);
+                            _selectedFile = _lastUsedFileVM.FileList[index];
+                        }
+                        else
+                        {
+                            _selectedFile = null;
+                            _listOldFiles.Selected = false;
+                        }
+                    });
+                    builder.SetNegativeButton("Cancel", (se, evt) =>
+                    {
+                    
+                    });
+                    builder.SetMessage($"Do you really want to delete file {_lastUsedFileVM.FileList[e.Position].FileName}?");
+                    builder.Show();
+                    
+            };
+            
         }
-
-        private void _listOldFiles_NothingSelected(object sender, AdapterView.NothingSelectedEventArgs e)
-        {
-            _deleteButton.Visibility = ViewStates.Gone;
-        }
-
+        
         private void _addButton_Click(object sender, EventArgs e)
         {
             var inputDialog = new AlertDialog.Builder(this);
@@ -112,37 +123,7 @@ namespace PrintBot.Droid.Activities
             //imm.HideSoftInputFromWindow(userInput.WindowToken, 0);
             imm.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
         }
-
-        private void _deleteButton_Click(object sender, EventArgs e)
-        {
-            if (_selectedFile != null)
-            {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.SetPositiveButton("Delete", async (s, evt) =>
-                {
-                    var index = _lastUsedFileVM.FileList.IndexOf(_selectedFile);
-                    await _lastUsedFileVM.DeleteFile(_selectedFile);
-                    if (_lastUsedFileVM.FileList.Count > 0)
-                    {
-                        _listOldFiles.SetSelection(index);
-                        _selectedFile = _lastUsedFileVM.FileList[index];
-                    }
-                    else
-                    {
-                        _selectedFile = null;
-                        _listOldFiles.Selected = false;                        
-                        _deleteButton.Visibility = ViewStates.Gone;
-                    }
-                });
-                builder.SetNegativeButton("Cancel", (s, evt) =>
-                {
-
-                });
-                builder.SetMessage($"Do you really want to delete file {_selectedFile.FileName}?");
-                builder.Show();
-            }
-        }
-
+        
         protected override void OnResume()
         {
             base.OnResume();
