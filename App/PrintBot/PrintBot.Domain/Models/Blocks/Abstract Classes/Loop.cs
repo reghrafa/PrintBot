@@ -11,12 +11,9 @@ namespace PrintBot.Domain.Models.Blocks
     {
         public string Name { get; set; }
         public int EndBlockPosition { get; set; }
-        public string CodeText
+        public abstract string CodeText
         {
-            get
-            {
-                return "";
-            }
+            get;
         }
         public string CodeBody { get; set; }
         public string Text { get; set; }

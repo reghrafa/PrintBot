@@ -7,13 +7,14 @@ namespace PrintBot.Domain.Models.Blocks
 {
     public class EndlessLoop : Loop
     {
-        public new string CodeText
+        public override string CodeText
         {
             get
             {
-                return "while (true) { ";
+                return "while (true) {";
             }
         }
+
         public EndlessLoop()
         {
             Name = "Endless Loop";

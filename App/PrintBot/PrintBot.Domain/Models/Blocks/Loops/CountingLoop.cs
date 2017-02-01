@@ -21,7 +21,7 @@ namespace PrintBot.Domain.Models.Blocks
             }
         }
 
-        public string CodeText
+        public override string CodeText
         {
             get
             {

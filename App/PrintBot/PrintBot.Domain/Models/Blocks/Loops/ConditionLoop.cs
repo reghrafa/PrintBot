@@ -10,6 +10,14 @@ namespace PrintBot.Domain.Models.Blocks
     {
         public Condition Condition { get; set; }
 
+        public override string CodeText
+        {
+            get
+            {
+                return "";
+            }
+        }
+
         public ConditionLoop()
         {
             Name = "Condition Loop";
