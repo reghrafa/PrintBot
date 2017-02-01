@@ -256,43 +256,52 @@ namespace PrintBot.Droid
 			public const int Icon = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int IfThenElseIcon = 2130837526;
+			public const int iconcountingloop = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int LEDIcon = 2130837527;
+			public const int iconendlessloop = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int LEDIcon_alt = 2130837528;
+			public const int ifthenelseblockicon = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int ListIcon = 2130837529;
+			public const int IfThenElseIcon = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int ModuleIcon = 2130837530;
+			public const int LEDIcon = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int MoveIcon = 2130837531;
+			public const int LEDIcon_alt = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int MoveIcon_alt = 2130837532;
+			public const int ListIcon = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int OtherIcon = 2130837533;
+			public const int ModuleIcon = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int play = 2130837534;
+			public const int MoveIcon = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int RotateIcon = 2130837535;
+			public const int MoveIcon_alt = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int SaveIcon = 2130837536;
+			public const int OtherIcon = 2130837536;
 			
 			// aapt resource value: 0x7f020021
-			public const int SettingsIcon = 2130837537;
+			public const int play = 2130837537;
 			
 			// aapt resource value: 0x7f020022
-			public const int VariableIcon = 2130837538;
+			public const int RotateIcon = 2130837538;
+			
+			// aapt resource value: 0x7f020023
+			public const int SaveIcon = 2130837539;
+			
+			// aapt resource value: 0x7f020024
+			public const int SettingsIcon = 2130837540;
+			
+			// aapt resource value: 0x7f020025
+			public const int VariableIcon = 2130837541;
 			
 			static Drawable()
 			{

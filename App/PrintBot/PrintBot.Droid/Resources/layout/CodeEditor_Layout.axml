@@ -6,30 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffffff">
-<!--CodeBlocks And CodeView-->
-    <TextView
-        android:id="@+id/main_ProgramName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Program name here"
-        android:textColor="#000000" />
+  <!--CodeBlocks And CodeView-->
+  <TextView
+      android:id="@+id/main_ProgramName"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Program name here"
+      android:textColor="#000000" />
+  <RelativeLayout
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:layout_height="0dp">
     <FrameLayout
-        android:id="@+id/CodeEditor_FragmentContainer"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
+    android:id="@+id/CodeEditor_FragmentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
     <com.refractored.fab.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:src="@drawable/Play"
         fab:fab_colorNormal="#3b8686"
         fab:fab_colorPressed="#be8f00"
         fab:fab_colorRipple="#ffffff" />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/CodeEditor_FragmentContainerTools" />
+  </RelativeLayout>
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/CodeEditor_FragmentContainerTools" />
 </LinearLayout>

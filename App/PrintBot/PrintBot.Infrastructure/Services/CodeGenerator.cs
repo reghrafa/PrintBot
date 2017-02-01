@@ -12,7 +12,7 @@ namespace PrintBot.Infrastructure.Services
 
         public static string CreateCode(ObservableCollection<IBlock> list)
         {
-            string output = "";
+            string output = "#include <pblib.h>\n";
             _whiteSpaceOffsetCount = 0;
 
             foreach (IBlock item in list)
