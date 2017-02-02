@@ -22,7 +22,7 @@ namespace PrintBot.Droid.Controls
     /// </summary>
     public class BlockListItem : RelativeLayout
     {
-        BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;
+        BlockListController _blockListController = ServiceLocator.Current.BlockListController;
         public BlockTypeEnum BlockType { get; set; }
         public IBlockHolder BlockHolder;
         public BlockListItem EndBlock { get; set; }
@@ -96,6 +96,18 @@ namespace PrintBot.Droid.Controls
                     result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
                     result.DeleteButton.Click += result.DeleteButton_Click;
                     break;
+                case "Rotate Block":
+                    result.BlockType = BlockTypeEnum.Rotate;
+                    result.BlockHolder = new RotateListItem(c, block);
+                    result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+                    result.DeleteButton.Click += result.DeleteButton_Click;
+                    break;
+                case "Delay Block":
+                    result.BlockType = BlockTypeEnum.Delay;
+                    result.BlockHolder = new DelayListItem(c, block);
+                    result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
+                    result.DeleteButton.Click += result.DeleteButton_Click;
+                    break;
                 default:
                     break;
             }
@@ -123,8 +135,14 @@ namespace PrintBot.Droid.Controls
                 case BlockTypeEnum.MoveMotor:
                     result.BlockHolder = new MoveListItem(c, new MoveBlock());
                     break;
+                case BlockTypeEnum.Rotate:
+                    result.BlockHolder = new RotateListItem(c, new RotateBlock());
+                    break;
                 case BlockTypeEnum.Variable:
                     result.BlockHolder = new VariableListItem(c, new VariableBlock());
+                    break;
+                case BlockTypeEnum.Delay:
+                    result.BlockHolder = new DelayListItem(c, new DelayBlock());
                     break;
             }
             result.DeleteButton = result.BlockHolder.BlockLayout.FindViewById<ImageView>(Resource.Id.delete_button);
@@ -134,7 +152,7 @@ namespace PrintBot.Droid.Controls
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            _blockListViewController.DeleteBlockByObject(this);
+            _blockListController.DeleteBlockByObject(this);
         }
 
         public BlockListItem GetAnInstanceOfEndBlock(BlockTypeEnum blockType)
@@ -173,7 +191,9 @@ namespace PrintBot.Droid.Controls
             LED = 7,
             IfBlock = 8,
             Else = 9,
-            EndBlock = 10
+            EndBlock = 10,
+            Rotate = 11,
+            Delay
         }
     }
 }

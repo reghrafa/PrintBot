@@ -10,12 +10,19 @@ namespace PrintBot.Domain.Models.Blocks
     {
         public Condition Condition { get; set; }
 
+        public override string CodeText
+        {
+            get
+            {
+                return "";
+            }
+        }
+
         public ConditionLoop()
         {
             Name = "Condition Loop";
             Text = "Schleife bis";
             Condition = new Condition();
-            SetCodeText("while (" + Condition.ToString + ") {");
         }
 
     }

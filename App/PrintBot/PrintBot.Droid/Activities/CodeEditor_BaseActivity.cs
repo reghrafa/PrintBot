@@ -19,6 +19,7 @@ using PrintBot.Droid.Controls.Blocks;
 using Android.Graphics.Drawables;
 using Android.Graphics;
 using PrintBot.Droid.Fragments;
+using com.refractored.fab;
 
 namespace PrintBot.Droid.Activities
 {
@@ -26,10 +27,10 @@ namespace PrintBot.Droid.Activities
     class CodeEditor_BaseActivity : PortraitActivity
     {
         private CodeEditorViewModel _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
-        public BlockListViewController _blockListViewController = ServiceLocator.Current.BlockListViewController;
+        public BlockListController _blockListController = ServiceLocator.Current.BlockListController;
         private bool _isOnCodePage = false;
         private string _fileName;
-        public ImageView DeleteBlockImage { get; set; }
+        public ImageView DeleteFileImage { get; set; }
         protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -43,23 +44,24 @@ namespace PrintBot.Droid.Activities
             ActionBar.SetBackgroundDrawable(colorDrawable);
             ActionBar.SetDisplayShowCustomEnabled(true);
 
-            _blockListViewController.List = new ObservableCollection<BlockListItem>();
+            _blockListController.List = new ObservableCollection<BlockListItem>();
             _fileName = Intent.GetStringExtra("Path") ?? "no Data";
-            var content = await _codeEditorViewModel.LoadData(_fileName);
+            var content = await _codeEditorViewModel.LoadData(_fileName);           
 
             FindViewById<TextView>(Resource.Id.main_ProgramName).Text = _fileName;
             var SwitchButton = FindViewById<ImageButton>(Resource.Id.CodeEditor_SwitchButton);
+            SwitchButton.SetImageResource(Resource.Drawable.CodeIcon);
             var toolbarFragment = FindViewById<FrameLayout>(Resource.Id.CodeEditor_FragmentContainerTools);
-            DeleteBlockImage = FindViewById<ImageView>(Resource.Id.CodeEditor_deleteButton);
-            DeleteBlockImage.Click += DeleteBlockImage_Click;
+            DeleteFileImage = FindViewById<ImageView>(Resource.Id.CodeEditor_deleteButton);
+            DeleteFileImage.Click += DeleteFileImage_Click;
             SwitchButton.Click += delegate
             {
-                if (_isOnCodePage)
+                if (!_isOnCodePage)
                 {
                     SwitchButton.SetImageResource(Resource.Drawable.ListIcon);
                     ChangeFragment(new CodeViewFragment());
                     toolbarFragment.Visibility = ViewStates.Gone;
-                    _codeEditorViewModel.GenerateCode(_blockListViewController.ListOfIBlocks);
+                    _codeEditorViewModel.GenerateCode(_blockListController.ListOfIBlocks);
                 }
                 else
                 {
@@ -68,6 +70,15 @@ namespace PrintBot.Droid.Activities
                     toolbarFragment.Visibility = ViewStates.Visible;
                 }
                 _isOnCodePage = !_isOnCodePage;
+            };
+
+            FindViewById<FloatingActionButton>(Resource.Id.fab).Click += delegate
+            {
+                var Dialog = new AlertDialog.Builder(this);
+                Dialog.SetTitle("Wait");
+                Dialog.SetMessage("Submitting Your Code ...");
+                Dialog.SetCancelable(false);
+                Dialog.Show();
             };
 
 
@@ -79,14 +90,14 @@ namespace PrintBot.Droid.Activities
 
             FindViewById<ImageButton>(Resource.Id.CodeEditor_SaveButton).Click += async delegate
             {
-                await _codeEditorViewModel.SaveFile(_fileName, _blockListViewController.ListOfIBlocks);
+                await _codeEditorViewModel.SaveFile(_fileName, _blockListController.ListOfIBlocks);
                 Toast.MakeText(this, "Program saved.", ToastLength.Short).Show();
             };
 
             try
             {
                 var iBlocks = JsonConvert.DeserializeObject<ObservableCollection<IBlock>>(content, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-                _blockListViewController.CreateSavedList(this, iBlocks);
+                _blockListController.CreateSavedList(this, iBlocks);
             }
             catch (Exception e)
             {
@@ -101,14 +112,26 @@ namespace PrintBot.Droid.Activities
             ft2.Commit();
         }
 
-        private void DeleteBlockImage_Click(object sender, EventArgs e)
+        private void DeleteFileImage_Click(object sender, EventArgs e)
         {
-            _codeEditorViewModel.DeleteFileByName(_fileName);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetPositiveButton("Delete", (s, evt) => {
+                Intent i = new Intent(this, typeof(MainActivity));
+                i.PutExtra("DeletedFileName", _fileName);
+                StartActivity(i);
+                this.Finish();
+            });
+            builder.SetNegativeButton("Cancel", (s, evt) =>
+            {
+                
+            });
+            builder.SetMessage($"Do you really want to delete file {_fileName}?");
+            builder.Show();
         }
 
         private void DeleteBlockImage_Drag(object sender, View.DragEventArgs e)
         {
-            var evt = e.Event;            
+            var evt = e.Event;
             var item = (BlockListItem)sender;
             switch (evt.Action)
             {
@@ -121,7 +144,7 @@ namespace PrintBot.Droid.Activities
                     break;
                 case DragAction.Drop:
                     e.Handled = true;
-                    _blockListViewController.DeleteBlockByObject(item);
+                    _blockListController.DeleteBlockByObject(item);
                     break;
                 case DragAction.Ended:
                     e.Handled = true;

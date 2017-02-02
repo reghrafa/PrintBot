@@ -10,7 +10,7 @@ namespace PrintBot.Domain.Models.Blocks
     {
         public Equals()
         {
-            Name = "Ist ungleich Comparator";
+            Name = "Ist gleich Comparator";
             Text = "Entspricht";
             ToString = "==";
         }

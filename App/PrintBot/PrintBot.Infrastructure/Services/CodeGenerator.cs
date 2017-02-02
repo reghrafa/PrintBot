@@ -12,7 +12,7 @@ namespace PrintBot.Infrastructure.Services
 
         public static string CreateCode(ObservableCollection<IBlock> list)
         {
-            string output = "";
+            string output = "#include <pblib.h>\n";
             _whiteSpaceOffsetCount = 0;
 
             foreach (IBlock item in list)
@@ -76,7 +76,7 @@ namespace PrintBot.Infrastructure.Services
             whiteSpaceOffset = CreateOffset();
 
             //increase offset amount
-            if (itemType == typeof(IfBlock))
+            if (itemType == typeof(IfBlock) || itemType == typeof(CountingLoop) || itemType == typeof(EndlessLoop) || itemType == typeof(ConditionLoop))
             {
                 _whiteSpaceOffsetCount++;
             }

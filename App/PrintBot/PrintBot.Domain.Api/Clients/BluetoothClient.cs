@@ -22,6 +22,10 @@ namespace PrintBot.Domain.Api.Clients
         public event DeviceDisconnectedEventHandler DeviceDisconnected;
         public event ScanTimeoutElapsedEventHandler ScanTimeoutElapsed;
 
+        public ICharacteristic GetCharacteristic()
+        {
+            return _characteristic ?? null;
+        }
         public bool IsScanning { get { return _adapter.IsScanning; } }
         private int _scanTimeout;
         public int ScanTimeout

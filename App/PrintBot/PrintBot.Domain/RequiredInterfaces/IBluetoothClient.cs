@@ -25,7 +25,7 @@ namespace PrintBot.Domain.RequiredInterfaces
         event ScanTimeoutElapsedEventHandler ScanTimeoutElapsed;
 
         bool IsScanning();
-
+        ICharacteristic GetCharacteristic();
         void SetScanTimeout(int ms);
         int GetScanTimeout();
         Task StartScanForDevicesAsync();

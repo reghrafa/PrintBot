@@ -48,6 +48,7 @@ namespace PrintBot.Droid.Controls.Blocks
             if (success)
             {
                 ((CountingLoop)Block).AmountOfLoops = result;
+
             }
             else
             {

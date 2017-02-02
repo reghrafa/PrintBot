@@ -75,10 +75,10 @@ namespace PrintBot.Droid
             get { return _codeEditorViewModel ?? (_codeEditorViewModel = new CodeEditorViewModel()); }
         }
 
-        private BlockListViewController _blockListViewController;
-        public BlockListViewController BlockListViewController
+        private BlockListController _blockListController;
+        public BlockListController BlockListController
         {
-            get { return _blockListViewController ?? (_blockListViewController = new BlockListViewController()); }
+            get { return _blockListController ?? (_blockListController = new BlockListController()); }
         }
     }
 }

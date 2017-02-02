@@ -40,8 +40,13 @@
     <Compile Include="Models\Blocks\Abstract Classes\Loop.cs" />
     <Compile Include="Models\Blocks\Abstract Classes\StartBlock.cs" />
     <Compile Include="Models\Blocks\Comparators\Equals.cs" />
+    <Compile Include="Models\Blocks\Comparators\GreaterOrEqualThan.cs" />
+    <Compile Include="Models\Blocks\Comparators\GreaterThan.cs" />
+    <Compile Include="Models\Blocks\Comparators\LessOrEqualThan.cs" />
+    <Compile Include="Models\Blocks\Comparators\LessThan.cs" />
     <Compile Include="Models\Blocks\Comparators\NotEquals.cs" />
     <Compile Include="Models\Blocks\Condition.cs" />
+    <Compile Include="Models\Blocks\DelayBlock.cs" />
     <Compile Include="Models\Blocks\ElseBlock.cs" />
     <Compile Include="Models\Blocks\EndIf.cs" />
     <Compile Include="Models\Blocks\IfBlock.cs" />
@@ -51,6 +56,7 @@
     <Compile Include="Models\Blocks\Loops\CountingLoop.cs" />
     <Compile Include="Models\Blocks\Loops\EndlessLoop.cs" />
     <Compile Include="Models\Blocks\Loops\EndLoop.cs" />
+    <Compile Include="Models\Blocks\RotateBlock.cs" />
     <Compile Include="Models\Blocks\MoveBlock.cs" />
     <Compile Include="Models\Blocks\VariableBlock.cs" />
     <Compile Include="Models\BordEditor_ModulPhysical.cs" />

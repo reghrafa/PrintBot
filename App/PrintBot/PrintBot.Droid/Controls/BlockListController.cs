@@ -15,7 +15,7 @@ using PrintBot.Droid.Controls.Blocks;
 
 namespace PrintBot.Droid.Controls
 {
-    public class BlockListViewController
+    public class BlockListController
     {
         private ObservableCollection<BlockListItem> _list;
         public ObservableCollection<BlockListItem> List
@@ -36,7 +36,7 @@ namespace PrintBot.Droid.Controls
                 return _listOfIBlocks;
             }
         }
-        public BlockListViewController() { }
+        public BlockListController() { }
 
         public void SetEndBlockInstances()
         {

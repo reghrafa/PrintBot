@@ -89,6 +89,23 @@ namespace PrintBot.Infrastructure.ViewModels
 
         public bool IsScanning { get { return _client.IsScanning(); } }
 
+        private string _listeningResult;
+        public string ListeningResult
+        {
+            get
+            {
+                return _listeningResult ?? "";
+            }
+            set
+            {
+                if (_listeningResult != value)
+                {
+                    _listeningResult = value;
+                    OnPropertyChanged("ListeningResult");
+                }
+            }
+        }
+
         public BluetoothViewModel(IBluetoothClient c)
         {
             _client = c;
@@ -97,6 +114,12 @@ namespace PrintBot.Infrastructure.ViewModels
             _client.DeviceConnectionLost += _client_DeviceConnectionLost;
             _client.DeviceDisconnected += _client_DeviceDisconnected;
             _client.ScanTimeoutElapsed += _client_ScanTimeoutElapsed;
+            FoundDevices.CollectionChanged += FoundDevices_CollectionChanged;
+        }
+
+        private void FoundDevices_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged("FoundDevices");
         }
 
         #region Events
@@ -237,6 +260,37 @@ namespace PrintBot.Infrastructure.ViewModels
         public async Task WriteAsync(byte[] data)
         {
             await _client.WriteAsync(data);
+        }
+
+        public void StartListening()
+        {
+            ListeningResult = "";
+            Task.Run(async () =>
+            {
+                if (_client.GetCharacteristic() != null)
+                {
+                    _client.GetCharacteristic().ValueUpdated += BluetoothViewModel_ValueUpdated;
+                    await _client.GetCharacteristic().StartUpdatesAsync();
+                    await ReadAsync();
+                }
+            });
+        }
+
+        public async void StopListening()
+        {
+            if (_client.GetCharacteristic() != null)
+            {
+                await _client.GetCharacteristic().StopUpdatesAsync();
+            }
+        }
+
+        private void BluetoothViewModel_ValueUpdated(object sender, Plugin.BLE.Abstractions.EventArgs.CharacteristicUpdatedEventArgs e)
+        {
+            // Not sure if that's the value
+            ListeningResult += e.Characteristic.StringValue;
+
+            // Not sure if this convert byte[] to string works
+            // ListeningResult += e.Characteristic.Value.ToString();
         }
         #endregion
 

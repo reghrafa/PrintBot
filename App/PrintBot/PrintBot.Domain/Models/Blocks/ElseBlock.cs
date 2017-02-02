@@ -8,7 +8,13 @@ namespace PrintBot.Domain.Models.Blocks
 {
     public class ElseBlock : IBlock
     {
-        public string CodeText { get; set; }
+        public string CodeText
+        {
+            get
+            {
+                return "} else {";
+            }
+        }
         public int EndBlockPosition { get; set; }
         public bool IsChild { get; set; }
 
@@ -18,7 +24,6 @@ namespace PrintBot.Domain.Models.Blocks
 
         public ElseBlock()
         {
-            CodeText = "} else {";
             Name = "Else Block";
             Text = "Else Block";
             IsChild = false;

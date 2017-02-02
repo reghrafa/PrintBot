@@ -13,6 +13,8 @@ using System.ComponentModel;
 using Android.Graphics.Drawables;
 using Android.Graphics;
 using PrintBot.Domain.Models;
+using System.Linq;
+using Android.Views.InputMethods;
 
 namespace PrintBot.Droid.Activities
 {
@@ -23,10 +25,8 @@ namespace PrintBot.Droid.Activities
 
         private LastUsedFileViewModel _lastUsedFileVM = ServiceLocator.Current.LastUsedFileViewModel;
         ListView _listOldFiles;
-        EditText NewProjectName;
         private FileModel _selectedFile;
-        private ImageView _deleteButton;
-
+        private ImageView _addButton;
         protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -40,49 +40,90 @@ namespace PrintBot.Droid.Activities
             ColorDrawable colorDrawable = new ColorDrawable(Color.ParseColor("#3b8686"));
             ActionBar.SetBackgroundDrawable(colorDrawable);
             ActionBar.SetDisplayShowCustomEnabled(true);
-            _deleteButton = mCustomView.FindViewById<ImageView>(Resource.Id.Main_deleteButton);
-            _deleteButton.Click += _deleteButton_Click;
-            _deleteButton.Visibility = _selectedFile == null ? ViewStates.Gone : ViewStates.Visible;
+            _addButton = mCustomView.FindViewById<ImageView>(Resource.Id.Main_addButton);
+            _addButton.Click += _addButton_Click;
 
-            var btn = FindViewById<Button>(Resource.Id.main_CreateButton);
-            btn.Click += CreateFile;
-
-            NewProjectName = FindViewById<EditText>(Resource.Id.main_NewProjectName);
+            var fileName = Intent.GetStringExtra("DeletedFileName") ?? "";
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                var file = _lastUsedFileVM.FileList.First(a => a.FileName == fileName);
+                await _lastUsedFileVM.DeleteFile(file);
+            }
 
             await _lastUsedFileVM.LoadData();
+
             _listOldFiles = FindViewById<ListView>(Resource.Id.main_LastFileList);
             _listOldFiles.Adapter = new FileListAdapter(this, _lastUsedFileVM.FileList);
+                
+       
             _listOldFiles.ItemClick += (s, e) =>
             {
-                if (_selectedFile != null)
-                {
-                    if (_selectedFile == _lastUsedFileVM.FileList[e.Position])
-                    {
                         var filename = _lastUsedFileVM.ChangeCreationDate(e.Position);
                         var tmp = new Intent(this, typeof(CodeEditor_BaseActivity));
                         tmp.PutExtra("Path", filename);
                         StartActivity(tmp);
-                    }
-                }
-                _selectedFile = _lastUsedFileVM.FileList[e.Position];
-                _deleteButton.Visibility = _selectedFile == null ? ViewStates.Gone : ViewStates.Visible;
             };
-        }
-
-        private async void _deleteButton_Click(object sender, EventArgs e)
-        {
-            if (_selectedFile != null)
+            _listOldFiles.ItemLongClick += (s, e) =>
             {
-                await _lastUsedFileVM.DeleteFile(_selectedFile);
-                _listOldFiles.Selected = false;
-            }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.SetPositiveButton("Delete", async (se, evt) =>
+                    {
+                        var index = _lastUsedFileVM.FileList.IndexOf(_selectedFile);
+                        await _lastUsedFileVM.DeleteFile(_selectedFile);
+                        if (_lastUsedFileVM.FileList.Count > 0)
+                        {
+                            _listOldFiles.SetSelection(index);
+                            _selectedFile = _lastUsedFileVM.FileList[index];
+                        }
+                        else
+                        {
+                            _selectedFile = null;
+                            _listOldFiles.Selected = false;
+                        }
+                    });
+                    builder.SetNegativeButton("Cancel", (se, evt) =>
+                    {
+                    
+                    });
+                    builder.SetMessage($"Do you really want to delete file {_lastUsedFileVM.FileList[e.Position].FileName}?");
+                    builder.Show();
+                    
+            };
+            
         }
-
-        private async void CreateFile(Object sender, EventArgs e)
+        
+        private void _addButton_Click(object sender, EventArgs e)
         {
-            await _lastUsedFileVM.AddFile(NewProjectName.Text);
+            var inputDialog = new AlertDialog.Builder(this);
+            EditText userInput = new EditText(this);
+            userInput.Hint = "Enter a project name";
+            userInput.InputType = Android.Text.InputTypes.TextFlagCapCharacters;
+            inputDialog.SetView(userInput);
+            inputDialog.SetPositiveButton("Create", async (s, evt) =>
+            {
+                await _lastUsedFileVM.AddFile(userInput.Text);
+                HideKeyboard(userInput);
+            });
+            inputDialog.SetNegativeButton("Cancel", (s, evt) =>
+            {
+                HideKeyboard(userInput);
+            });
+            inputDialog.Show();
+            ShowKeyboard(userInput);
         }
-
+        private void ShowKeyboard(EditText userInput)
+        {
+            userInput.RequestFocus();
+            InputMethodManager imm = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+            imm.ToggleSoftInput(ShowFlags.Forced, 0);
+        }
+        private void HideKeyboard(EditText userInput)
+        {
+            InputMethodManager imm = (InputMethodManager)this.GetSystemService(Context.InputMethodService);
+            //imm.HideSoftInputFromWindow(userInput.WindowToken, 0);
+            imm.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
+        }
+        
         protected override void OnResume()
         {
             base.OnResume();

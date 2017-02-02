@@ -8,7 +8,13 @@ namespace PrintBot.Domain.Models.Blocks
 {
     public class EndIf : EndBlock, IBlock
     {
-        public string CodeText { get; set; }
+        public string CodeText
+        {
+            get
+            {
+                return "}";
+            }
+        }
         public int EndBlockPosition { get; set; }
         public string Name { get; set; }
         public string Text { get; set; }
@@ -16,7 +22,6 @@ namespace PrintBot.Domain.Models.Blocks
 
         public EndIf()
         {
-            this.CodeText = "}";
             Name = "End If";
         }
     }
