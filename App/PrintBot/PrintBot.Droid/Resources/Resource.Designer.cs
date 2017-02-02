@@ -377,7 +377,7 @@ namespace PrintBot.Droid
 			public const int CodeEditor_deleteButton = 2131034115;
 			
 			// aapt resource value: 0x7f05002d
-			public const int CodeView_content = 2131034157;
+			public const int CodeView_webView = 2131034157;
 			
 			// aapt resource value: 0x7f05000a
 			public const int CountingLoop_AmountOfLoops = 2131034122;

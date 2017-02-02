@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using PrintBot.Domain.Models.Blocks;
 using PrintBot.Infrastructure.ViewModels;
 using Android.Webkit;
+using Android.Text;
 
 namespace PrintBot.Droid.Fragments
 {
@@ -33,9 +34,7 @@ namespace PrintBot.Droid.Fragments
     </script>
 </head>
 <body>
-    <pre class=""prettyprint"" style=""padding:0; border:none;"">
-    {0}
-    </pre>
+    <pre class=""prettyprint"" style=""padding:0; border:none;"">{0}</pre>
 </body>
 </html>";
 
@@ -52,11 +51,11 @@ namespace PrintBot.Droid.Fragments
 
             WebView wv = view.FindViewById<WebView>(Resource.Id.CodeView_webView);
             wv.Settings.JavaScriptEnabled = true;
-            wv.LoadDataWithBaseURL("file:///android_asset/", string.Format(_htmlBase, _codeEditorViewModel.Code), "text/html", "utf-8", null);
+            wv.LoadDataWithBaseURL("file:///android_asset/", string.Format(_htmlBase, Html.EscapeHtml(_codeEditorViewModel.Code)), "text/html", "utf-8", null);
             _codeEditorViewModel.PropertyChanged += (s, e) => {
                 if(e.PropertyName == nameof(_codeEditorViewModel.Code))
                 {
-                    wv.LoadDataWithBaseURL("file:///android_asset/", string.Format(_htmlBase, _codeEditorViewModel.Code), "text/html", "utf-8", null);
+                    wv.LoadDataWithBaseURL("file:///android_asset/", string.Format(_htmlBase, Html.EscapeHtml(_codeEditorViewModel.Code)), "text/html", "utf-8", null);
                 }
             };
             
