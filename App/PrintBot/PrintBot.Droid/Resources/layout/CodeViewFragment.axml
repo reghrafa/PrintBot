@@ -3,10 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+    <android.webkit.WebView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/CodeView_content"
-        style="@style/NormalText"
-        android:text="Blablalbalbalblabla" />
+        android:layout_height="match_parent"
+        android:id="@+id/CodeView_webView" />
 </LinearLayout>

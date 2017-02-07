@@ -13,6 +13,8 @@ using Android.Widget;
 using System.Collections.ObjectModel;
 using PrintBot.Domain.Models.Blocks;
 using PrintBot.Infrastructure.ViewModels;
+using Android.Webkit;
+using Android.Text;
 
 namespace PrintBot.Droid.Fragments
 {
@@ -21,34 +23,42 @@ namespace PrintBot.Droid.Fragments
 
         private CodeEditorViewModel _codeEditorViewModel = ServiceLocator.Current.CodeEditorViewModel;
 
+        private string _htmlBase = @"<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=""utf-8"" />
+    <link rel=""stylesheet"" href=""prettify.css"" />
+    <script src=""prettify.js""></script>
+    <script>
+        window.onload = (function() {{ prettyPrint(); }});
+    </script>
+</head>
+<body>
+    <pre class=""prettyprint"" style=""padding:0; border:none;"">{0}</pre>
+</body>
+</html>";
+
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
+            
         }
         
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            
             var view = inflater.Inflate(Resource.Layout.CodeViewFragment, container, false);
+
+            WebView wv = view.FindViewById<WebView>(Resource.Id.CodeView_webView);
+            wv.Settings.JavaScriptEnabled = true;
+            wv.LoadDataWithBaseURL("file:///android_asset/", string.Format(_htmlBase, Html.EscapeHtml(_codeEditorViewModel.Code)), "text/html", "utf-8", null);
             _codeEditorViewModel.PropertyChanged += (s, e) => {
                 if(e.PropertyName == nameof(_codeEditorViewModel.Code))
                 {
-                    var justatest = _codeEditorViewModel.Code;
-                    view.FindViewById<TextView>(Resource.Id.CodeView_content).Text = _codeEditorViewModel.Code;
+                    wv.LoadDataWithBaseURL("file:///android_asset/", string.Format(_htmlBase, Html.EscapeHtml(_codeEditorViewModel.Code)), "text/html", "utf-8", null);
                 }
             };
-            view.FindViewById<TextView>(Resource.Id.CodeView_content).Text = _codeEditorViewModel.Code;
-            /*
-             *  ToDo 
-             *  Mit ServiceLocator CodeEditorViewModel holen und 
-             *  notifypropertychanged abonnieren
-             *  prüfen ob property Code geändert wurde -> in TextView inhalt von Code anzeigen
-             *  
-             */
+            
             return view;
         }
         

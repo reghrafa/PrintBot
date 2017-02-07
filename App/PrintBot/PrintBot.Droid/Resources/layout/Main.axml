@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
-  <!--   
+<!--   
  <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -29,34 +29,34 @@
         style="@style/Button"
         android:text="Create" /> 
         -->
-  <ListView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/main_LastFileList"
-      android:listSelector="@drawable/FileListSelector" />
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="100dp"
-      android:background="#0b486b"
-      android:layout_alignParentBottom="true">
-    <TextView
-        style="@style/NormalText"
-        android:layout_width="wrap_content"
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tutorial"
-        android:textColor="#ffffff"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:layout_centerHorizontal="true" />
-    <Button
-        android:id="@+id/main_TutorialButton"
-        android:text="Start"
-        android:layout_centerHorizontal="true"
-        style="@style/Button"
-        android:layout_alignParentBottom="true" />
-  </RelativeLayout>
-  <!--old-->
-  <!--
+        android:id="@+id/main_LastFileList"
+        android:listSelector="@drawable/FileListSelector" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#0b486b"
+        android:layout_alignParentBottom="true">
+        <TextView
+            style="@style/NormalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tutorial"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true" />
+        <Button
+            android:id="@+id/main_TutorialButton"
+            android:text="Start"
+            android:layout_centerHorizontal="true"
+            style="@style/Button"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+<!--old-->
+<!--
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

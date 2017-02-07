@@ -47,6 +47,12 @@ namespace PrintBot.Droid.Adapter
             get { return list[index]; }
         }
 
+        
+        public bool isEnabled(int position)
+        {
+            return false;
+        }
+
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             View view = convertView;

@@ -18,6 +18,7 @@ using PrintBot.Infrastructure.Services;
 using PrintBot.Infrastructure.ViewModels;
 using PrintBot.Droid.Activities;
 using static Android.Views.View;
+using com.refractored.fab;
 
 namespace PrintBot.Droid
 {
@@ -41,7 +42,7 @@ namespace PrintBot.Droid
             var view = inflater.Inflate(Resource.Layout.fragment_workspace, container, false);
             deleteButton = view.FindViewById<ImageView>(Resource.Id.workspace_delete_button);
             deleteButton.Visibility = ViewStates.Gone;
-            listView = view.FindViewById<DraggableListView>(Resource.Id.workspace_listView);
+            listView = view.FindViewById<DraggableListView>(Resource.Id.workspace_listView);         
             listView.Adapter = adapter;
             listView.ReorderingEnabled = true;
             listView.Drag += HandleDrag;
