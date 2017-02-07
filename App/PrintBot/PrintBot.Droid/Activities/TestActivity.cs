@@ -13,6 +13,7 @@ using PrintBot.Infrastructure.ViewModels;
 using Android.Content.Res;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace PrintBot.Droid.Activities
 {
@@ -39,13 +40,72 @@ namespace PrintBot.Droid.Activities
             {
                 hexFile = sr.ReadToEnd();
             }
-            var split = Regex.Split(hexFile, @"?<=[:]");
-            _vm.WriteAsync(Encoding.ASCII.GetBytes("A"));
+            var split = Regex.Split(hexFile, @"(?=:)");
+
+            _vm.StartListening();
+
+            // Reset processor
+            await _vm.WriteAsync(Encoding.ASCII.GetBytes("A"));
+
+            //TODO: Error handling
+            var timeout = 2000;
+            var delay = 50;
+            for (int i = 0; i < timeout/ delay; i++)
+            {
+                if(_vm.ListeningResult.Contains("start real bootloader"))
+                {
+                    //_vm.ListeningResult = "";
+                    break;
+                }
+                await Task.Delay(delay);
+            }
+
+            // Activate Programming Mode
+            await _vm.WriteAsync(Encoding.ASCII.GetBytes("p"));
+            for (int i = 0; i < timeout / delay; i++)
+            {
+                if (_vm.ListeningResult.Contains("paste the hex file"))
+                {
+                    //_vm.ListeningResult = "";
+                    break;
+                }
+                await Task.Delay(delay);
+            }
+
+            // Send HexFile
+            var delayCtr = 0;
+            string lines = "";
+            foreach (var line in split)
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                lines += line.Replace("\r\n", string.Empty);
 
 
-            var r = await _vm.ReadAsync();
+            }
+            int buffersize = 8;
+            byte[] buffer = new byte[buffersize];
+            var bts = Encoding.ASCII.GetBytes(lines);
+
+            int offset = 0;
+            foreach (var b in bts)
+            {
+                buffer[offset] = b;
+                ++offset;
+                if (offset == buffersize)
+                {
+                    await _vm.WriteAsync(buffer);
+                    await Task.Delay(150);
+                    buffer = new byte[buffersize];
+                    offset = 0;
+                }
 
 
+            }
+            await _vm.WriteAsync(buffer);
+
+
+            //Done.
         }
     }
 }

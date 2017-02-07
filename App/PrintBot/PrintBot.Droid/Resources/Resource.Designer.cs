@@ -349,16 +349,14 @@ namespace PrintBot.Droid
 			// aapt resource value: 0x7f080026
 			public const int main_ProgramName = 2131230758;
 			
-			// aapt resource value: 0x7f07003e
-			public const int test_epic_shit = 2131165246;
-			
-			// aapt resource value: 0x7f070013
-			public const int textView1 = 2131165203;
 			// aapt resource value: 0x7f08003e
 			public const int main_TutorialButton = 2131230782;
 			
 			// aapt resource value: 0x7f080009
 			public const int move_block_parent = 2131230729;
+			
+			// aapt resource value: 0x7f080042
+			public const int test_epic_shit = 2131230786;
 			
 			// aapt resource value: 0x7f08000a
 			public const int textView1 = 2131230730;
@@ -503,31 +501,34 @@ namespace PrintBot.Droid
 			public const int Settings_Layout = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int Toolbar_CountingLoop = 2130903069;
+			public const int TestActivityLayout = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int Toolbar_Delay = 2130903070;
+			public const int Toolbar_CountingLoop = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int Toolbar_EndlessLoop = 2130903071;
+			public const int Toolbar_Delay = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int Toolbar_If = 2130903072;
+			public const int Toolbar_EndlessLoop = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int Toolbar_LED = 2130903073;
+			public const int Toolbar_If = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int Toolbar_Move = 2130903074;
+			public const int Toolbar_LED = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int Toolbar_Rotate = 2130903075;
+			public const int Toolbar_Move = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int Toolbar_Variable = 2130903076;
+			public const int Toolbar_Rotate = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int Variable_Datatype_SpinnerItem = 2130903077;
+			public const int Toolbar_Variable = 2130903077;
+			
+			// aapt resource value: 0x7f030026
+			public const int Variable_Datatype_SpinnerItem = 2130903078;
 			
 			static Layout()
 			{

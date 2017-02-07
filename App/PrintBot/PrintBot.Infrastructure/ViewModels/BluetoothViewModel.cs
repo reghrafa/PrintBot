@@ -287,7 +287,8 @@ namespace PrintBot.Infrastructure.ViewModels
         private void BluetoothViewModel_ValueUpdated(object sender, Plugin.BLE.Abstractions.EventArgs.CharacteristicUpdatedEventArgs e)
         {
             // Not sure if that's the value
-            ListeningResult += e.Characteristic.StringValue;
+            var x = ListeningResult + e.Characteristic.StringValue;
+            ListeningResult = x;
 
             // Not sure if this convert byte[] to string works
             // ListeningResult += e.Characteristic.Value.ToString();
